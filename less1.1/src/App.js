@@ -17,14 +17,15 @@ let todoList=[
 
 function App() {
   return (
-    <div>
+    // <> called fragment, used instead of div not to create to many divs
+    <> 
       <h1>TODO list</h1>
       <ul>
         {todoList.map(function(item) {
           return <li key={item.id}>{item.title}</li>;
         })}
       </ul>
-    </div>
+    </>
   );
 }
 
