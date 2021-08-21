@@ -1,4 +1,3 @@
-
 import logo from './logo.svg';
 import './App.css';
 const title = 'React';
@@ -36,3 +35,4 @@ function App() {
   })}
   </ul>
    </div>
+}
