@@ -9,7 +9,7 @@ const todolist = [
   },
   {
     id: '2 ',
-    title: 'Watch videos'
+    title: 'Watch Videos'
   },
   {
     id: '3 ',
