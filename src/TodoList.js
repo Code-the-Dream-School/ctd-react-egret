@@ -20,7 +20,7 @@ const todoList = [
       return (
         <ul>
             {todoList.map((todo) => (
-              <TodoListItem todo={todo.id} />
+              <TodoListItem todo={todo.id} todo={todo}/>
             ))}
         </ul>
       )
