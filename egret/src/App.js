@@ -1,20 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-const title = 'React';
-const todolist = [
-  {
-    id: '1 ',
-    title: 'Read assigment'
-  },
-  {
-    id: '2 ',
-    title: 'Watch Videos'
-  },
-  {
-    id: '3 ',
-    title: 'Complete and submit assignment'
-  },
-  ];
+import React from 'react';
+import TodoList from './TodoList.js';
+import AddTodoForm from './AddTodoForm.js'
+
+
 
   
 
@@ -23,16 +11,11 @@ function App() {
     <div>
       <h1>Todo List</h1>
    
+      <AddTodoForm/>
+      <TodoList/>
+   
    <hr />
-   <ul>
-   {todolist.map(function(item){
-  return (
-  <li key= {item.objectID}>
-    <span>{item.id}</span>
-    <span>{item.title}</span>
-  </li>
-  );
-  })}
-  </ul>
+   
    </div>
-}
+   )}
+   export default App;
