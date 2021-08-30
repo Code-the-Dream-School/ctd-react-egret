@@ -1,27 +1,26 @@
 import React from 'react';
+import TodoListItem from'./TodoListItem';
 
 const todoList = [
     {
       'id': 1,
-      'title': 'Complete the coding challenge on uidaily.com'
+      'title': 'React'
     },
     {
       'id': 2,
-      'title': 'Search for a remote job'
+      'title': 'Html'
     },
     {
       'id': 3,
-      'title': 'Ask for help moving furniture next month'
+      'title': 'Css'
     },
   ]
   
-  const TodoList = () => {
+  const TodoList = (props) => {
       return (
         <ul>
-            {todoList.map((item) => (
-            <li key={item.id}>
-                <span>{item.title}</span>
-            </li>
+            {todoList.map((todo) => (
+              <TodoListItem todo={todo.id} />
             ))}
         </ul>
       )
