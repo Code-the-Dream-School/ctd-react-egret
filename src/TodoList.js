@@ -17,8 +17,7 @@ const todoList = [
 
  function TodoList(){
 
-    return(
-        
+    return (
             <ul>
             {
               todoList.map((todo)=>{
@@ -28,9 +27,6 @@ const todoList = [
             }
               
             </ul>  
-     
     )
-
 }
-
-  export default TodoList;
+ export default TodoList;
