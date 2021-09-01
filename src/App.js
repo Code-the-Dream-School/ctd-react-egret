@@ -5,6 +5,7 @@ import TodoList from './TodoList';
 
 
 function App() {
+
   const todoList = [
     {
       id: 1,
@@ -25,19 +26,23 @@ function App() {
   ]
 
   const [newTodo, setNewTodo] = React.useState('')
- 
-  
+
+  //add styles to the div element through creating a style object
+  const divStyles = {
+    backgroundColor: "lightblue",
+    fontFamily: "Arial",
+    fontSize: 20
+  } 
+   
   return (
-    <div>
-      <h1>To Do List</h1>
+    <div style={divStyles} >
+      <h1 style= {{ color: "darkred" }}>To Do List</h1>
         <AddTodoForm onAddTodo={setNewTodo} />
-        <p>
-          Succesfully added: <strong>{newTodo}</strong>
-        </p>
+        {newTodo ? <p>Succesfully added: <strong>"{newTodo}"</strong></p> : null}
         <TodoList list={todoList} />
     </div>
    
-  );
+  ); 
 }
 
 

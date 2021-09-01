@@ -2,16 +2,17 @@ import React from "react";
 
 function AddTodoForm(props) {
   const handleAddTodo = (event) => {
+
     //prevent a default behavior from submit
     event.preventDefault();
 
+    //extract an input value and save it as a variable
     const todoTitle = event.target.title.value;
     console.log(todoTitle);
 
-    /* setNewTodo(todoTitle); */
-
+    //callback handler
     props.onAddTodo(todoTitle);
-
+    //reset the input field
     event.target.reset();
   };
 
@@ -23,5 +24,6 @@ function AddTodoForm(props) {
     </form>
   );
 }
+
 
 export default AddTodoForm;
