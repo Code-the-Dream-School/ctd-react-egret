@@ -4,7 +4,7 @@ import TodoListItem from'./TodoListItem';
 const todoList = [
   {
     'id': 1,
-    'title': 'Complete the coding challenge on uidaily.com'
+    'title': 'Complete the coding challenge on uidaily.com',
   },
   {
     'id': 2,
@@ -16,14 +16,14 @@ const todoList = [
   },
 ]
   
-  const TodoList = (props) => {
-      return (
-        <ul>
-            {todoList.map((todo) => (
-              <TodoListItem key={todo.id} todo={todo}/>
-            ))}
-        </ul>
-      )
+const TodoList = () => {
+    return (
+      <ul>
+          {todoList.map((todo) => (
+            <TodoListItem key={todo.id} todo={todo} />
+          ))}
+      </ul>
+    )
   }
 
   export default TodoList

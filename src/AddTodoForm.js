@@ -1,17 +1,14 @@
 import React from 'react'
 
 const AddTodoForm = (props) => {
-    
 
     const handleAddTodo = (event) => {
-
         event.preventDefault();
         let titleTodo = event.target.title.value;
         props.onAddTodo(titleTodo)
         event.target.reset();
-
     }
-
+    
     return (
         <div>
             <form onSubmit={handleAddTodo}>
