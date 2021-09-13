@@ -1,4 +1,5 @@
 import React from "react";
+import {v4 as uuidv4} from "uuid";
 
 const AddTodoForm = ({onAddTodo}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
@@ -7,7 +8,7 @@ const AddTodoForm = ({onAddTodo}) => {
     setTodoTitle(newTodoTitle);
   };
   const handleAddTodo = (e) => {
-    onAddTodo({id: Date.now(), title: todoTitle});
+    onAddTodo({id: uuidv4(), title: todoTitle});
     setTodoTitle("");
     e.preventDefault();
   };
