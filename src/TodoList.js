@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
 
-const todoList = [
+/*const todoList = [
   {
     id: 1,
     title: "Create new React project"
@@ -23,8 +23,11 @@ const todoList = [
     title: "Create Todo list"
   }
 ];
+*/
 
-function TodoList() {
+function TodoList(props) {
+  const { todoList } = props;
+
   return (
     <ul>
         {todoList.map(function(item) {
