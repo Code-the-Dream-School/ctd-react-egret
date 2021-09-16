@@ -48,7 +48,7 @@ Now, open the project directory in your code editor and continue to the next sec
 - [ ] Open `/src/AddTodoForm.js`
 - [ ] Create new state variable named `todoTitle` with setter `setTodoTitle`
 - [ ] Modify the `<input>` element to be a controlled input
-    - [ ] Add `value` prop equal to `todoTitle` from component props
+    - [ ] Add `value` prop equal to `todoTitle` from component state
     - [ ] Add `onChange` prop equal to `handleTitleChange` function reference (we will declare this function in the next step)
 - [ ] Above the `handleAddTodo` function, declare a new function named `handleTitleChange` that takes `event` as a parameter
     - [ ] First, retrieve the input value from the `event` object and store in variable named `newTodoTitle`
