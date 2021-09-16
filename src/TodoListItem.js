@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-function TodoListItem(props){
+function TodoListItem({todo}){
 
     return(
         <div>
              <li>
-             {props.todo.title}
+             {todo.title}
           </li>
         </div>
     )
