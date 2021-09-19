@@ -3,15 +3,19 @@ import {v4 as uuidv4} from "uuid";
 
 const AddTodoForm = ({onAddTodo}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
+
   const handleTitleChange = (e) => {
     const newTodoTitle = e.target.value;
     setTodoTitle(newTodoTitle);
   };
+
   const handleAddTodo = (e) => {
+    if (!todoTitle) return; // Don't add empty string to todoList
     onAddTodo({id: uuidv4(), title: todoTitle});
     setTodoTitle("");
     e.preventDefault();
   };
+
   return (
     <form onSubmit={handleAddTodo}>
       <label htmlFor='todoTitle'>Title: </label>
