@@ -1,8 +1,10 @@
 import React from 'react';
 
 function TodoListItem(props) {
+  const { todo } = props;
+
   return (
-    <li>{props.todo}</li>
+    <li>{todo}</li>
   );
 }
 
