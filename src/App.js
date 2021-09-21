@@ -3,22 +3,22 @@ import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 
 //custom hook
-const useSemiPersistentState = () => {
-  const [todoList, setTodoList] = useState(
+const useSemiPersistentState = (key, initialState) => {
+  const [value, setValue] = useState(
     //retrieve the initial value from localstorage or pass an empty string
-    JSON.parse(localStorage.getItem("savedTodoList")) || []
+    JSON.parse(localStorage.getItem(key)) || initialState
   );
 
   useEffect(() => {
     //side effect handler function to save the list in the localstorage
-    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-  }, [todoList]);
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [value, key]);
 
-  return [todoList, setTodoList];
+  return [value, setValue];
 };
 
 function App() {
-  const [todoList, setTodoList] = useSemiPersistentState();
+  const [todoList, setTodoList] = useSemiPersistentState('savedTodoList',[]);
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]);
