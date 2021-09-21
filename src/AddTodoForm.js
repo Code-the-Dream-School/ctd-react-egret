@@ -22,11 +22,13 @@ function AddTodoForm(props) {
   }
 
   return (
-    <form onSubmit={handleAddTodo} /*ref={formRef}*/>
-      <label htmlFor="todoTitle">Title</label>
-      <input type="text" id="todoTitle" name="title" value={todoTitle} onChange={handleTitleChange}/>
-      <button>Add</button>
-    </form>
+    <>
+      <form onSubmit={handleAddTodo} /*ref={formRef}*/>
+        <label htmlFor="todoTitle">Title</label>
+        <input type="text" id="todoTitle" name="title" value={todoTitle} onChange={handleTitleChange}/>
+        <button>Add</button>
+      </form>
+    </>
   );
 }
 
