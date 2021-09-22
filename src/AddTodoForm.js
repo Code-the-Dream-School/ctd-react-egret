@@ -10,7 +10,7 @@ function AddTodoForm({ onAddTodo }) {
     setTodoTitle(newTodoTitle);
   };
 
-  //func to pass a new title to the todolist as an obj
+  //function to pass a new title to the todolist as an obj
   const handleAddTodo = (event) => {
     //prevent a default behavior from submit
     event.preventDefault();

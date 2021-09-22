@@ -5,7 +5,7 @@ import TodoList from "./TodoList";
 //custom hook
 const useSemiPersistentState = (key, initialState) => {
   const [value, setValue] = useState(
-    //retrieve the initial value from localstorage or pass an empty string
+    //retrieve the value from localstorage or pass an initial state
     JSON.parse(localStorage.getItem(key)) || initialState
   );
 
@@ -18,12 +18,12 @@ const useSemiPersistentState = (key, initialState) => {
 };
 
 function App() {
-  const [todoList, setTodoList] = useSemiPersistentState('savedTodoList',[]);
+  const [todoList, setTodoList] = useSemiPersistentState("savedTodoList", []); //use an empty string as an initial state
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]);
   };
-
+  
   //add styles to the div element through creating a style object
   const divStyles = {
     backgroundColor: "lightblue",
@@ -35,7 +35,7 @@ function App() {
     <div style={divStyles}>
       <h1 style={{ color: "darkred" }}>To Do List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-
+      {todoList[0] ? <p>Last item succcesfully added: <strong> {todoList[todoList.length -1].title} </strong></p> : null} 
       <TodoList todoList={todoList} />
     </div>
   );
