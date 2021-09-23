@@ -4,7 +4,8 @@ const TodoListItem = (props) => {
     return (
         <ul>
         <li>
-        <span>{props.todo.title}</span>
+        <span>ID: {props.todo.id} </span>
+        <span>Title: {props.todo.title} </span>
         </li>
         </ul>
     )

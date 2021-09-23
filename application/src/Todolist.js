@@ -2,19 +2,9 @@ import React from 'react'
 
 import TodoListItem from './TodoListItem'
 
-const todoList = [
-    { id: 1,
-      title: "Bye an apple",
-    },
-    { id: 2,
-      title: "Bye a squash",
-    },
-    { id: 3,
-      title: "Bye a beer",
-    },
-     ]
 
-     function TodoList(){
+
+     function TodoList({todoList}){
       return (
           <div>
                <ul>
