@@ -10,15 +10,20 @@ function AddTodoForm({ onAddTodo }) {
     setTodoTitle(newTodoTitle);
   };
 
-  //func to pass a new title to the todolist as an obj
+  //function to pass a new title to the todolist as an obj
   const handleAddTodo = (event) => {
     //prevent a default behavior from submit
     event.preventDefault();
-    //callback handler
-    onAddTodo({
-      title: todoTitle,
-      id: Date.now(),
-    });
+
+    if (todoTitle) {  //to avoid an empty string
+      //callback handler
+      onAddTodo({
+        title: todoTitle,
+        id: Date.now(),
+      });
+    } else {
+      alert("Empty string is not accepted")
+    }
     // reset the todoTitle state to an empty String
     setTodoTitle("");
   };
