@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react/cjs/react.development";
+import InputWithLabel from "./InputWithLabel";
 
 function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
@@ -15,14 +16,15 @@ function AddTodoForm({ onAddTodo }) {
     //prevent a default behavior from submit
     event.preventDefault();
 
-    if (todoTitle) {  //to avoid an empty string
+    if (todoTitle) {
+      //to avoid an empty string
       //callback handler
       onAddTodo({
         title: todoTitle,
         id: Date.now(),
       });
     } else {
-      alert("Empty string is not accepted")
+      alert("Empty string is not accepted");
     }
     // reset the todoTitle state to an empty String
     setTodoTitle("");
@@ -30,14 +32,12 @@ function AddTodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleAddTodo}>
-      <label htmlFor="todoTitle">Title:</label>
-      <input
-        id="todoTitle"
-        type="text"
-        value={todoTitle}
-        onChange={handleTitleChange}
-        name="title"
-      />
+      <InputWithLabel
+        todoTitle={todoTitle}
+        handleTitleChange={handleTitleChange}
+      >
+        Title:
+      </InputWithLabel>
       <button type="submit">Add</button>
     </form>
   );

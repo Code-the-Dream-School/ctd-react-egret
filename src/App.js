@@ -23,7 +23,12 @@ function App() {
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]);
   };
-  
+
+  const removeTodo = (id) => {
+    const newTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(newTodoList);
+  };
+
   //add styles to the div element through creating a style object
   const divStyles = {
     backgroundColor: "lightblue",
@@ -35,8 +40,13 @@ function App() {
     <div style={divStyles}>
       <h1 style={{ color: "darkred" }}>To Do List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      {todoList[0] ? <p>Last item succcesfully added: <strong> {todoList[todoList.length -1].title} </strong></p> : null} 
-      <TodoList todoList={todoList} />
+      {todoList[0] ? (
+        <p>
+          Last item succcesfully added:{" "}
+          <strong> {todoList[todoList.length - 1].title} </strong>
+        </p>
+      ) : null}
+      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
     </div>
   );
 }
