@@ -15,7 +15,7 @@ function App() {
     }
   function removeTodo(id){
     const newTodoList = todoList.filter((item) => item.id !== id);
-    setTodoList([todoList, newTodoList]);
+    setTodoList(newTodoList);
   };
   return (
     <>
