@@ -1,10 +1,11 @@
 import React from "react";
 
-let TodoListItem = (props) => {
+let TodoListItem = ({todo,onRemoveTodo}) => {
   return (
     <li>
-      <span>{props.todo.id}</span>
-      <span>{props.todo.title}</span>
+      <span>{todo.id}</span>
+      <span>{todo.title}</span>
+      <button type="button" onClick={() => onRemoveTodo}>Remove</button>
     </li>
   );
 };
