@@ -4,7 +4,10 @@ function TodoListItem(props) {
   const { todo } = props;
 
   return (
-    <li>{todo}</li>
+    <li>
+      {todo}
+      <button onClick={()=>{props.onRemoveTodo(props.id)}}>Remove</button>
+    </li>
   );
 }
 

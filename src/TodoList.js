@@ -32,7 +32,7 @@ function TodoList(props) {
     <ul>
         {todoList.map(function(item) {
           return (
-            <TodoListItem key={item.id} todo={item.title}/>
+            <TodoListItem key={item.id} todo={item.title} onRemoveTodo={props.onRemoveTodo} />
           );
         })}
     </ul>
