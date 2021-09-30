@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 
 function App() {
-
   const [todoList, setTodoList] = useState([]);
     const addTodo = (newTodo) => {
       setTodoList([...todoList, newTodo])
@@ -24,6 +23,4 @@ function App() {
     </div>
   );
 }
-
-
 export default App;
