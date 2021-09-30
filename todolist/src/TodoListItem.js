@@ -1,9 +1,13 @@
 import React from "react";
 
 function TodoListItem(props) {
-  const { todo } = props;
-
-  return <li>{todo.title}</li>;
+ 
+  return (
+    <li>
+      {props.todo.title}
+      <button onClick={()=> props.onRemoveTodo(props.todo.id)} type="button">Remove</button>
+    </li>
+  );
 }
 
 export default TodoListItem;
