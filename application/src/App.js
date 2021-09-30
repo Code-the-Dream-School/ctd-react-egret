@@ -1,31 +1,26 @@
-import logo from './logo.svg';
+
 import './App.css';
+import TodoList from './Todolist';
+import AddTodoForm from './AddTodoForm';
+import { useState } from 'react';
 
 
 
-
-const todoList = [
-{ id: 1,
-  title: "Bye an apple",
-},
-{ id: 2,
-  title: "Bye a squash",
-},
-{ id: 3,
-  title: "Bye a beer",
-},
- ]
 function App() {
+  const [todoList, setTodoList] = useState([]);
+    const addTodo = (newTodo) => {
+      setTodoList([...todoList, newTodo])
+    } 
+
   return (
-  <div>
-  <h1>Todo list</h1>;
-  <ul>
-{
-  todoList.map((i) => <li key={i.id}>{i.title}</li>)
-}
-  </ul>;
-  </div>
+    <div className="Header">
+      <header>
+        <h1>Todo List</h1>
+      </header>
+        <AddTodoForm onAddTodo={addTodo} />
+        <p>Added Succesfully: {(todoList.length !==0)? todoList[todoList.length-1].title : null}</p>
+        <TodoList todoList={todoList} />
+    </div>
   );
 }
-
 export default App;
