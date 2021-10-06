@@ -1,5 +1,6 @@
 import React from "react";
 import {v4 as uuidv4} from "uuid";
+import InputWithLabel from "./InputWithLabel";
 
 const AddTodoForm = ({onAddTodo}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
@@ -10,22 +11,22 @@ const AddTodoForm = ({onAddTodo}) => {
   };
 
   const handleAddTodo = (e) => {
-    if (!todoTitle) return; // Don't add empty string to todoList
-    onAddTodo({id: uuidv4(), title: todoTitle});
-    setTodoTitle("");
+    if (todoTitle) {
+      onAddTodo({id: uuidv4(), title: todoTitle});
+      setTodoTitle("");
+    }
     e.preventDefault();
   };
 
   return (
     <form onSubmit={handleAddTodo}>
-      <label htmlFor='todoTitle'>Title: </label>
-      <input
-        id='todoTitle'
-        name='title'
-        type='text'
-        value={todoTitle}
-        onChange={handleTitleChange}
-      />
+      <InputWithLabel
+        title={todoTitle}
+        isFocused
+        onTitleChange={handleTitleChange}>
+        Title:
+      </InputWithLabel>
+      &nbsp;
       <button type='submit'>Add</button>
     </form>
   );
