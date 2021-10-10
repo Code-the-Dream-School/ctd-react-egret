@@ -10,7 +10,7 @@ const actionsTodoListReducer = {
 }
 
 const todoListReducer = (state, action) => {
-  
+  console.log(action)
     switch (action.type) {
       case actionsTodoListReducer.init:
         return {
@@ -23,7 +23,7 @@ const todoListReducer = (state, action) => {
           ...state,
           isLoading: false,
           isError: false,
-          data: action.payload.data,
+          data: action.payload,
         };
       case actionsTodoListReducer.fetchFail:
         return {

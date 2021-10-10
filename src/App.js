@@ -3,42 +3,22 @@ import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
 
-//retrieve an initial todolist from localstorage
-const initialTodo = JSON.parse(localStorage.getItem("savedTodoList"));
-
 //custom hook
 const useSemiPersistentState = () => {
   const [todoList, dispatchTodoList] = useReducer(todoListReducer, {
     data: [], //use an empty string as an initial state
-    isLoading: false,
+    isLoading: true,
     isError: false,
   });
-  
+
   useEffect(() => {
     //side effect handler function to save the updated list in the localstorage
-    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+    if (todoList.isLoading === false) {
+      localStorage.setItem("savedTodoList", JSON.stringify(todoList.data));
+    }
   }, [todoList]);
 
-  return [todoList, dispatchTodoList];
-};
-
-const getAsynchTodo = () => 
-  new Promise((resolve) => 
-    setTimeout(
-      () =>
-        resolve({
-          data: {
-            todoList: initialTodo,
-          },         
-        }),
-      2000
-    )
-  )
-
-function App() {
-  const [todoList, dispatchTodoList] = useSemiPersistentState(); 
-
-  React.useEffect(() => {
+  useEffect(() => {
     dispatchTodoList({ type: actions.init });
 
     getAsynchTodo()
@@ -51,6 +31,25 @@ function App() {
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   }, []);
 
+  return [todoList, dispatchTodoList];
+};
+
+const getAsynchTodo = () =>
+  new Promise((resolve) =>
+    setTimeout(
+      () =>
+        resolve({
+          data: {
+            todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [], //retrieve an initial todolist from localstorage or init. it with []
+          },
+        }),
+      2000
+    )
+  );
+
+function App() {
+  const [todoList, dispatchTodoList] = useSemiPersistentState();
+  
   const addTodo = (newTodo) => {
     dispatchTodoList({
       type: actions.addTodo,
