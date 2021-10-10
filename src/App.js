@@ -1,32 +1,68 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
+import todoListReducer, { actions } from "./todoListReducer";
+
+//retrieve an initial todolist from localstorage
+const initialTodo = JSON.parse(localStorage.getItem("savedTodoList"));
 
 //custom hook
-const useSemiPersistentState = (key, initialState) => {
-  const [value, setValue] = useState(
-    //retrieve the value from localstorage or pass an initial state
-    JSON.parse(localStorage.getItem(key)) || initialState
-  );
-
+const useSemiPersistentState = () => {
+  const [todoList, dispatchTodoList] = useReducer(todoListReducer, {
+    data: [], //use an empty string as an initial state
+    isLoading: false,
+    isError: false,
+  });
+  
   useEffect(() => {
-    //side effect handler function to save the list in the localstorage
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [value, key]);
+    //side effect handler function to save the updated list in the localstorage
+    localStorage.setItem("savedTodoList", JSON.stringify(todoList));
+  }, [todoList]);
 
-  return [value, setValue];
+  return [todoList, dispatchTodoList];
 };
 
+const getAsynchTodo = () => 
+  new Promise((resolve) => 
+    setTimeout(
+      () =>
+        resolve({
+          data: {
+            todoList: initialTodo,
+          },         
+        }),
+      2000
+    )
+  )
+
 function App() {
-  const [todoList, setTodoList] = useSemiPersistentState("savedTodoList", []); //use an empty string as an initial state
+  const [todoList, dispatchTodoList] = useSemiPersistentState(); 
+
+  React.useEffect(() => {
+    dispatchTodoList({ type: actions.init });
+
+    getAsynchTodo()
+      .then((result) => {
+        dispatchTodoList({
+          type: actions.fetchSuccess,
+          payload: result.data.todoList,
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
+  }, []);
 
   const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]);
+    dispatchTodoList({
+      type: actions.addTodo,
+      payload: newTodo,
+    });
   };
 
   const removeTodo = (id) => {
-    const newTodoList = todoList.filter((todo) => todo.id !== id);
-    setTodoList(newTodoList);
+    dispatchTodoList({
+      type: actions.removeTodo,
+      payload: id,
+    });
   };
 
   //add styles to the div element through creating a style object
@@ -40,13 +76,22 @@ function App() {
     <div style={divStyles}>
       <h1 style={{ color: "darkred" }}>To Do List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      {todoList[0] ? (
-        <p>
-          Last item succcesfully added:{" "}
-          <strong> {todoList[todoList.length - 1].title} </strong>
-        </p>
-      ) : null}
-      <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+
+      {todoList.isError && <p>Something went wrong ...</p>}
+
+      {todoList.isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {todoList.data[0] ? (
+            <p>
+              Last item succcesfully added:{" "}
+              <strong> {todoList.data[todoList.data.length - 1].title} </strong>
+            </p>
+          ) : null}
+          <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
+        </>
+      )}
     </div>
   );
 }
