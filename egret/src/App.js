@@ -40,7 +40,7 @@ function App() {
 
       <AddTodoForm onAddTodo={addTodo} />
       {
-        isLoading ? <p>Loading...</p> :[TodoList]} 
+        isLoading ? <p>Loading ...</p> :[TodoList]} 
       <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
 
       <hr />
