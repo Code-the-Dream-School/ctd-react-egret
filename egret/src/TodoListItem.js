@@ -5,7 +5,7 @@ let TodoListItem = ({todo,onRemoveTodo}) => {
     <li>
       <span>{todo.id}</span>
       <span>{todo.title}</span>
-      <button type="button" onClick={() => onRemoveTodo(todo.id)}>Remove</button>
+      <button type="button" onClick={() => onRemoveTodo (todo.id)}>Remove</button>
     </li>
   );
 };
