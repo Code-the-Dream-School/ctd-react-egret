@@ -1,12 +1,12 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 
 function InputWithLabel(props) {
     const inputRef = useRef(null);
     React.useEffect(() => {
-        if(inputRef.current) {
+        if (inputRef) {
             inputRef.current.focus();
         }
-    }, );
+    });
 
     return (
         <>
@@ -20,7 +20,7 @@ function InputWithLabel(props) {
                 ref={inputRef}
             />
         </>
-  );
+    );
 }
 
 export default InputWithLabel;
