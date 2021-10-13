@@ -6,10 +6,10 @@ import AddTodoform from "./AddTodoForm";
 function App() {
 
   const [todoList, setTodoList] = React.useState([]);
-const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   React.useEffect(() => {
     new Promise((resolve, reject) => {
-      setTimeout(() => resolve({ data: { todoList: JSON.parse(localStorage.getItem('savedTodoList')) } }),2000);
+      setTimeout(() => resolve({ data: { todoList: JSON.parse(localStorage.getItem('savedTodoList')) } }), 2000);
     })
       .then((result) => {
         setTodoList(result.data.todoList)
@@ -18,10 +18,10 @@ const [isLoading, setIsLoading] = React.useState(true);
 
   }, []);
   React.useEffect(() => {
-    if (!isLoading){
+    if (!isLoading) {
       localStorage.setItem('savedTodoList', JSON.stringify(todoList))
     }
-    
+
   }, [todoList, setIsLoading]);
 
   const addTodo = (newTodo) => {
@@ -38,13 +38,13 @@ const [isLoading, setIsLoading] = React.useState(true);
   return (
     <>
       <h1>Todo List</h1>
-      
-      
+
+
       <AddTodoform onAddTodo={addTodo} />
-      
-{isLoading? (<p>loading...</p>):( <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
-)}
-     
+
+      {isLoading ? (<p>loading...</p>) : (<TodoList onRemoveTodo={removeTodo} todoList={todoList} />
+      )}
+
     </>
   );
 }
