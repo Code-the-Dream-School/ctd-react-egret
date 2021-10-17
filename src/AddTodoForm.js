@@ -11,10 +11,8 @@ const AddTodoForm = ({onAddTodo}) => {
   };
 
   const handleAddTodo = (e) => {
-    if (todoTitle) {
-      onAddTodo({id: uuidv4(), title: todoTitle});
-      setTodoTitle("");
-    }
+    onAddTodo({id: uuidv4(), title: todoTitle});
+    setTodoTitle("");
     e.preventDefault();
   };
 
