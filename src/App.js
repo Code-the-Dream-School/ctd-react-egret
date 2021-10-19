@@ -11,7 +11,7 @@ function App() {
       setTimeout(() => {
         resolve({
           data: {
-            todoList: JSON.parse(localStorage.getItem("savedTodoList")),
+            todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [],
           },
         });
       }, 2000);
@@ -26,7 +26,7 @@ function App() {
     if (!isLoading) {
       localStorage.setItem("savedTodoList", JSON.stringify(todoList));
     }
-  }, [todoList]);
+  }, [todoList, isLoading]);
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo]);
