@@ -7,36 +7,54 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [],
-          },
-        });
-      }, 2000);
-    }).then((result) => {
-      setTodoList(result.data.todoList);
-      setIsLoading(false);
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
+        }
+      }
+    )
+    .then((response) => response.json())
+    .then((result) => {
+        result.records.sort((a,b) => {
+        return a.createdTime > b.createdTime ? 1 : -1
+      })
+      setTodoList(result.records)
+      setIsLoading(false)
     })
   }, []);
 
-  useEffect(() => {
-    //side effect handler function to save the list in the localstorage
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-    }
-  }, [todoList, isLoading]);
-
+  
   const addTodo = (newTodo) => {
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          records: [
+            {
+              fields: {
+                Title: newTodo.fields.Title
+              }
+            }
+          ]
+        })
+      }
+    )
     setTodoList([...todoList, newTodo]);
   };
 
   const removeTodo = (id) => {
+    
     const newTodoList = todoList.filter((todo) => todo.id !== id);
     setTodoList(newTodoList);
   };
-
+console.log(todoList)
   //add styles to the div element through creating a style object
   const divStyles = {
     backgroundColor: "lightblue",

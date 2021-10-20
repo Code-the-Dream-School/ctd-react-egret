@@ -20,9 +20,11 @@ function AddTodoForm({ onAddTodo }) {
       //to avoid an empty string
       //callback handler
       onAddTodo({
-        title: todoTitle,
-        id: Date.now(),
-      });
+        fields:  {
+          Title: todoTitle
+          }
+        });
+      
     } else {
       alert("Empty string is not accepted");
     }
@@ -38,7 +40,7 @@ function AddTodoForm({ onAddTodo }) {
       >
         Title:
       </InputWithLabel>
-      <button type="submit">Add</button>
+      <button type="submit" disabled={!todoTitle}>Add</button>
     </form>
   );
 }
