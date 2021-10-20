@@ -15,17 +15,7 @@ function AddTodoForm({ onAddTodo }) {
   const handleAddTodo = (event) => {
     //prevent a default behavior from submit
     event.preventDefault();
-
-    if (todoTitle) {
-      //to avoid an empty string
-      //callback handler
-      onAddTodo({
-        title: todoTitle,
-        id: Date.now(),
-      });
-    } else {
-      alert("Empty string is not accepted");
-    }
+    onAddTodo(todoTitle);
     // reset the todoTitle state to an empty String
     setTodoTitle("");
   };
@@ -38,7 +28,7 @@ function AddTodoForm({ onAddTodo }) {
       >
         Title:
       </InputWithLabel>
-      <button type="submit">Add</button>
+      <button type="submit" disabled={!todoTitle}>Add</button>
     </form>
   );
 }

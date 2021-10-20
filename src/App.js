@@ -12,20 +12,24 @@ const useSemiPersistentState = () => {
   });
 
   useEffect(() => {
-    //side effect handler function to save the updated list in the localstorage
-    if (todoList.isLoading === false) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList.data));
-    }
-  }, [todoList]);
-
-  useEffect(() => {
     dispatchTodoList({ type: actions.init });
 
-    getAsynchTodo()
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }
+    )
+      .then((response) => response.json())
       .then((result) => {
+        result.records.sort((a, b) => {
+          return a.createdTime > b.createdTime ? 1 : -1;
+        });
         dispatchTodoList({
           type: actions.fetchSuccess,
-          payload: result.data.todoList,
+          payload: result.records,
         });
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
@@ -34,34 +38,57 @@ const useSemiPersistentState = () => {
   return [todoList, dispatchTodoList];
 };
 
-const getAsynchTodo = () =>
-  new Promise((resolve) =>
-    setTimeout(
-      () =>
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem("savedTodoList")) || [], //retrieve an initial todolist from localstorage or init. it with []
-          },
-        }),
-      2000
-    )
-  );
-
 function App() {
   const [todoList, dispatchTodoList] = useSemiPersistentState();
-  
+
   const addTodo = (newTodo) => {
-    dispatchTodoList({
-      type: actions.addTodo,
-      payload: newTodo,
-    });
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: [
+            {
+              fields: {
+                Title: newTodo,
+              },
+            },
+          ],
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        dispatchTodoList({
+          type: actions.addTodo,
+          payload: data.records[0],
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
 
   const removeTodo = (id) => {
-    dispatchTodoList({
-      type: actions.removeTodo,
-      payload: id,
-    });
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List?records[]=${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then(() => {
+        dispatchTodoList({
+          type: actions.removeTodo,
+          payload: id,
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
 
   //add styles to the div element through creating a style object
@@ -85,7 +112,10 @@ function App() {
           {todoList.data[0] ? (
             <p>
               Last item succcesfully added:{" "}
-              <strong> {todoList.data[todoList.data.length - 1].title} </strong>
+              <strong>
+                {" "}
+                {todoList.data[todoList.data.length - 1].fields.Title}{" "}
+              </strong>
             </p>
           ) : null}
           <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
