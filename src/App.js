@@ -7,34 +7,59 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(true)
 
   React.useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(
-        () =>
-          resolve({
-            data: {
-              todoList: JSON.parse(localStorage.getItem('savedTodoList')) || []
-            },
-          }),
-        2000
-      )
-    }).then((result) => {
-      setTodoList(result.data.todoList);
-      setIsLoading(false);
-    })
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
+        },
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        setTodoList(data.records)
+        setIsLoading(false)
+      })
   }, [])
 
-  React.useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem('savedTodoList', JSON.stringify(todoList));
-    }
-  }, [todoList, isLoading]);
-  const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]);
+  const addTodo = (title) => {
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          records: [
+            {
+              fields: {
+                Title: title,
+              },
+            },
+          ],
+        }),
+      }
+    )
+      .then(() => {
+        setTodoList([...todoList, title])
+      })
   }
 
-  function removeTodo(id) {
-    let filteredList = todoList.filter((element) => element.id !== id);
-    setTodoList(filteredList);
+  const removeTodo = (id) => {
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default?records[]=${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        setTodoList(todoList.filter((item) => item.id !== data.records[0].id))
+      })
   }
 
   return (

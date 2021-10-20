@@ -14,7 +14,7 @@ function AddTodoForm({ onAddTodo }) {
             return false;
         }
         console.log(todoTitle);
-        onAddTodo({ title: todoTitle, id: Date.now() });
+        onAddTodo(todoTitle);
         setTodoTitle("");
     }
 
