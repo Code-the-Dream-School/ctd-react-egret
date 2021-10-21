@@ -30,18 +30,22 @@ function App() {
     const addTodo = (newTodo) => {
       setTodoList([...todoList, newTodo])
     } 
+    function removeTodo(id) {
+      const newList = todoList.filter(
+        (todo) => todo.id !== id
+      )
+      setTodoList(newList)
+      
+    }
 
-  return (
-    <>
-    <div className="Header">
-      <header>
-        <h1>Todo List</h1>
-      </header>
-        <AddTodoForm onAddTodo={addTodo} />
-        <p>Added Succesfully: {(todoList.length !==0)? todoList[todoList.length-1].title : null}</p>
-        <TodoList todoList={todoList} />
-    </div>
-    </>
-  );
-}
+    return (
+      <>
+        <header>
+          <h1>Todo List</h1>
+        </header>
+          <AddTodoForm onAddTodo={addTodo} />
+          <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
+      </>
+    );
+  }
 export default App;
