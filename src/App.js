@@ -8,17 +8,32 @@ function App() {
   const [todoList, setTodoList] = useState([])
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(()=>{
-    new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data : { 
-              todolist : JSON.parse(localStorage.getItem('todoList')) 
-             } 
-           })
-        }, 2000);
-      }).then((result) => {
-        setTodoList(result.data.todolist);
+  // useEffect(()=>{
+  //   new Promise((resolve, reject) => {
+  //       setTimeout(() => {
+  //         resolve({
+  //           data : { 
+  //             todolist : JSON.parse(localStorage.getItem('todoList')) 
+  //            } 
+  //          })
+  //       }, 2000);
+  //     }).then((result) => {
+  //       setTodoList(result.data.todolist);
+  //       setIsLoading(false)
+  //     })
+  //   }, [])
+
+    useEffect(() => {
+      fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, 
+        {
+          method: 'GET', 
+            headers: {
+              Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+            },
+        })
+      .then((resp) => resp.json())
+      .then((data) => {
+        setTodoList(data.records)
         setIsLoading(false)
       })
     }, [])
