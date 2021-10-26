@@ -7,7 +7,7 @@ import todoListReducer, { actions } from "./todoListReducer";
 const useSemiPersistentState = () => {
   const [todoList, dispatchTodoList] = useReducer(todoListReducer, {
     data: [], //use an empty string as an initial state
-    isLoading: true,
+    isLoading: false,
     isError: false,
   });
 
@@ -82,10 +82,11 @@ function App() {
         },
       }
     )
-      .then(() => {
+      .then((response) => response.json())
+      .then((data) => {
         dispatchTodoList({
           type: actions.removeTodo,
-          payload: id,
+          payload: data.records[0].id,
         });
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));

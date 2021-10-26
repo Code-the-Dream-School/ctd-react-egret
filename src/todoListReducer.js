@@ -32,6 +32,7 @@ const todoListReducer = (state, action) => {
           isError: true,
         };
       case actionsTodoListReducer.removeTodo:
+        
         return {
           ...state,
           data: state.data.filter((todo) => todo.id !== action.payload),
