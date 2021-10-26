@@ -1,8 +1,8 @@
 import React from "react";
-import {v4 as uuidv4} from "uuid";
 import InputWithLabel from "./InputWithLabel";
+// removed uuid from import as unnecessary
 
-const AddTodoForm = ({onAddTodo}) => {
+const AddTodoForm = ({ onAddTodo }) => {
   const [todoTitle, setTodoTitle] = React.useState("");
 
   const handleTitleChange = (e) => {
@@ -11,9 +11,9 @@ const AddTodoForm = ({onAddTodo}) => {
   };
 
   const handleAddTodo = (e) => {
-    onAddTodo({id: uuidv4(), title: todoTitle});
-    setTodoTitle("");
     e.preventDefault();
+    onAddTodo(todoTitle);
+    setTodoTitle("");
   };
 
   return (
@@ -25,7 +25,9 @@ const AddTodoForm = ({onAddTodo}) => {
         Title:
       </InputWithLabel>
       &nbsp;
-      <button type='submit'>Add</button>
+      <button type='submit' disabled={!todoTitle}>
+        Add
+      </button>
     </form>
   );
 };
