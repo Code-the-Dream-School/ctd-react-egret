@@ -1,4 +1,6 @@
-import React ,{useState,useRef, useEffect } from 'react'
+
+import React ,{useRef, useEffect } from 'react'
+
 
 function InputWithLabel(props) {
  const inputRef = useRef();
@@ -18,5 +20,6 @@ function InputWithLabel(props) {
   </div>
  )
 }
+
 
 export default InputWithLabel;

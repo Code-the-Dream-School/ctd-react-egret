@@ -5,23 +5,30 @@ import AddTodoform from "./AddTodoForm";
 
 function App() {
 
-  const [todoList, setTodoList] = React.useState([]);
-const [isLoading, setIsLoading] = React.useState(true);
-  React.useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => resolve({ data: { todoList: JSON.parse(localStorage.getItem('savedTodoList')) } }),2000);
-    })
-      .then((result) => {
-        setTodoList(result.data.todoList)
-        setIsLoading(false);
-      })
+  const [todoList, setTodoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  console.log(process)
+  
+ useEffect(() => {
 
-  }, []);
-  React.useEffect(() => {
-    if (!isLoading){
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
+        },
+      })
+        .then((resp) => resp.json())
+        .then(data => 
+          setTodoList(data.records),setIsLoading(!isLoading)
+          
+        )
+   }, []);
+  useEffect(() => {
+    if (!isLoading) {
       localStorage.setItem('savedTodoList', JSON.stringify(todoList))
     }
-    
+
   }, [todoList, setIsLoading]);
 
   const addTodo = (newTodo) => {
@@ -38,13 +45,13 @@ const [isLoading, setIsLoading] = React.useState(true);
   return (
     <>
       <h1>Todo List</h1>
-      
-      
+
+
       <AddTodoform onAddTodo={addTodo} />
-      
-{isLoading? (<p>loading...</p>):( <TodoList onRemoveTodo={removeTodo} todoList={todoList} />
-)}
-     
+
+      {isLoading ? (<p>loading...</p>) : (<TodoList onRemoveTodo={removeTodo} todoList={todoList} />
+      )}
+
     </>
   );
 }
