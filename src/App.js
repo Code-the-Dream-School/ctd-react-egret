@@ -2,7 +2,11 @@ import React, { useEffect, useReducer } from "react";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 //custom hook
 const useSemiPersistentState = () => {
@@ -101,29 +105,40 @@ function App() {
   };
 
   return (
-    <div style={divStyles}>
-      <h1 style={{ color: "darkred" }}>To Do List</h1>
-      <AddTodoForm onAddTodo={addTodo} />
+    <Router>
+      <Switch>
+        <Route path="/" exact={true}>
+          <div style={divStyles}>
+            <h1 style={{ color: "darkred" }}>To Do List</h1>
+            <AddTodoForm onAddTodo={addTodo} />
 
-      {todoList.isError && <p>Something went wrong ...</p>}
+            {todoList.isError && <p>Something went wrong ...</p>}
 
-      {todoList.isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          {todoList.data[0] ? (
-            <p>
-              Last item succcesfully added:{" "}
-              <strong>
-                {" "}
-                {todoList.data[todoList.data.length - 1].fields.Title}{" "}
-              </strong>
-            </p>
-          ) : null}
-          <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
-        </>
-      )}
-    </div>
+            {todoList.isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <>
+                {todoList.data[0] ? (
+                  <p>
+                    Last item succcesfully added:{" "}
+                    <strong>
+                      {" "}
+                      {
+                        todoList.data[todoList.data.length - 1].fields.Title
+                      }{" "}
+                    </strong>
+                  </p>
+                ) : null}
+                <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
+              </>
+            )}
+          </div>
+        </Route>
+        <Route path={"/new"}>
+          <h1>New Todo List</h1>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
