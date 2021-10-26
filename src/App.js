@@ -1,40 +1,96 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
+import todoListReducer, { actions } from "./todoListReducer";
 
-function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  
+
+//custom hook
+const useSemiPersistentState = () => {
+  const [todoList, dispatchTodoList] = useReducer(todoListReducer, {
+    data: [], //use an empty string as an initial state
+    isLoading: false,
+    isError: false,
+  });
+
   useEffect(() => {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          data: {
-            todoList: JSON.parse(localStorage.getItem("savedTodoList")),
-          },
+    dispatchTodoList({ type: actions.init });
+
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        result.records.sort((a, b) => {
+          return a.createdTime > b.createdTime ? 1 : -1;
         });
-      }, 2000);
-    }).then((result) => {
-      setTodoList(result.data.todoList);
-      setIsLoading(false);
-    })
+        dispatchTodoList({
+          type: actions.fetchSuccess,
+          payload: result.records,
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   }, []);
 
-  useEffect(() => {
-    //side effect handler function to save the list in the localstorage
-    if (!isLoading) {
-      localStorage.setItem("savedTodoList", JSON.stringify(todoList));
-    }
-  }, [todoList]);
+  return [todoList, dispatchTodoList];
+};
+
+function App() {
+  const [todoList, dispatchTodoList] = useSemiPersistentState();
 
   const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]);
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          records: [
+            {
+              fields: {
+                Title: newTodo,
+              },
+            },
+          ],
+        }),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        dispatchTodoList({
+          type: actions.addTodo,
+          payload: data.records[0],
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
 
   const removeTodo = (id) => {
-    const newTodoList = todoList.filter((todo) => todo.id !== id);
-    setTodoList(newTodoList);
+    fetch(
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List?records[]=${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        dispatchTodoList({
+          type: actions.removeTodo,
+          payload: data.records[0].id,
+        });
+      })
+      .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
 
   //add styles to the div element through creating a style object
@@ -48,16 +104,24 @@ function App() {
     <div style={divStyles}>
       <h1 style={{ color: "darkred" }}>To Do List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      {todoList[0] ? (
-        <p>
-          Last item succcesfully added:{" "}
-          <strong> {todoList[todoList.length - 1].title} </strong>
-        </p>
-      ) : null}
-      {isLoading ? (
+
+      {todoList.isError && <p>Something went wrong ...</p>}
+
+      {todoList.isLoading ? (
         <p>Loading...</p>
       ) : (
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+        <>
+          {todoList.data[0] ? (
+            <p>
+              Last item succcesfully added:{" "}
+              <strong>
+                {" "}
+                {todoList.data[todoList.data.length - 1].fields.Title}{" "}
+              </strong>
+            </p>
+          ) : null}
+          <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
+        </>
       )}
     </div>
   );
