@@ -2,11 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //custom hook
 const useSemiPersistentState = () => {
@@ -20,7 +16,7 @@ const useSemiPersistentState = () => {
     dispatchTodoList({ type: actions.init });
 
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo%20List`,
       {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
@@ -48,7 +44,7 @@ function App() {
 
   const addTodo = (newTodo) => {
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List`,
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo%20List`,
       {
         method: "POST",
         headers: {
@@ -78,7 +74,7 @@ function App() {
 
   const removeTodo = (id) => {
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo List?records[]=${id}`,
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todo%20List?records[]=${id}`,
       {
         method: "DELETE",
         headers: {
@@ -107,7 +103,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact={true}>
+        <Route exact path="/" >
           <div style={divStyles}>
             <h1 style={{ color: "darkred" }}>To Do List</h1>
             <AddTodoForm onAddTodo={addTodo} />
@@ -134,9 +130,11 @@ function App() {
             )}
           </div>
         </Route>
+
         <Route path={"/new"}>
           <h1>New Todo List</h1>
         </Route>
+
       </Switch>
     </Router>
   );

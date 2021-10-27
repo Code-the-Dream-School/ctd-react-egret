@@ -1,4 +1,3 @@
-import React from "react";
 
 //actions for reducer function
 const actionsTodoListReducer = {
