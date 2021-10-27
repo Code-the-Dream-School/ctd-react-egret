@@ -1,73 +1,39 @@
-import React from 'react';
-import AddTodoForm from './AddTodoForm';
-import TodoList from './TodoList';
+import React from 'react'
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
+import TodoContainer from './TodoContainer'
 
 function App() {
-  const [todoList, setTodoList] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((data) => {
-        setTodoList(data.records)
-        setIsLoading(false)
-      })
-  }, [])
-
-  const addTodo = (title) => {
-    fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          records: [
-            {
-              fields: {
-                Title: title,
-              },
-            },
-          ],
-        }),
-      }
-    )
-      .then(() => {
-        setTodoList([...todoList, title])
-      })
-  }
-
-  const removeTodo = (id) => {
-    fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default?records[]=${id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-        },
-      }
-    )
-      .then((resp) => resp.json())
-      .then((data) => {
-        setTodoList(todoList.filter((item) => item.id !== data.records[0].id))
-      })
-  }
-
   return (
-    <>
-      <h1>Todo List</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      {(isLoading) ? (<p>Loading...</p>) : (<TodoList todoList={todoList} onRemoveTodo={removeTodo} />)}    </>
-  );
+    <BrowserRouter>
+
+      <nav>
+        <ul>
+          <li>
+            <Link to="/list-1">List 1</Link>
+          </li>
+          <li>
+            <Link to="/list-2">List 2</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Switch>
+        <Route path="/list-1">
+          <TodoContainer tableName="List 1" />
+        </Route>
+
+        <Route path="/list-2">
+          <TodoContainer tableName="List 2" />
+        </Route>
+
+        <Route path="*">
+          <>
+            <h1>404 Page not found</h1>
+          </>
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  )
 }
 
 export default App;

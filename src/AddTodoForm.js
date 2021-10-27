@@ -3,10 +3,12 @@ import InputWithLabel from './InputWithLabel.js';
 
 function AddTodoForm({ onAddTodo }) {
     const [todoTitle, setTodoTitle] = useState("");
+
     const handleTitleChange = (event) => {
         const newTodoTitle = event.target.value;
         setTodoTitle(newTodoTitle);
     }
+
     const handleAddTodo = (event) => {
         event.preventDefault();
         // prevents adding an empty list item
@@ -20,7 +22,10 @@ function AddTodoForm({ onAddTodo }) {
 
     return (
         <form onSubmit={handleAddTodo}>
-            <InputWithLabel todoTitle={todoTitle} handleTitleChange={handleTitleChange}>
+            <InputWithLabel
+                todoTitle={todoTitle}
+                handleTitleChange={handleTitleChange}
+            >
                 Title:
             </InputWithLabel>
             <button type='submit'>Add</button>
