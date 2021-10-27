@@ -12,10 +12,14 @@ function AddTodoForm(props) {
 
   function handleAddTodo(event) {
     event.preventDefault();
-    if (todoTitle === '') {
+    if (todoTitle === "") {
       return false;
     }
-    onAddTodo({ title: todoTitle, id: Date.now() });
+    onAddTodo({
+      createdTime: Date.now(),
+      fields: { Title: todoTitle },
+      id: Date.now(),
+    });
     setTodoTitle("");
   }
   return (
@@ -25,7 +29,7 @@ function AddTodoForm(props) {
           todoTitle={todoTitle}
           handleTitleChange={handleTitleChange}
         >
-          Title: 
+          Title:
         </InputWithLabel>
 
         <button type="submit">Add</button>
