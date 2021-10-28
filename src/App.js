@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ListComponent from "./ListComponent";
+import ListContainer from "./ListContainer";
 import Navigation from "./Navigation";
 
 function App() {
@@ -9,14 +9,17 @@ function App() {
     <Router>
       <Navigation />
       <Switch>
-        <Route exact path="/List 1" >
-          <ListComponent listName={'List 1'} />
+        <Route path="/List-1" >
+          <ListContainer listName='List 1' />
         </Route>
 
-        <Route path="/List 2">
-          <ListComponent listName={'List 2'} />
+        <Route path="/List-2">
+          <ListContainer listName='List 2' />
         </Route>
-
+        
+        <Route path="/List-3">
+          <ListContainer listName='List 3' />
+        </Route>
       </Switch>
     </Router>
   );

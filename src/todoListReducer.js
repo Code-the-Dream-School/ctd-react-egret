@@ -9,14 +9,14 @@ const actionsTodoListReducer = {
 }
 
 const todoListReducer = (state, action) => {
-  
+  console.log(action.type)
     switch (action.type) {
-      case actionsTodoListReducer.init:
+      /* case actionsTodoListReducer.init:
         return {
           ...state,
           isLoading: true,
           isError: false,
-        };
+        }; */
       case actionsTodoListReducer.fetchSuccess:
         return {
           ...state,

@@ -6,10 +6,13 @@ function Navigation() {
     <nav>
       <ul>
         <li>
-          <NavLink to="/List 1">List 1</NavLink>
+          <NavLink to="/List-1">List 1</NavLink>
         </li>
         <li>
-          <NavLink to="/List 2">List 2</NavLink>
+          <NavLink to="/List-2">List 2</NavLink>
+        </li>
+        <li>
+          <NavLink to="/List-3">List 3</NavLink>
         </li>
       </ul>
     </nav>

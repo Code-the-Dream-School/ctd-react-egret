@@ -7,15 +7,17 @@ import todoListReducer, { actions } from "./todoListReducer";
 const useSemiPersistentState = (listName) => {
   const [todoList, dispatchTodoList] = useReducer(todoListReducer, {
     data: [], //use an empty string as an initial state
-    isLoading: false,
+    isLoading: true,
     isError: false,
   });
 
   useEffect(() => {
-    dispatchTodoList({ type: actions.init });
+    /* dispatchTodoList({ type: actions.init }); */
 
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listName)}`,
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(listName)}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
@@ -38,12 +40,14 @@ const useSemiPersistentState = (listName) => {
   return [todoList, dispatchTodoList];
 };
 
-function ListComponent({ listName }) {
+function ListContainer({ listName }) {
   const [todoList, dispatchTodoList] = useSemiPersistentState(listName);
 
   const addTodo = (newTodo) => {
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listName)}`,
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(listName)}`,
       {
         method: "POST",
         headers: {
@@ -73,7 +77,9 @@ function ListComponent({ listName }) {
 
   const removeTodo = (id) => {
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(listName)}?records[]=${id}`,
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(listName)}?records[]=${id}`,
       {
         method: "DELETE",
         headers: {
@@ -126,4 +132,4 @@ function ListComponent({ listName }) {
   );
 }
 
-export default ListComponent;
+export default ListContainer;
