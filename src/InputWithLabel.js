@@ -12,7 +12,8 @@ const InputWithLabel = ({title, isFocused, onTitleChange, home, children}) => {
   return (
     <>
       <label htmlFor='todoTitle'>
-        {home}&nbsp;{children}
+        {home}
+        {children}
       </label>
       &nbsp;
       <input

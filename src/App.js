@@ -290,29 +290,10 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact>
-          <div>
-            <h1>Todo Lists</h1>
-            <nav>
-              <ul>
-                <li>
-                  <Link to='/readings'>Readings Todo</Link>
-                </li>
-                <li>
-                  <Link to='/homework'>Homework Todo</Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </Route>
         <Route path='/readings'>
           <div>
             <AddTodoForm onAddTodo={addReading}>
-              {
-                <Link to='/' exact>
-                  &#127968;
-                </Link>
-              }
+              {<Link to='/'>&#127968;</Link>}
             </AddTodoForm>
             <hr />
             <h2>Readings List</h2>
@@ -336,9 +317,7 @@ const App = () => {
         <Route path='/homework'>
           <div>
             <AddTodoForm onAddTodo={addHomework}>
-              <Link to='/' exact>
-                &#127968;
-              </Link>
+              <Link to='/'>&#127968;</Link>
             </AddTodoForm>
             <hr />
             <h2>Homework List</h2>
@@ -358,6 +337,21 @@ const App = () => {
                 onRemoveTodo={removeHomework}
               />
             )}
+          </div>
+        </Route>
+        <Route path='/'>
+          <div>
+            <h1>Todo Lists</h1>
+            <nav>
+              <ul>
+                <li>
+                  <Link to='/readings'>Readings Todo</Link>
+                </li>
+                <li>
+                  <Link to='/homework'>Homework Todo</Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </Route>
       </Switch>
