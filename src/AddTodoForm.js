@@ -1,8 +1,8 @@
 import React from "react";
 import InputWithLabel from "./InputWithLabel";
-require("./styles.css");
+import "./styles.css";
 
-const AddTodoForm = ({onAddTodo, children}) => {
+const AddTodoForm = ({onAddTodo, home}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
 
   const handleTitleChange = (e) => {
@@ -22,7 +22,7 @@ const AddTodoForm = ({onAddTodo, children}) => {
         className='formTextbox'
         title={todoTitle}
         isFocused
-        home={children}
+        home={home}
         onTitleChange={handleTitleChange}>
         Title:
       </InputWithLabel>

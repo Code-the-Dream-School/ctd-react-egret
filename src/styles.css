@@ -18,8 +18,8 @@ h2 {
 
 h1,
 h2,
-form,
-li {
+label,
+.todolist li {
   color: rgb(56, 56, 56);
   text-shadow: 0.5rem 1rem 2rem rgba(5, 5, 5, 0.4);
 }
@@ -40,10 +40,10 @@ nav li {
 }
 
 a {
+  text-decoration: none;
   color: rgb(0, 183, 255);
   padding: 0.5rem;
   margin-right: 1rem;
-  text-decoration: none;
   text-transform: uppercase;
   background-color: white;
   border-radius: 0.5rem;

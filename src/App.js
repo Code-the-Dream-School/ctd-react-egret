@@ -1,7 +1,7 @@
 import React from "react";
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import TodoList from "./TodoList";
-import AddTodoForm from "./AddTodoForm";
+import {Switch, Route, Link} from "react-router-dom";
+import AddReadingsTodoForm from "./AddReadingsTodoForm";
+import AddHomeworkTodoForm from "./AddHomeworkTodoForm";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 require("dotenv").config();
@@ -14,6 +14,7 @@ const readingURL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE
 const homeworkURL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Homework-List`;
 const view = "?view=Grid+view";
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
+const homeLink = <Link to='/'>&#127968;</Link>;
 
 const readingListReducer = (state, action) => {
   switch (action.type) {
@@ -288,56 +289,23 @@ const App = () => {
   };
 
   return (
-    <Router>
+    <div>
       <Switch>
         <Route path='/readings'>
-          <div>
-            <AddTodoForm onAddTodo={addReading}>
-              {<Link to='/'>&#127968;</Link>}
-            </AddTodoForm>
-            <hr />
-            <h2>Readings List</h2>
-            {readingList.isError && (
-              <p>
-                <strong>SOMETHING WENT WRONG:</strong>&nbsp;{readingList.errMsg}
-                {/* <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-          {todoList.errMsg.error}--{todoList.errMsg.message} */}
-              </p>
-            )}
-            {readingList.isLoading ? (
-              <p>Loading ...</p>
-            ) : (
-              <TodoList
-                todoList={readingList.data}
-                onRemoveTodo={removeReading}
-              />
-            )}
-          </div>
+          <AddReadingsTodoForm
+            onAddReading={addReading}
+            onRemoveReading={removeReading}
+            readingList={readingList}>
+            {homeLink}
+          </AddReadingsTodoForm>
         </Route>
         <Route path='/homework'>
-          <div>
-            <AddTodoForm onAddTodo={addHomework}>
-              <Link to='/'>&#127968;</Link>
-            </AddTodoForm>
-            <hr />
-            <h2>Homework List</h2>
-            {homeworkList.isError && (
-              <p>
-                <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-                {homeworkList.errMsg}
-                {/* <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-          {todoList.errMsg.error}--{todoList.errMsg.message} */}
-              </p>
-            )}
-            {homeworkList.isLoading ? (
-              <p>Loading ...</p>
-            ) : (
-              <TodoList
-                todoList={homeworkList.data}
-                onRemoveTodo={removeHomework}
-              />
-            )}
-          </div>
+          <AddHomeworkTodoForm
+            onAddHomework={addHomework}
+            onRemoveHomework={removeHomework}
+            homeworkList={homeworkList}>
+            {homeLink}
+          </AddHomeworkTodoForm>
         </Route>
         <Route path='/'>
           <div>
@@ -355,7 +323,7 @@ const App = () => {
           </div>
         </Route>
       </Switch>
-    </Router>
+    </div>
   );
 };
 
