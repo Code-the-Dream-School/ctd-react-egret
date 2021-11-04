@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const TodoListItem = ({todo, onRemoveTodo}) => {
     console.log(todo)
@@ -6,7 +6,7 @@ const TodoListItem = ({todo, onRemoveTodo}) => {
     return (
            <li>
              <span>{todo.title}</span>
-             <button type='button' onClick={() => onRemoveTodo(todo.id)}>Remove</button>     
+             <button type='button' onClick={() => onRemoveTodo(todo.id)}>Delete</button>     
            </li>
     )
 }
