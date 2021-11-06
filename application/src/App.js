@@ -1,9 +1,8 @@
 
 import './App.css';
-import TodoList from './Todolist';
+import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 import { useState, useEffect } from 'react';
-
 
 const useSemiPersistentState = () => {
 
@@ -17,15 +16,11 @@ const useSemiPersistentState = () => {
   },[todoList])
 
   return [todoList, setTodoList]
-
 }
-
 
 function App() {
 
-
   const [todoList, setTodoList] = useSemiPersistentState()
-
 
     const addTodo = (newTodo) => {
       setTodoList([...todoList, newTodo])
@@ -35,7 +30,6 @@ function App() {
         (todo) => todo.id !== id
       )
       setTodoList(newList)
-      
     }
 
     return (
