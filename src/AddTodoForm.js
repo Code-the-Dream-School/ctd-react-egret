@@ -1,8 +1,8 @@
 import React from "react";
 import InputWithLabel from "./InputWithLabel";
-// removed uuid from import as unnecessary
+import "./styles.css";
 
-const AddTodoForm = ({ onAddTodo }) => {
+const AddTodoForm = ({onAddTodo, home}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
 
   const handleTitleChange = (e) => {
@@ -19,13 +19,14 @@ const AddTodoForm = ({ onAddTodo }) => {
   return (
     <form onSubmit={handleAddTodo}>
       <InputWithLabel
+        className='formTextbox'
         title={todoTitle}
         isFocused
+        home={home}
         onTitleChange={handleTitleChange}>
         Title:
       </InputWithLabel>
-      &nbsp;
-      <button type='submit' disabled={!todoTitle}>
+      <button className='button' type='submit' disabled={!todoTitle}>
         Add
       </button>
     </form>

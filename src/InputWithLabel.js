@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
+const InputWithLabel = ({title, isFocused, onTitleChange, home, children}) => {
   const inputRef = React.useRef();
 
   React.useEffect(() => {
@@ -11,7 +11,10 @@ const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
 
   return (
     <>
-      <label htmlFor='todoTitle'>{children}</label>
+      <label htmlFor='todoTitle'>
+        {home}
+        {children}
+      </label>
       &nbsp;
       <input
         ref={inputRef}
