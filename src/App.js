@@ -2,6 +2,7 @@ import React from "react";
 import {Switch, Route, Link} from "react-router-dom";
 import AddReadingsTodoForm from "./AddReadingsTodoForm";
 import AddHomeworkTodoForm from "./AddHomeworkTodoForm";
+import HomePage from "./HomePage";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 require("dotenv").config();
@@ -31,7 +32,7 @@ const readingListReducer = (state, action) => {
         isError: false,
         data: action.payload,
       };
-    case "FETCH_REQUEST_FAILURE":
+    case "READINGLIST_REQUEST_FAILURE":
       return {
         ...state,
         isLoading: false,
@@ -91,6 +92,9 @@ const App = () => {
     }
   );
 
+  let readingCount = readingList.data.length;
+  let homeworkCount = homeworkList.data.length;
+
   const fetchReadingList = () => {
     dispatchReadingList({type: "READINGLIST_FETCH_INIT"});
     fetch(readingURL + view, {
@@ -109,7 +113,7 @@ const App = () => {
       })
       .catch((err) => {
         dispatchReadingList({
-          type: "FETCH_REQUEST_FAILURE",
+          type: "READINGLIST_REQUEST_FAILURE",
           payload: err,
         });
       });
@@ -289,9 +293,9 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <Switch>
-        <Route path='/readings'>
+        <Route path='/reading'>
           <AddReadingsTodoForm
             onAddReading={addReading}
             onRemoveReading={removeReading}
@@ -308,19 +312,7 @@ const App = () => {
           </AddHomeworkTodoForm>
         </Route>
         <Route path='/'>
-          <div>
-            <h1>Todo Lists</h1>
-            <nav>
-              <ul>
-                <li>
-                  <Link to='/readings'>Readings Todo</Link>
-                </li>
-                <li>
-                  <Link to='/homework'>Homework Todo</Link>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <HomePage readingCount={readingCount} homeworkCount={homeworkCount} />
         </Route>
       </Switch>
     </div>
