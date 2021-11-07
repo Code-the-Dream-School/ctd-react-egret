@@ -10,27 +10,26 @@ function App() {
 
   useEffect(()=>{
     new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            data : { 
-              todolist : JSON.parse(localStorage.getItem('todoList')) 
-             } 
-           })
-        }, 2000);
-      }).then((result) => {
-        setTodoList(result.data.todolist);
-        setIsLoading(false);
-      })
-    }, [])
+      setTimeout(() => {
+        resolve({
+          data : { 
+            todolist : JSON.parse(localStorage.getItem('todoList')) 
+          } 
+        })
+      }, 2000);
+    })
+    .then((result) => {
+      setTodoList(result.data.todolist);
+      setIsLoading(false);
+    })
+  }, [])
 
- 
-
-    useEffect(() => {
-      if(isLoading === false) {
-       const json = JSON.stringify(todoList);
-       localStorage.setItem('todoList', json)
-      }
-     }, [todoList, isLoading]);  
+  useEffect(() => {
+    if(isLoading === false) {
+      const json = JSON.stringify(todoList);
+      localStorage.setItem('todoList', json)
+    }
+  }, [todoList, isLoading]);  
 
   const addTodo = (newTodo) => {
     setTodoList([...todoList, newTodo])
