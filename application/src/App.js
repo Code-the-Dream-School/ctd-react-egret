@@ -13,9 +13,9 @@ function App() {
     fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, { headers })
     .then(response => response.json())
     .then((result) => {
-        setTodoList(result.records);
-        setIsLoading(false);
-      })
+      setTodoList(result.records);
+      setIsLoading(false);
+    })
   }, [])
 
   useEffect(() => {
