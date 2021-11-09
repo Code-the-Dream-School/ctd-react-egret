@@ -79,10 +79,6 @@ ul {
   animation: moveInTop 0.75s ease-out 0.75s backwards,
     floating 7s ease-in-out 3.5s infinite;
 }
-/*
-.avatar:hover {
-  transform: translateY(-0.5rem);
-} */
 
 h1 {
   font-family: "Mochiy Pop One", sans-serif;
