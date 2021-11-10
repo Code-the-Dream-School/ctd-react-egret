@@ -1,0 +1,20 @@
+
+
+body {
+  margin: 10%;
+  height: 100vh;
+  border: solid black 2px;
+  background-image: linear-gradient(#e0d6ca, #a3838f);
+  font-family: "Bebas Neue", cursive;
+    font-size: 1.3rem;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#root {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  justify-items: left;
+  background-image: radial-gradient(#c2bfbd, #aaa0a4);
+  height: 100vh;
+}

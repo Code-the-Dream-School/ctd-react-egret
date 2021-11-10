@@ -1,0 +1,31 @@
+.navContainer {
+  width: 100%;
+}
+.navListContainer {
+  height: 80%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: stretch;
+  align-content: center;
+  padding: 0;
+}
+.navListContainer > li {
+  display: flex;
+  flex-direction: column;
+ align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 10px;
+  border: solid black;
+  /* opacity: 0.8; */
+}
+.navListContainer > li > a {
+  text-decoration: none;
+  color: rgb(238, 236, 236);
+}
+
+.navListContainer > li > img {
+  border: 0;
+  border-radius: 50px;
+}
