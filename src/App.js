@@ -1,57 +1,68 @@
-import React from "react";
+import React  from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ListContainer from "./ListContainer";
 import Navigation from "./Navigation";
 
-function App() {
-  /* const [listLength, setListLength] = React.useState([]) */
+const todoCategories = [
+  {
+    category: "Personal",
+    imgSrc: "./logo/human.png",
+  },
+  {
+    category: "Business",
+    imgSrc: "./logo/business.jpg",
+  },
+  {
+    category: "FurryFriend",
+    imgSrc: "./logo/furry.jpg",
+  },
+];
 
-  const listOfTables = [
+function fetchTodoItems(category) {
+  return fetch(
+    `https://api.airtable.com/v0/${
+      process.env.REACT_APP_AIRTABLE_BASE_ID
+    }/${encodeURIComponent(category)}`,
     {
-      type: "Personal",
-      id: 0,
-      imgSrc: "./logo/human.png",
-      
-    },
-    {
-      type: "Business",
-      id: 1,
-      imgSrc: "./logo/business.jpg",
-      
-    },
-    {
-      type: "FurryFriend",
-      id: 2,
-      imgSrc: "./logo/furry.jpg",
-      
-    },
-  ];
-  /* const arrayoflength = []
-  listOfTables.map((table) => {
-    fetch(
-      `https://api.airtable.com/v0/${
-        process.env.REACT_APP_AIRTABLE_BASE_ID
-      }/${encodeURIComponent(table.type)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result.records.length)
-        arrayoflength.push(result.records.length)
-        });
-  }) */
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+      },
+    }
+    ).then((response) => response.json())
+  }
+
+  function fetchTodoTables() {
+    return todoCategories.map(todoCategory => {
+      return fetchTodoItems(todoCategory.category);
+    });
+  }
+
+function App() {
+  const [todoCounts, setTodoCounts] = React.useState({});
+  function handleChange() {
+
+  }
+  React.useEffect(() => {
+    Promise.all(fetchTodoTables()).then((todoResponses) => {
+      const counts = {};
+      todoCategories.forEach((todoCategory, index) => {
+        counts[todoCategory.category] = todoResponses[index].records.length;
+      });
+      setTodoCounts(counts);
+    });
+  }, []);
+  
+  console.log(todoCounts)
 
   return (
     <Router>
-      <Navigation listOfTables={listOfTables} />
+      <Navigation categories={todoCategories} counts={todoCounts} />
+      
       <Switch>
-        {listOfTables.map((table) => (
-          <Route path={`/${table.type}`} key={table.id}>
-            <ListContainer listName={table.type}  />
+      
+        {todoCategories.map((table, index) => (
+          <Route path={`/${table.category}`} key={index}>
+            <ListContainer listName={table.category} handleChange={handleChange} />
           </Route>
         ))}
       </Switch>

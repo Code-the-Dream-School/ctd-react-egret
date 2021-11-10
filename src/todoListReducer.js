@@ -9,7 +9,7 @@ const actionsTodoListReducer = {
 }
 
 const todoListReducer = (state, action) => {
-  console.log(action.type)
+  
     switch (action.type) {
       /* case actionsTodoListReducer.init:
         return {

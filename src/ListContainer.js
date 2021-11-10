@@ -27,7 +27,7 @@ const useSemiPersistentState = (listName) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.records.length)
+        
         result.records.sort((a, b) => {
           return a.createdTime > b.createdTime ? 1 : -1;
         });
@@ -42,7 +42,7 @@ const useSemiPersistentState = (listName) => {
   return [todoList, dispatchTodoList];
 };
 
-function ListContainer({ listName, tasksCalculator }) {
+function ListContainer({ listName, handleChange }) {
   const [todoList, dispatchTodoList] = useSemiPersistentState(listName);
 
   const addTodo = (newTodo) => {
@@ -101,7 +101,8 @@ function ListContainer({ listName, tasksCalculator }) {
   };
   
   
-  console.log(todoList)
+  
+  /* console.log(todoList) */
   return (
     <div className={style.listContainer}>
       <h1 style={{ color: "darkred" }}>{listName}</h1>

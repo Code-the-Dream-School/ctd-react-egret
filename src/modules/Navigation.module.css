@@ -13,7 +13,7 @@
 .navListContainer > li {
   display: flex;
   flex-direction: column;
- align-items: center;
+  align-items: center;
   list-style-type: none;
   margin: 0;
   padding: 10px;

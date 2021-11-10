@@ -2,15 +2,16 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import style from "./modules/Navigation.module.css";
 
-function Navigation({ listOfTables }) {
-  console.log(listOfTables)
+function Navigation({ categories, counts }) {
+  console.log(categories)
   return (
     <nav className={style.navContainer}>
       <ul className={style.navListContainer}>
-        {listOfTables.map((table) => (
-          <li key={table.id}>
+        {categories.map((table, index) => (
+          <li key={index}>
             <img src={table.imgSrc} alt="logo" width="100" height="100" />
-            <NavLink to={`/${table.type}`}>{table.type}</NavLink>
+            <NavLink to={`/${table.category}`}>{table.category}</NavLink>
+            <p style={{ color: 'red' }}>{counts[table.category]} todos</p>
             
           </li>
         ))}
