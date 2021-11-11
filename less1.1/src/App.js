@@ -2,6 +2,9 @@ import React from 'react';
 import TodoList from './TodoList.js';
 import AddTodoForm from './AddTodoForm.js';
 
+import { BrowserRouter, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
+
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
@@ -34,7 +37,7 @@ function App() {
 
   const addTodo = (newTodo) => { 
     setTodoList([...todoList, newTodo]);
-   };  
+  };  
 
 
 
@@ -46,13 +49,24 @@ function App() {
   };
 
   return (
-    <> 
-      <h1>TODO list</h1>
-      <AddTodoForm onAddTodo={addTodo} />
-      <p>{isLoading ?'Loading...' : null}</p>
-      <TodoList  todoList={todoList} onRemoveTodo = {removeTodo}/>
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <> 
+            <h1>TODO list</h1>
+            <AddTodoForm onAddTodo={addTodo} />
+            <p>{isLoading ?'Loading...' : null}</p>
+            <TodoList  todoList={todoList} onRemoveTodo = {removeTodo}/>
+          </>
+        </Route>
+        <Route path="/new">
+          <h1>New Todo List</h1>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
+ 
+
 
 export default App;
