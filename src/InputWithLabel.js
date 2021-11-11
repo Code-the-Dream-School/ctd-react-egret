@@ -1,6 +1,7 @@
 import React from "react";
+import styles from "./AddTodosAndForm.module.css";
 
-const InputWithLabel = ({title, isFocused, onTitleChange, home, children}) => {
+const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
   const inputRef = React.useRef();
 
   React.useEffect(() => {
@@ -11,12 +12,11 @@ const InputWithLabel = ({title, isFocused, onTitleChange, home, children}) => {
 
   return (
     <>
-      <label htmlFor='todoTitle'>
-        {home}
+      <label className={styles.todoLabel} htmlFor='todoTitle'>
         {children}
       </label>
-      &nbsp;
       <input
+        className={styles.todoInput}
         ref={inputRef}
         id='todoTitle'
         name='title'
