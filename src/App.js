@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
 import TodoContainer from './TodoContainer'
+import './index.css'
 
 function App() {
   return (
@@ -9,21 +10,29 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/list-1">List 1</Link>
+            <Link to="/personal">
+              <button className='listbutton' type='button'><span>
+                Personal
+              </span></button>
+            </Link>
           </li>
           <li>
-            <Link to="/list-2">List 2</Link>
+            <Link to="/work">
+              <button className='listbutton' type='button'><span>
+                Work
+              </span></button>
+            </Link>
           </li>
         </ul>
       </nav>
 
       <Switch>
-        <Route path="/list-1">
-          <TodoContainer tableName="List 1" />
+        <Route path="/personal">
+          <TodoContainer tableName="Personal" />
         </Route>
 
-        <Route path="/list-2">
-          <TodoContainer tableName="List 2" />
+        <Route path="/work">
+          <TodoContainer tableName="Work" />
         </Route>
 
         <Route path="*">
