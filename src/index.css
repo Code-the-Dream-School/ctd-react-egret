@@ -17,6 +17,12 @@ html {
   scroll-behavior: smooth;
 }
 
+@media only screen and (max-width: 25em) {
+  html {
+    font-size: 44%; /* 7px */
+  }
+}
+
 @media only screen and (min-width: 56.25em) {
   html {
     font-size: 56.25%; /* 9px */
@@ -60,15 +66,19 @@ ul {
   max-width: 112.5rem;
   padding: 12rem 4rem;
   background-color: rgb(0, 0, 0);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 }
 
-.homePage {
+.sideBar {
+  width: 100%;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
 }
 
-.homePage > *:not(:last-child) {
+.sideBar > * {
   margin-bottom: 6rem;
 }
 
@@ -82,7 +92,7 @@ ul {
 
 h1 {
   font-family: "Mochiy Pop One", sans-serif;
-  font-size: 5rem;
+  font-size: 4rem;
   transition: transform 0.2s ease-in;
   animation: moveInRight 1s ease-out;
 }
@@ -97,16 +107,14 @@ h1:hover {
 
 .todoNav ul {
   display: flex;
-  flex-flow: column nowrap;
   align-items: center;
   justify-content: space-evenly;
 }
 
 .todos {
-  width: 30rem;
-  height: 20rem;
+  width: 17rem;
+  height: 17rem;
   border-radius: 3px;
-  margin-top: 6rem;
   text-align: center;
   background-color: rgb(39, 39, 39);
   transition: transform 0.2s ease-in;
@@ -145,7 +153,7 @@ h1:hover {
 }
 
 .icon {
-  font-size: 6rem;
+  font-size: 5rem;
 }
 
 a {
@@ -156,10 +164,38 @@ a {
 /* Media Query */
 
 @media only screen and (min-width: 37.5rem) {
+  .todos {
+    width: 25rem;
+  }
+}
+
+@media only screen and (min-width: 56.25em) {
+  .container {
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .sideBar {
+    width: 30%;
+  }
   .todoNav ul {
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-evenly;
+    flex-flow: column;
+  }
+  .todos {
+    height: 15rem;
+    width: 15rem;
+  }
+  .todos:first-child {
+    margin-bottom: 6rem;
+  }
+  h1 {
+    font-size: 3rem;
+  }
+  .icon {
+    font-size: 4rem;
+  }
+  h3 {
+    font-size: 1.5rem;
   }
 }
 

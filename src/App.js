@@ -1,7 +1,8 @@
 import React from "react";
-import {Switch, Route, Link} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import AddTodosAndForm from "./AddTodosAndForm";
-import HomePage from "./HomePage";
+import SideBar from "./SideBar";
+import RotatingRing from "./RotatingRing";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 require("dotenv").config();
@@ -13,7 +14,6 @@ require("dotenv").config();
 const baseUrl = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/`;
 const view = "?view=Grid+view";
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
-const homeLink = <Link to='/'>&#127968;</Link>;
 
 const todoListReducer = (state, action) => {
   switch (action.type) {
@@ -176,6 +176,10 @@ const App = () => {
 
   return (
     <div className='container'>
+      <SideBar
+        readingLength={readingTodos.length}
+        homeworkLength={homeworkTodos.length}
+      />
       <Switch>
         <Route path='/Reading'>
           <AddTodosAndForm
@@ -183,7 +187,7 @@ const App = () => {
             onRemoveTodo={removeTodo}
             todoList={readingTodos}
             fetchStatus={fetchStatus}>
-            {[homeLink, "Reading"]}
+            Reading
           </AddTodosAndForm>
         </Route>
         <Route path='/Homework'>
@@ -192,14 +196,11 @@ const App = () => {
             onRemoveTodo={removeTodo}
             todoList={homeworkTodos}
             fetchStatus={fetchStatus}>
-            {[homeLink, "Homework"]}
+            Homework
           </AddTodosAndForm>
         </Route>
         <Route path='/'>
-          <HomePage
-            readingLength={readingTodos.length}
-            homeworkLength={homeworkTodos.length}
-          />
+          <RotatingRing />
         </Route>
       </Switch>
     </div>
