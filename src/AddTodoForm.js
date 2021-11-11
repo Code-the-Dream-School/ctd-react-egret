@@ -1,9 +1,8 @@
 import React from "react";
 import InputWithLabel from "./InputWithLabel";
-import "./index.css";
-import styles from "./AddTodosAndForm.module.css";
+import "./styles.css";
 
-const AddTodoForm = ({listName, onAddTodo}) => {
+const AddTodoForm = ({onAddTodo, home}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
 
   const handleTitleChange = (e) => {
@@ -13,20 +12,22 @@ const AddTodoForm = ({listName, onAddTodo}) => {
 
   const handleAddTodo = (e) => {
     e.preventDefault();
-    onAddTodo(listName, todoTitle);
+    onAddTodo(todoTitle);
     setTodoTitle("");
   };
 
   return (
-    <form className={styles.todoForm} onSubmit={handleAddTodo}>
+    <form onSubmit={handleAddTodo}>
       <InputWithLabel
+        className='formTextbox'
         title={todoTitle}
         isFocused
+        home={home}
         onTitleChange={handleTitleChange}>
-        Add Todo:
+        Title:
       </InputWithLabel>
-      <button className={styles.addButton} type='submit' disabled={!todoTitle}>
-        &#128221;
+      <button className='button' type='submit' disabled={!todoTitle}>
+        Add
       </button>
     </form>
   );

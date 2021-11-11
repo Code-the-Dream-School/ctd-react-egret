@@ -1,8 +1,7 @@
 import React from "react";
-import {Switch, Route} from "react-router-dom";
-import AddTodosAndForm from "./AddTodosAndForm";
-import SideBar from "./SideBar";
-import RotatingRing from "./RotatingRing";
+import {Switch, Route, Link} from "react-router-dom";
+import AddReadingsTodoForm from "./AddReadingsTodoForm";
+import AddHomeworkTodoForm from "./AddHomeworkTodoForm";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 require("dotenv").config();
@@ -11,25 +10,55 @@ require("dotenv").config();
 //   apiKey: process.env.REACT_APP_AIRTABLE_API_KEY,
 // }).base(process.env.REACT_APP_AIRTABLE_BASE_ID);
 
-const baseUrl = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/`;
+const readingURL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Reading-List`;
+const homeworkURL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Homework-List`;
 const view = "?view=Grid+view";
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
+const homeLink = <Link to='/'>&#127968;</Link>;
 
-const todoListReducer = (state, action) => {
+const readingListReducer = (state, action) => {
   switch (action.type) {
-    case "TODOLIST_FETCH_INIT":
+    case "READINGLIST_FETCH_INIT":
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case "TODOLIST_FETCH_SUCCESS":
+    case "READINGLIST_FETCH_SUCCESS":
       return {
         ...state,
         isLoading: false,
         isError: false,
+        data: action.payload,
       };
-    case "TODOLIST_REQUEST_FAILURE":
+    case "FETCH_REQUEST_FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMsg: action.payload,
+      };
+    default:
+      throw new Error();
+  }
+};
+
+const homeworkListReducer = (state, action) => {
+  switch (action.type) {
+    case "HOMEWORKLIST_FETCH_INIT":
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
+    case "HOMEWORKLIST_FETCH_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        data: action.payload,
+      };
+    case "HOMEWORK_REQUEST_FAILURE":
       return {
         ...state,
         isLoading: false,
@@ -42,19 +71,29 @@ const todoListReducer = (state, action) => {
 };
 
 const App = () => {
-  const [fetchStatus, dispatchFetchStatus] = React.useReducer(todoListReducer, {
-    isLoading: false,
-    isError: false,
-    errMsg: {},
-  });
+  const [readingList, dispatchReadingList] = React.useReducer(
+    readingListReducer,
+    {
+      data: [],
+      isLoading: false,
+      isError: false,
+      errMsg: {},
+    }
+  );
 
-  const [readingTodos, setReadingTodos] = React.useState([]);
+  const [homeworkList, dispatchHomeworkList] = React.useReducer(
+    homeworkListReducer,
+    {
+      data: [],
+      isLoading: false,
+      isError: false,
+      errMsg: {},
+    }
+  );
 
-  const [homeworkTodos, setHomeworkTodos] = React.useState([]);
-
-  const fetchTodoList = (route) => {
-    dispatchFetchStatus({type: "TODOLIST_FETCH_INIT"});
-    fetch(baseUrl + route + view, {
+  const fetchReadingList = () => {
+    dispatchReadingList({type: "READINGLIST_FETCH_INIT"});
+    fetch(readingURL + view, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -63,41 +102,67 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        dispatchFetchStatus({type: "TODOLIST_FETCH_SUCCESS"});
-        route === "Reading"
-          ? setReadingTodos(data.records)
-          : setHomeworkTodos(data.records);
+        dispatchReadingList({
+          type: "READINGLIST_FETCH_SUCCESS",
+          payload: data.records,
+        });
       })
       .catch((err) => {
-        dispatchFetchStatus({
-          type: "TODOLIST_FETCH_FAILURE",
+        dispatchReadingList({
+          type: "FETCH_REQUEST_FAILURE",
           payload: err,
         });
       });
-    // base(route)
+    // base("Reading-List")
     //   .select({
     //     view: "Grid view",
     //   })
     //   .firstPage((err, records) => {
     //     if (err) {
-    //       dispatchFetchStatus({
-    //         type: "TODOLIST_FETCH_FAILURE",
+    //       dispatchReadingList({
+    //         type: "HTTP_REQUEST_FAILURE",
     //         payload: err,
     //       });
     //       return;
     //     }
-    //     dispatchFetchStatus({type: "TODOLIST_FETCH_SUCCESS"});
-    //     route === "Reading" ? setReadingTodos(records) : setHomeworkTodos(records);
+    //     dispatchReadingList({
+    //       type: "TODOLIST_FETCH_SUCCESS",
+    //       payload: records,
+    //     });
     //   });
   };
 
+  const fetchHomeworkList = () => {
+    dispatchHomeworkList({type: "HOMEWORKLIST_FETCH_INIT"});
+    fetch(homeworkURL + view, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        dispatchHomeworkList({
+          type: "HOMEWORKLIST_FETCH_SUCCESS",
+          payload: data.records,
+        });
+      })
+      .catch((err) => {
+        dispatchHomeworkList({
+          type: "HOMEWORK_REQUEST_FAILURE",
+          payload: err,
+        });
+      });
+  };
+
   React.useEffect(() => {
-    fetchTodoList("Reading");
-    fetchTodoList("Homework");
+    fetchReadingList();
+    fetchHomeworkList();
   }, []);
 
-  const addTodo = (route, newTodo) => {
-    fetch(baseUrl + route, {
+  const addReading = (newReading) => {
+    fetch(readingURL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -105,45 +170,73 @@ const App = () => {
       },
       body: JSON.stringify({
         fields: {
-          Task: newTodo,
+          Title: newReading,
         },
       }),
     })
       .then((response) => response.json())
 
       .then((data) => {
-        // console.log(data);
         console.log(
-          `Successfully added item #${data.id}, ${data.fields.Task} to ${route}`
+          `Successfully added item #${data.id}, '${data.fields.Title}'`
         );
-        fetchTodoList(route);
+        fetchReadingList();
       })
       .catch((err) => {
-        dispatchFetchStatus({
-          type: "TODOLIST_FETCH_FAILURE",
+        dispatchReadingList({
+          type: "HTTP_REQUEST_FAILURE",
           payload: err,
         });
       });
-    // base(route).create(
+    // base("Reading-List").create(
     //   {
-    //     Task: newReading,
+    //     Title: newReading,
     //   },
     //   (err, newRecord) => {
     //     if (err) {
-    //       dispatchFetchStatus({
-    //         type: "TODOLIST_FETCH_FAILURE",
+    //       dispatchTodoList({
+    //         type: "HTTP_REQUEST_FAILURE",
     //         payload: err,
     //       });
     //       return;
     //     }
-    //     console.log(`Successfully added item #${newRecord} to ${route}`);
-    //     fetchTodoList(route);
+    //     console.log(`Successfully added item #${newRecord}`);
+    //     fetchTodoList();
     //   }
     // );
   };
 
-  const removeTodo = (route, id) => {
-    fetch(baseUrl + route + `/${id}`, {
+  const addHomework = (newHomework) => {
+    fetch(homeworkURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization,
+      },
+      body: JSON.stringify({
+        fields: {
+          Task: newHomework,
+        },
+      }),
+    })
+      .then((response) => response.json())
+
+      .then((data) => {
+        console.log(
+          `Successfully added item #${data.id}, '${data.fields.Task}'`
+        );
+        fetchHomeworkList();
+      })
+      .catch((err) => {
+        dispatchHomeworkList({
+          type: "HOMEWORK_REQUEST_FAILURE",
+          payload: err,
+        });
+      });
+  };
+
+  const removeReading = (id) => {
+    fetch(readingURL + "/" + id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -152,55 +245,82 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(`Successfully deleted item #${data.id} from ${route}`);
-        fetchTodoList(route);
+        console.log(`Successfully deleted item #${data.id}`);
+        fetchReadingList();
       })
       .catch((err) => {
-        dispatchFetchStatus({
-          type: "TODOLIST_FETCH_FAILURE",
+        dispatchReadingList({
+          type: "FETCH_REQUEST_FAILURE",
           payload: err,
         });
       });
-    // base(base).destroy(id, (err, deletedRecord) => {
+    // base("Todo-List").destroy(id, (err, deletedRecord) => {
     //   if (err) {
-    //     dispatchFetchStatus({
-    //       type: "TODOLIST_FETCH_FAILURE",
+    //     dispatchTodoList({
+    //       type: "HTTP_REQUEST_FAILURE",
     //       payload: err,
     //     });
     //     return;
     //   }
-    //   console.log(`Successfully deleted item #${deletedRecord.id} from ${route}`);
-    //   fetchTodoList(route);
+    //   console.log(`Successfully deleted item #${deletedRecord.id}`);
+    //   fetchTodoList();
     // });
   };
 
+  const removeHomework = (id) => {
+    fetch(homeworkURL + "/" + id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: authorization,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`Successfully deleted item #${data.id}`);
+        fetchHomeworkList();
+      })
+      .catch((err) => {
+        dispatchHomeworkList({
+          type: "HOMEWORK_REQUEST_FAILURE",
+          payload: err,
+        });
+      });
+  };
+
   return (
-    <div className='container'>
-      <SideBar
-        readingLength={readingTodos.length}
-        homeworkLength={homeworkTodos.length}
-      />
+    <div>
       <Switch>
-        <Route path='/Reading'>
-          <AddTodosAndForm
-            onAddTodo={addTodo}
-            onRemoveTodo={removeTodo}
-            todoList={readingTodos}
-            fetchStatus={fetchStatus}>
-            Reading
-          </AddTodosAndForm>
+        <Route path='/readings'>
+          <AddReadingsTodoForm
+            onAddReading={addReading}
+            onRemoveReading={removeReading}
+            readingList={readingList}>
+            {homeLink}
+          </AddReadingsTodoForm>
         </Route>
-        <Route path='/Homework'>
-          <AddTodosAndForm
-            onAddTodo={addTodo}
-            onRemoveTodo={removeTodo}
-            todoList={homeworkTodos}
-            fetchStatus={fetchStatus}>
-            Homework
-          </AddTodosAndForm>
+        <Route path='/homework'>
+          <AddHomeworkTodoForm
+            onAddHomework={addHomework}
+            onRemoveHomework={removeHomework}
+            homeworkList={homeworkList}>
+            {homeLink}
+          </AddHomeworkTodoForm>
         </Route>
         <Route path='/'>
-          <RotatingRing />
+          <div>
+            <h1>Todo Lists</h1>
+            <nav>
+              <ul>
+                <li>
+                  <Link to='/readings'>Readings Todo</Link>
+                </li>
+                <li>
+                  <Link to='/homework'>Homework Todo</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </Route>
       </Switch>
     </div>
