@@ -112,11 +112,12 @@ const App = () => {
       .then((response) => response.json())
 
       .then((data) => {
-        // console.log(data);
         console.log(
-          `Successfully added item #${data.id}, ${data.fields.Task} to ${route}`
+          `Successfully added item ID ${data.id}, ${data.fields.Task} to ${route}`
         );
-        fetchTodoList(route);
+        route === "Reading"
+          ? setReadingTodos([...readingTodos, data])
+          : setHomeworkTodos([...homeworkTodos, data]);
       })
       .catch((err) => {
         dispatchFetchStatus({
@@ -137,7 +138,9 @@ const App = () => {
     //       return;
     //     }
     //     console.log(`Successfully added item #${newRecord} to ${route}`);
-    //     fetchTodoList(route);
+    //     route === "Reading"
+    //       ? setReadingTodos([...readingTodos, data])
+    //       : setHomeworkTodos([...homeworkTodos, data]);
     //   }
     // );
   };
@@ -152,8 +155,10 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(`Successfully deleted item #${data.id} from ${route}`);
-        fetchTodoList(route);
+        console.log(`Successfully deleted item ID ${data.id} from ${route}`);
+        route === "Reading"
+          ? setReadingTodos(readingTodos.filter((item) => item.id !== id))
+          : setHomeworkTodos(homeworkTodos.filter((item) => item.id !== id));
       })
       .catch((err) => {
         dispatchFetchStatus({
@@ -170,7 +175,9 @@ const App = () => {
     //     return;
     //   }
     //   console.log(`Successfully deleted item #${deletedRecord.id} from ${route}`);
-    //   fetchTodoList(route);
+    //   route === "Reading"
+    //     ? setReadingTodos(readingTodos.filter((item) => item.id !== id))
+    //     : setHomeworkTodos(homeworkTodos.filter((item) => item.id !== id));
     // });
   };
 

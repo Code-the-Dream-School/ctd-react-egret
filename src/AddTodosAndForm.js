@@ -28,11 +28,11 @@ const AddTodosAndForm = ({
     ) : (
       <TodoList
         todoList={todoList}
-        listName={children[1]}
+        listName={children}
         onRemoveTodo={onRemoveTodo}
       />
     )}
-    <AddTodoForm listName={children[1]} onAddTodo={onAddTodo} />
+    <AddTodoForm listName={children} onAddTodo={onAddTodo} />
   </div>
 );
 
