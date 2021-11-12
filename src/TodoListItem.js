@@ -1,14 +1,15 @@
-import React from "react";
+import styles from "./AddTodosAndForm.module.css";
+import {ReactComponent as Check} from "./img/check.svg";
 
-const TodoListItem = ({item, onRemoveTodo}) => (
-  <li>
-    <span>&nbsp;{item.fields.Title || item.fields.Task}</span>
+const TodoListItem = ({item, listName, onRemoveTodo}) => (
+  <li className={styles.todoItem}>
     <button
-      className='button'
+      className={styles.removeButton}
       type='button'
-      onClick={() => onRemoveTodo(item.id)}>
-      Remove
+      onClick={() => onRemoveTodo(listName, item.id)}>
+      <Check />
     </button>
+    <span>{item.fields.Task}</span>
   </li>
 );
 
