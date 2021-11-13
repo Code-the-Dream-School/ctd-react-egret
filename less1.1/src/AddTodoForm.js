@@ -1,5 +1,6 @@
 import React from 'react';
 import InputWithLabel from './InputWithLabel';
+import styles from './AddTodoForm.module.css';
 
 // let todoTitle='';
 
@@ -30,10 +31,11 @@ const AddTodoForm = (props) => {
             <InputWithLabel 
                 todoTitle={todoTitle}  
                 handleTitleChange={handleTitleChange}
+                className = {styles.inputField}
             > 
-            Title
+            Add
             </InputWithLabel>
-            <button type='submit'>Add</button>
+            <button type='submit' className={styles.inputBtn}>+</button>
         </form>
     )
 };

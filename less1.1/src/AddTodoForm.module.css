@@ -1,0 +1,42 @@
+.inputBtn {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(188, 128, 80); 
+    border: 2px solid rgb(75, 59, 59);
+    font-size: 20px;
+    font-weight:bold;
+    color:white;
+    transition-duration: 0.4s;  
+}
+  
+.inputBtn:hover {
+    background-color: rgb(75, 59, 59);
+    color: white;
+}
+
+.inputField {
+    border: none;
+    border-bottom: 2px solid red;
+  }
+
+/* .inputBtn {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(44,108,128)
+}
+    
+.inputBtn::before {
+      content: "+";
+      height:20px;
+      width:20px;
+      font-size:20px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+      font-family:courier;
+      color:white;
+} */
