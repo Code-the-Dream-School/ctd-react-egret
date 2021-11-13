@@ -133,11 +133,11 @@ h1:hover {
 }
 
 .readingCard:hover {
-  transform: rotate(3deg) translateY(-0.5rem);
+  transform: translateY(-0.7rem);
 }
 
 .readingCard:active {
-  transform: rotate(3deg) translate(-0.2rem, 0.5rem);
+  transform: translate(-0.2rem, 0.3rem);
 }
 
 .homeworkCard {
@@ -145,11 +145,11 @@ h1:hover {
 }
 
 .homeworkCard:hover {
-  transform: rotate(-2deg) translateY(-0.5rem);
+  transform: translateY(-0.7rem);
 }
 
 .homeworkCard:active {
-  transform: rotate(-2deg) translate(-0.2rem, 0.5rem);
+  transform: translate(-0.2rem, 0.3rem);
 }
 
 .icon {
