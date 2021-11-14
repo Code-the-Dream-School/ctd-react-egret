@@ -31,7 +31,6 @@ const AddTodoForm = (props) => {
             <InputWithLabel 
                 todoTitle={todoTitle}  
                 handleTitleChange={handleTitleChange}
-                className = {styles.inputField}
             > 
             Add
             </InputWithLabel>
