@@ -3,3 +3,27 @@
     flex-direction: column;
     margin: 10px
 }
+
+body {
+    background: aqua;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+    font-size: 2rem;
+    border: 1px solid lightblue;
+    width: 15%;
+    height: 15%;
+    border-radius: 20px;
+    text-align: center;
+    margin: 10px;
+    background: white
+}
+a {
+    text-decoration: none;
+}
