@@ -42,7 +42,7 @@ const useSemiPersistentState = (listName) => {
   return [todoList, dispatchTodoList];
 };
 
-function ListContainer({ listName, handleChange }) {
+function ListContainer({ listName, handleUpdate }) {
   const [todoList, dispatchTodoList] = useSemiPersistentState(listName);
 
   const addTodo = (newTodo) => {
@@ -73,6 +73,7 @@ function ListContainer({ listName, handleChange }) {
           type: actions.addTodo,
           payload: data.records[0],
         });
+        handleUpdate(listName, +1)
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
@@ -96,6 +97,7 @@ function ListContainer({ listName, handleChange }) {
           type: actions.removeTodo,
           payload: data.records[0].id,
         });
+        handleUpdate(listName, -1)
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
