@@ -1,0 +1,120 @@
+/* Colors:
+gradient-dark: rgb(114, 78, 49), 
+gradient-light: rgb(188, 128, 80)
+dark-violet: rgb(94, 21, 73);
+light-violet: rgb(175, 76, 145)
+
+Dark-dark brown rgb(52, 41, 39)
+dark-brown rgb(75, 59, 59)
+dark-violet - proposed: rgb(120, 40, 101);
+light-violet - proposed: rgb(180, 52, 136)
+
+pink rgb(235, 112, 143)
+nut rgb(187, 132, 76)
+nude rgb(235, 171, 146)
+light-nude rgb(238, 211, 192)
+ */
+
+
+.wholePage {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    max-width: 960px;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Libre Franklin', sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
+    /* font-family: 'Rubik', sans-serif; */
+    /* font-family: 'Caveat', cursive; */
+  }
+    
+  .headerMain {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+      "headerNav headerImg"
+  }
+  .headerNav {
+    grid-area: headerNav;
+  }
+  .headerImg {
+    grid-area: headerImg;
+    max-width: 150px;
+    border: 2px solid white;
+  }
+  .headerLists {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+      "headerList1 headerList2"
+      "headerList3 headerList4"
+  }
+  .headerList1 {
+    grid-area: headerList1;
+  }
+  .headerList2 {
+    grid-area: headerList2;
+  }
+  .headerList3 {
+    grid-area: headerList3;
+  }
+  .headerList4 {
+    grid-area: headerList4;
+  }
+
+  .headerLists li a {
+    display: inline-block;
+    width: 72px;
+    color: white;
+    padding: 19px 36px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    /* background: rgb(120, 40, 101); */
+    background: rgb(120, 40, 101);  
+    margin: 0.3rem;
+    font-size: 20px;
+  }
+  
+  /* Change the link color on hover */
+  .headerLists li a:hover {
+    background-color: rgb(180, 52, 136);
+    color: white;
+  }
+
+  h1 {
+    color: white;
+    font-weight: 400;
+  }
+  
+
+  @media (max-width: 769px) {
+    .headerMain {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .headerImg {
+      max-width: 100px;
+      align-self: center
+    }
+
+    .headerLists li a {
+      padding: 5px 36px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 18px;
+    }
+
+  }
