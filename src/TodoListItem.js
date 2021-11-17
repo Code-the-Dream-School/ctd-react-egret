@@ -18,12 +18,19 @@ function getTime(date) {
 
 const TodoListItem = ({ todo, onRemoveTodo, changeTodoStatus }) => {
     console.log(todo.fields.isCompleted)
+    console.log('item renders')
+    
+
   return (
     <>
       <li className={style.listItem}>
         <input type="checkbox" onClick={(e) => changeTodoStatus(todo.id)}/>
-        <p style={{ textDecoration: todo.fields.isCompleted ? "line-through" : "" }}>{todo.fields.Title}</p>
-        <p>{todo.fields.CreatedTime }</p>
+        <p style={{ textDecoration: todo.fields.isCompleted === 'true' ? "line-through" : "",
+                    color: todo.fields.isCompleted === 'true' ? "gray" : "initial" }}
+        >
+          {todo.fields.Title}
+        </p>
+        {/* <p>{todo.fields.CreatedTime }</p> */}
         <button onClick={() => onRemoveTodo(todo.id)}>
           ✖
         </button>

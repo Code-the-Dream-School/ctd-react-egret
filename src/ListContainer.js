@@ -108,8 +108,11 @@ function ListContainer({ listName, handleUpdate }) {
     console.log(copyTodoList)
     copyTodoList.map((todo) => {
       if(todo.id === id) {
-        const status = todo.fields.isCompleted
-        todo.fields.isCompleted = !status
+        if(todo.fields.isCompleted === 'false') {
+          todo.fields.isCompleted = 'true'
+        } else {
+          todo.fields.isCompleted = 'false'
+        }
       }
     })
     
@@ -131,7 +134,7 @@ function ListContainer({ listName, handleUpdate }) {
         <p>Loading...</p>
       ) : (
         <>
-          {/* {todoList.data[0] ? (
+          {todoList.data[0] ? (
             <p>
               Last item succcesfully added:{" "}
               <strong>
@@ -139,7 +142,7 @@ function ListContainer({ listName, handleUpdate }) {
                 {todoList.data[todoList.data.length - 1].fields.Title}{" "}
               </strong>
             </p>
-          ) : null} */}
+          ) : null}
           <TodoList 
             todoList={todoList.data} 
             onRemoveTodo={removeTodo} 
