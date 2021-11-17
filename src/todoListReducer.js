@@ -6,10 +6,12 @@ const actionsTodoListReducer = {
     fetchFail: "FETCH_TODO_FAILURE",
     removeTodo: "REMOVE_TODO",
     addTodo: "ADD_TODO",
+    updateTodoStatus: "APDATE_STATUS"
 }
 
 const todoListReducer = (state, action) => {
-  
+  console.log(state)
+  console.log(action)
     switch (action.type) {
       /* case actionsTodoListReducer.init:
         return {
@@ -41,6 +43,11 @@ const todoListReducer = (state, action) => {
           ...state,
           data: [...state.data, action.payload],
         };
+      case actionsTodoListReducer.updateTodoStatus:
+        return {
+          ...state,
+          data: action.payload,
+        }
       default:
         throw new Error();
     }

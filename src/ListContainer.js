@@ -61,6 +61,7 @@ function ListContainer({ listName, handleUpdate }) {
             {
               fields: {
                 Title: newTodo,
+                isCompleted: 'false',
               },
             },
           ],
@@ -102,9 +103,23 @@ function ListContainer({ listName, handleUpdate }) {
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
   
+  const changeTodoStatus = (id) => {
+    const copyTodoList = todoList.data
+    console.log(copyTodoList)
+    copyTodoList.map((todo) => {
+      if(todo.id === id) {
+        const status = todo.fields.isCompleted
+        todo.fields.isCompleted = !status
+      }
+    })
+    
+    dispatchTodoList({
+      type: actions.updateTodoStatus,
+      payload: copyTodoList
+    })
+  }
   
-  
-  /* console.log(todoList) */
+  console.log(todoList)
   return (
     <div className={style.listContainer}>
       <h1 style={{ color: "darkred" }}>{listName}</h1>
@@ -116,7 +131,7 @@ function ListContainer({ listName, handleUpdate }) {
         <p>Loading...</p>
       ) : (
         <>
-          {todoList.data[0] ? (
+          {/* {todoList.data[0] ? (
             <p>
               Last item succcesfully added:{" "}
               <strong>
@@ -124,8 +139,12 @@ function ListContainer({ listName, handleUpdate }) {
                 {todoList.data[todoList.data.length - 1].fields.Title}{" "}
               </strong>
             </p>
-          ) : null}
-          <TodoList todoList={todoList.data} onRemoveTodo={removeTodo} />
+          ) : null} */}
+          <TodoList 
+            todoList={todoList.data} 
+            onRemoveTodo={removeTodo} 
+            changeTodoStatus={changeTodoStatus}
+          />
         </>
       )}
     </div>
