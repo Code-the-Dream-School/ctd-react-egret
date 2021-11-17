@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import styles from "./AddTodosAndForm.module.css";
+import {ReactComponent as Lock} from "./img/lock.svg";
 
 const AddTodosAndForm = ({
   onAddTodo,
@@ -12,7 +13,9 @@ const AddTodosAndForm = ({
 }) => (
   <div className={styles.listWrapper}>
     <div className={styles.homeButton}>
-      <Link to='/'>&#127968;</Link>
+      <Link to='/'>
+        <Lock />
+      </Link>
     </div>
     <h2>{children}</h2>
     {fetchStatus.isError && (

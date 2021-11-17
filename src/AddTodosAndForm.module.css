@@ -33,9 +33,13 @@
 }
 
 .homeButton {
-  font-size: 3rem;
   float: right;
-  margin-top: 5rem;
+  margin-top: 6rem;
+}
+
+.homeButton svg {
+  height: 3rem;
+  width: 3rem;
 }
 
 .homeButton,
