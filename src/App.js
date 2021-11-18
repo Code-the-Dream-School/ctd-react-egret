@@ -5,7 +5,6 @@ import SideBar from "./SideBar";
 import RotatingRing from "./RotatingRing";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
-require("dotenv").config();
 
 // const base = new Airtable({
 //   apiKey: process.env.REACT_APP_AIRTABLE_API_KEY,
