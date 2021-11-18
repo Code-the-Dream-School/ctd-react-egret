@@ -1,0 +1,27 @@
+.ListItem {
+  color: white;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.Space {
+  margin-left: 6px;
+}
+
+.Button {
+  background: none;
+  border-width: 5px;
+  border-color: red;
+  border-radius: 2.5px;
+
+  padding-inline: 0.5ch;
+  padding-block: 0.25ch;
+  font-size: 1vmin;
+  font-weight: bold;
+  color: red;
+}
+@media screen and (min-width: 800px) {
+  .ListItem {
+    color: purple;
+  }
+}

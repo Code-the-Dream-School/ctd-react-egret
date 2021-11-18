@@ -29,7 +29,7 @@ function AddTodoForm(props) {
           todoTitle={todoTitle}
           handleTitleChange={handleTitleChange}
         >
-          Title:
+          Targets:
         </InputWithLabel>
 
         <button type="submit">Add</button>
