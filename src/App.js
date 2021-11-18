@@ -39,7 +39,7 @@ function fetchTodoTables() {
 
 function App() {
   const [todoCounts, setTodoCounts] = React.useState({});
- 
+
   React.useEffect(() => {
     Promise.all(fetchTodoTables()).then((todoResponses) => {
       const counts = {};
@@ -50,14 +50,11 @@ function App() {
     });
   }, []);
 
-  function updateCount(category, amount) {
+  function updateCount(category, delta) {
     setTodoCounts(() => {
-      return   {...todoCounts,
-                [category]: todoCounts[category] + amount}
-    })
+      return { ...todoCounts, [category]: todoCounts[category] + delta };
+    });
   }
-
-  console.log(todoCounts);
 
   return (
     <Router>

@@ -1,39 +1,44 @@
 import React from "react";
-import style from "./modules/TodoListItem.module.css"
+import style from "./modules/TodoListItem.module.css";
 
-//Function to get a current time
-function getTime(date) {
-  
-  const options = {
-    weekday: "short",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-   /*  hour: "2-digit",
-    minute: "2-digit", */
+
+const TodoListItem = ({ todo, onRemoveTodo, onEditTodo, changeTodoStatus }) => {
+  const handleClick = (e) => {
+    if (e.target.innerText === "Edit") {
+      e.target.parentNode.querySelector("p").contentEditable = true;
+      e.target.parentNode.querySelector("p").style.backgroundColor = "white";
+      e.target.innerText = "Save";
+      
+    } else {
+      e.target.parentNode.querySelector("p").contentEditable = false;
+      e.target.parentNode.querySelector("p").style.backgroundColor = "initial";
+      e.target.innerText = "Edit";
+      const editedValue = e.target.parentNode.querySelector("p").innerText;
+      onEditTodo(todo.id, editedValue);
+    }
   };
-  //to get rid of ',' use split and join methods
-  return date.toLocaleString(undefined, options).split(",").join(" ");
-}
-
-const TodoListItem = ({ todo, onRemoveTodo, changeTodoStatus }) => {
-    console.log(todo.fields.isCompleted)
-    console.log('item renders')
-    
+  const checked = todo.fields.isCompleted === "true";
 
   return (
     <>
       <li className={style.listItem}>
-        <input type="checkbox" onClick={(e) => changeTodoStatus(todo.id)}/>
-        <p style={{ textDecoration: todo.fields.isCompleted === 'true' ? "line-through" : "",
-                    color: todo.fields.isCompleted === 'true' ? "gray" : "initial" }}
+        <input
+          type="checkbox"
+          defaultChecked={checked}
+          onClick={(e) => changeTodoStatus(todo.id)}
+        />
+        <p
+          style={{
+            textDecoration:
+              todo.fields.isCompleted === "true" ? "line-through" : "",
+            color: todo.fields.isCompleted === "true" ? "gray" : "initial",
+          }}
         >
           {todo.fields.Title}
         </p>
-        {/* <p>{todo.fields.CreatedTime }</p> */}
-        <button onClick={() => onRemoveTodo(todo.id)}>
-          ✖
-        </button>
+        
+        <button onClick={() => onRemoveTodo(todo.id)}>✖</button>
+        <button onClick={handleClick}>Edit</button>
       </li>
     </>
   );

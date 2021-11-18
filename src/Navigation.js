@@ -3,8 +3,7 @@ import { NavLink } from "react-router-dom";
 import style from "./modules/Navigation.module.css";
 
 function Navigation({ categories, counts }) {
-  console.log(categories)
-  console.log(counts)
+  
   return (
     <nav className={style.navContainer}>
       <ul className={style.navListContainer}>

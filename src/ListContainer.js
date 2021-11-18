@@ -1,8 +1,46 @@
 import React, { useEffect, useReducer } from "react";
-import style from "./modules/ListContainer.module.css"
+import style from "./modules/ListContainer.module.css";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
+
+const bodyToEditTodoRecord = (id, value) =>
+  JSON.stringify({
+    records: [
+      {
+        id: id,
+        fields: {
+          Title: value,
+        },
+      },
+    ],
+  });
+const bodyToUpdateTodoStatus = (id, value) =>
+  JSON.stringify({
+    records: [
+      {
+        id: id,
+        fields: {
+          isCompleted: value,
+        },
+      },
+    ],
+  });
+function editTodoRecord(listName, id, value, body) {
+  fetch(
+    `https://api.airtable.com/v0/${
+      process.env.REACT_APP_AIRTABLE_BASE_ID
+    }/${encodeURIComponent(listName)}`,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: body(id, value),
+    }
+  );
+}
 
 //custom hook
 const useSemiPersistentState = (listName) => {
@@ -27,7 +65,6 @@ const useSemiPersistentState = (listName) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        
         result.records.sort((a, b) => {
           return a.createdTime > b.createdTime ? 1 : -1;
         });
@@ -61,7 +98,7 @@ function ListContainer({ listName, handleUpdate }) {
             {
               fields: {
                 Title: newTodo,
-                isCompleted: 'false',
+                isCompleted: "false",
               },
             },
           ],
@@ -74,7 +111,7 @@ function ListContainer({ listName, handleUpdate }) {
           type: actions.addTodo,
           payload: data.records[0],
         });
-        handleUpdate(listName, +1)
+        handleUpdate(listName, +1);
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
@@ -98,31 +135,35 @@ function ListContainer({ listName, handleUpdate }) {
           type: actions.removeTodo,
           payload: data.records[0].id,
         });
-        handleUpdate(listName, -1)
+        handleUpdate(listName, -1);
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
-  
+
+  const editTodo = (id, value) => {
+    editTodoRecord(listName, id, value, bodyToEditTodoRecord);
+  };
+
   const changeTodoStatus = (id) => {
-    const copyTodoList = todoList.data
-    console.log(copyTodoList)
+    const copyTodoList = todoList.data;
     copyTodoList.map((todo) => {
-      if(todo.id === id) {
-        if(todo.fields.isCompleted === 'false') {
-          todo.fields.isCompleted = 'true'
+      if (todo.id === id) {
+        if (todo.fields.isCompleted === "false") {
+          todo.fields.isCompleted = "true";
         } else {
-          todo.fields.isCompleted = 'false'
+          todo.fields.isCompleted = "false";
         }
+
+        const value = todo.fields.isCompleted;
+        editTodoRecord(listName, todo.id, value, bodyToUpdateTodoStatus);
       }
-    })
-    
+    });
     dispatchTodoList({
       type: actions.updateTodoStatus,
-      payload: copyTodoList
-    })
-  }
-  
-  console.log(todoList)
+      payload: copyTodoList,
+    });
+  };
+
   return (
     <div className={style.listContainer}>
       <h1 style={{ color: "darkred" }}>{listName}</h1>
@@ -134,18 +175,15 @@ function ListContainer({ listName, handleUpdate }) {
         <p>Loading...</p>
       ) : (
         <>
-          {todoList.data[0] ? (
+          {todoList.data[0] ? null : (
             <p>
-              Last item succcesfully added:{" "}
-              <strong>
-                {" "}
-                {todoList.data[todoList.data.length - 1].fields.Title}{" "}
-              </strong>
+              <strong>Lets add some items to do!</strong>
             </p>
-          ) : null}
-          <TodoList 
-            todoList={todoList.data} 
-            onRemoveTodo={removeTodo} 
+          )}
+          <TodoList
+            todoList={todoList.data}
+            onRemoveTodo={removeTodo}
+            onEditTodo={editTodo}
             changeTodoStatus={changeTodoStatus}
           />
         </>
