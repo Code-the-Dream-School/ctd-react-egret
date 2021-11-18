@@ -2,19 +2,16 @@ import React from 'react'
 
 import TodoListItem from './TodoListItem'
 
-
-
-     function TodoList({todoList}){
-      return (
-          <div>
-               <ul>
+  function TodoList({todoList}){
+    return (
+      <div>
+        <ul>
           {todoList.map((todo)=>{
             return <TodoListItem key={todo.id} todo={todo}/>
           })}
         </ul> 
-  
-          </div>
-      )
+      </div>
+    )
   }  
 
  export default TodoList;
