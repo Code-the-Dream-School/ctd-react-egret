@@ -26,7 +26,7 @@ const AddTodoForm = ({listName, onAddTodo}) => {
         Add Todo:
       </InputWithLabel>
       <button className={styles.addButton} type='submit' disabled={!todoTitle}>
-        &#128221;
+        &#128395;
       </button>
     </form>
   );
