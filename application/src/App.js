@@ -29,7 +29,6 @@ function App() {
   }, [todoList, isLoading]);
 
   const addTodo = (newTodo) => {
-    console.log(newTodo)
     setTodoList([...todoList, newTodo])
   }
 
@@ -39,16 +38,17 @@ function App() {
     )
     setTodoList(newList)
   }
-  console.log(todoList)
+
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" exact>
-            <header>
-              <h1>Todo List</h1>
-            </header>
-            <AddTodoForm onAddTodo={addTodo} />
-            {isLoading ? <span>Loading...</span> : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
+        <Route exact path="/">
+          <h1>Todo List</h1>
+          <AddTodoForm onAddTodo={addTodo} />
+          {isLoading ? <span>Loading...</span> : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
+        </Route>
+        <Route path="/new">
+          <h1>New Todo List</h1>
         </Route>
       </Switch>
     </BrowserRouter>

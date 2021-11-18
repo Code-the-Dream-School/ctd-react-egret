@@ -7,7 +7,7 @@ const AddTodoForm = (props) => {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    props.onAddTodo({id: Date.now().toString(), fields: {title: todoTitle}})
+    props.onAddTodo({id: Date.now().toString(), fields: {Title: todoTitle}})
     setTodoTitle('');
   }
 
