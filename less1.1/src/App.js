@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import TodoList from './TodoList.js';
 import AddTodoForm from './AddTodoForm.js';
+import Inspiration from './Inspiration';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import styles from './App.module.css';
 import logo from './IMG/202111-todo-item.jpg'
@@ -10,6 +11,7 @@ function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeButton, setButton] = useState('fun')
+
 
   console.log(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`);
 
@@ -93,6 +95,7 @@ function App() {
               <AddTodoForm onAddTodo={addTodo} />
               <p>{isLoading ?'Loading...' : null}</p>
               <TodoList  todoList={todoList} onRemoveTodo = {removeTodo}/>
+              <Inspiration />
             </>
           </Route>
           <Route path="/Work">
