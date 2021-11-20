@@ -11,8 +11,12 @@ function AddTodoForm({ onAddTodo }) {
 
     const handleAddTodo = (event) => {
         event.preventDefault();
-
-        onAddTodo({ fields: { Title: todoTitle }, id: Date.now() });
+        if (todoTitle === "") {
+            return false;
+        }
+console.log(todoTitle)
+        // onAddTodo({ fields: { Title: todoTitle }, id: Date.now() });
+        onAddTodo(todoTitle);
         setTodoTitle("");
     };
     return (
