@@ -8,6 +8,9 @@ function App() {
     <BrowserRouter>
      <nav>
         <ul>
+      <li>
+      Home
+      </li>
           <li>
             <Link to="/list-1">List 1</Link>
           </li>
