@@ -14,7 +14,7 @@ const baseUrl = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BA
 const view = "?view=Grid+view";
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
 
-const todoListReducer = (state, action) => {
+export const todoListReducer = (state, action) => {
   switch (action.type) {
     case "TODOLIST_FETCH_INIT":
       return {
@@ -28,7 +28,7 @@ const todoListReducer = (state, action) => {
         isLoading: false,
         isError: false,
       };
-    case "TODOLIST_REQUEST_FAILURE":
+    case "TODOLIST_FETCH_FAILURE":
       return {
         ...state,
         isLoading: false,

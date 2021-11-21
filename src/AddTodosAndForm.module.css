@@ -49,12 +49,16 @@
   transition: transform 0.2s ease-in;
 }
 
+.addButton {
+  border: 1px solid transparent;
+}
+
 .removeButton:hover {
   transform: translateY(-0.3rem);
 }
 
 .addButton:hover {
-  border: 1px solid rgb(149, 149, 149);
+  border-color: rgb(149, 149, 149);
   background: transparent;
   transform: translateY(-0.3rem);
 }
@@ -78,16 +82,23 @@
 
 .todoLabel,
 .todoInput {
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .todoInput {
-  line-height: rem;
   border: none;
   color: inherit;
-  font-size: 2rem;
+  font-size: inherit;
+  line-height: 2rem;
+  width: 25rem;
   background-color: transparent;
   border-bottom: 0.3px solid rgb(83, 83, 83);
+}
+
+@media only screen and (max-width: 25em) {
+  .todoInput {
+    width: inherit;
+  }
 }
 
 @media only screen and (min-width: 37.5rem) {
