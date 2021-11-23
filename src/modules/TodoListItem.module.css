@@ -1,0 +1,15 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+
+  max-width: 90%;
+  flex-wrap: wrap;
+}
+
+.listItem > p {
+  flex-grow: 1;
+}
+.listItem > button {
+  color: red;
+}

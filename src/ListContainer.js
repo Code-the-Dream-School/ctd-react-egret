@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from "react";
+import style from "./modules/ListContainer.module.css"
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
@@ -26,6 +27,7 @@ const useSemiPersistentState = (listName) => {
     )
       .then((response) => response.json())
       .then((result) => {
+        console.log(result.records.length)
         result.records.sort((a, b) => {
           return a.createdTime > b.createdTime ? 1 : -1;
         });
@@ -40,7 +42,7 @@ const useSemiPersistentState = (listName) => {
   return [todoList, dispatchTodoList];
 };
 
-function ListContainer({ listName }) {
+function ListContainer({ listName, tasksCalculator }) {
   const [todoList, dispatchTodoList] = useSemiPersistentState(listName);
 
   const addTodo = (newTodo) => {
@@ -97,16 +99,11 @@ function ListContainer({ listName }) {
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
-
-  //add styles to the div element through creating a style object
-  const divStyles = {
-    backgroundColor: "lightblue",
-    fontFamily: "Arial",
-    fontSize: 20,
-  };
-
+  
+  
+  console.log(todoList)
   return (
-    <div style={divStyles}>
+    <div className={style.listContainer}>
       <h1 style={{ color: "darkred" }}>{listName}</h1>
       <AddTodoForm onAddTodo={addTodo} />
 
