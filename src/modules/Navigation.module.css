@@ -22,10 +22,11 @@
 }
 .navListContainer > li > a {
   text-decoration: none;
-  color: rgb(238, 236, 236);
+  color: #8b0000;
 }
 
 .navListContainer > li > img {
   border: 0;
   border-radius: 50px;
+  opacity: 0.3;
 }

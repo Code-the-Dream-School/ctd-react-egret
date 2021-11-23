@@ -11,7 +11,9 @@ function Navigation({ categories, counts }) {
           <li key={index}>
             <img src={table.imgSrc} alt="logo" width="100" height="100" />
             <NavLink to={`/${table.category}`}>{table.category}</NavLink>
-            <p style={{ color: 'red' }}>{counts[table.category]} todos</p>
+            <p style={{ color: 'red', fontSize: 'small' }}>
+             {counts[table.category] > 1 ? `${counts[table.category]} active tasks` : `${counts[table.category]} active task`}
+            </p>
             
           </li>
         ))}

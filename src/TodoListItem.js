@@ -37,7 +37,7 @@ const TodoListItem = ({ todo, onRemoveTodo, onEditTodo, changeTodoStatus }) => {
           {todo.fields.Title}
         </p>
         
-        <button onClick={() => onRemoveTodo(todo.id)}>✖</button>
+        <button onClick={() => onRemoveTodo(todo.id, todo.fields.isCompleted)}>✖</button>
         <button onClick={handleClick}>Edit</button>
       </li>
     </>

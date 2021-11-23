@@ -28,7 +28,7 @@ function AddTodoForm({ onAddTodo }) {
         todoTitle={todoTitle}
         handleTitleChange={handleTitleChange}
       >
-        Title:
+        What needs to be done?:
       </InputWithLabel>
       <button type="submit" disabled={!todoTitle}>Add</button>
     </form>
