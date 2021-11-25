@@ -4,11 +4,13 @@
 .navListContainer {
   height: 80%;
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column;
   justify-content: space-around;
   align-items: stretch;
   align-content: center;
   padding: 0;
+  margin: auto;
+  width: 50%;
 }
 .navListContainer > li {
   display: flex;
@@ -21,12 +23,16 @@
   /* opacity: 0.8; */
 }
 .navListContainer > li > a {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: #8b0000;
 }
 
-.navListContainer > li > img {
+.navListContainer > li > a > img {
   border: 0;
   border-radius: 50px;
   opacity: 0.3;
 }
+
+

@@ -14,7 +14,7 @@
   box-shadow: inset 0 0 0 1.5px;
 }
 .formElement > label {
-  align-self: center;
+  align-self: center; 
 }
 .formElement > button {
   width: 40%;

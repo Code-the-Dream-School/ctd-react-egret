@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ListContainer from "./ListContainer";
 import Navigation from "./Navigation";
 
+
 const todoCategories = [
   {
     category: "Personal",
@@ -28,7 +29,8 @@ function fetchTodoItems(category) {
         Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
       },
     }
-  ).then((response) => response.json());
+  ).then((response) => response.json())
+  .catch(error => console.log(error))
 }
 
 function fetchTodoTables() {
@@ -68,6 +70,7 @@ function App() {
   return (
     <Router>
       <Navigation categories={todoCategories} counts={todoCounts} />
+     
       <Route exact path="/">
         <img
           src="./logo/guys.jpg"
