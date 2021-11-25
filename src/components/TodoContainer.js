@@ -1,9 +1,9 @@
 import {Link} from "react-router-dom";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
-import styles from "./AddTodosAndForm.module.css";
+import styles from "./TodoContainer.module.css";
 
-const AddTodosAndForm = ({
+const TodoContainer = ({
   onAddTodo,
   onRemoveTodo,
   todoList,
@@ -36,4 +36,4 @@ const AddTodosAndForm = ({
   </div>
 );
 
-export default AddTodosAndForm;
+export default TodoContainer;

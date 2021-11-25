@@ -1,8 +1,8 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import AddTodosAndForm from "./AddTodosAndForm";
-import SideBar from "./SideBar";
-import RotatingRing from "./RotatingRing";
+import TodoContainer from "./components/TodoContainer";
+import SideBar from "./components/SideBar";
+import FireRing from "./components/FireRing";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 
@@ -188,25 +188,25 @@ const App = () => {
       />
       <Switch>
         <Route path='/Reading'>
-          <AddTodosAndForm
+          <TodoContainer
             onAddTodo={addTodo}
             onRemoveTodo={removeTodo}
             todoList={readingTodos}
             fetchStatus={fetchStatus}>
             Reading
-          </AddTodosAndForm>
+          </TodoContainer>
         </Route>
         <Route path='/Homework'>
-          <AddTodosAndForm
+          <TodoContainer
             onAddTodo={addTodo}
             onRemoveTodo={removeTodo}
             todoList={homeworkTodos}
             fetchStatus={fetchStatus}>
             Homework
-          </AddTodosAndForm>
+          </TodoContainer>
         </Route>
         <Route path='/'>
-          <RotatingRing />
+          <FireRing />
         </Route>
       </Switch>
     </div>

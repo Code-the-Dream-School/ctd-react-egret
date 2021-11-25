@@ -1,5 +1,5 @@
-import styles from "./AddTodosAndForm.module.css";
-import {ReactComponent as Check} from "./img/check.svg";
+import styles from "./TodoContainer.module.css";
+import {ReactComponent as Check} from "../img/check.svg";
 
 const TodoListItem = ({item, listName, onRemoveTodo}) => (
   <li className={styles.todoItem}>

@@ -55,10 +55,6 @@ body {
   background-color: rgb(10, 10, 12);
 }
 
-ul {
-  list-style: none;
-}
-
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -71,89 +67,8 @@ ul {
   align-items: center;
 }
 
-.sideBar {
-  width: 100%;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-}
-
-.sideBar > * {
-  margin-bottom: 6rem;
-}
-
-.avatar {
-  width: 15rem;
-  border-radius: 50%;
-  transition: transform 0.2s ease-in;
-  animation: moveInTop 0.75s ease-out 0.75s backwards,
-    floating 7s ease-in-out 3.5s infinite;
-}
-
-h1 {
-  font-family: "Mochiy Pop One", sans-serif;
-  font-size: 4rem;
-  transition: transform 0.2s ease-in;
-  animation: moveInRight 1s ease-out;
-}
-
-h1:hover {
-  transform: skewX(-3deg) skewY(-3deg);
-}
-
-.todoNav {
-  width: 100%;
-}
-
-.todoNav ul {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.todos {
-  width: 17rem;
-  height: 17rem;
-  border-radius: 3px;
-  text-align: center;
-  background-color: rgb(39, 39, 39);
-  transition: transform 0.2s ease-in;
-}
-
-.todos > a > * {
-  margin-bottom: 1rem;
-}
-
-.todos > a > *:last-child {
-  color: rgb(149, 149, 149);
-}
-
-.readingCard {
-  transform: rotate(3deg);
-}
-
-.readingCard:hover {
-  transform: translateY(-0.7rem);
-}
-
-.readingCard:active {
-  transform: translate(-0.2rem, 0.3rem);
-}
-
-.homeworkCard {
-  transform: rotate(-2deg);
-}
-
-.homeworkCard:hover {
-  transform: translateY(-0.7rem);
-}
-
-.homeworkCard:active {
-  transform: translate(-0.2rem, 0.3rem);
-}
-
-.icon {
-  font-size: 5rem;
+ul {
+  list-style: none;
 }
 
 a {
@@ -163,82 +78,10 @@ a {
 
 /* Media Query */
 
-@media only screen and (min-width: 37.5rem) {
-  .todos {
-    width: 25rem;
-  }
-}
-
 @media only screen and (min-width: 56.25em) {
   .container {
     flex-flow: row;
     align-items: flex-start;
     justify-content: space-between;
-  }
-  .sideBar {
-    width: 30%;
-  }
-  .todoNav ul {
-    flex-flow: column;
-  }
-  .todos {
-    height: 15rem;
-    width: 15rem;
-  }
-  .todos:first-child {
-    margin-bottom: 6rem;
-  }
-  h1 {
-    font-size: 3rem;
-  }
-  .icon {
-    font-size: 4rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-  }
-}
-
-/* Animation */
-
-@keyframes moveInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(12rem);
-  }
-
-  80% {
-    transform: translateX(-1rem);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes moveInTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-8rem);
-  }
-  80% {
-    opacity: 1;
-    transform: translateY(1rem);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes floating {
-  0% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(0, 2rem);
-  }
-  100% {
-    transform: translate(0, -0rem);
   }
 }

@@ -1,9 +1,9 @@
-import styles from "./RotatingRing.module.css";
+import styles from "./FireRing.module.css";
 
-const RotatingRing = () => (
+const FireRing = () => (
   <div className={styles.ringWrapper}>
     <img src='https://i.imgur.com/3FEaiiS.png' alt='' className={styles.ring} />
   </div>
 );
 
-export default RotatingRing;
+export default FireRing;
