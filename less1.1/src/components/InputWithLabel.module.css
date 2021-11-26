@@ -1,0 +1,37 @@
+.inputField {
+    border: none;
+    border-bottom: 2px solid rgb(75, 59, 59);
+    width: 60vw;
+    max-width: 390px;
+    background: rgb(75, 59, 59);
+    border-radius: 2%;
+    font-size: inherit;
+    padding-left: 5px;
+    color: white;
+  
+  }
+
+  .inputField:focus {
+    border: none;
+    outline: none;
+    border-bottom: 2px solid rgb(75, 59, 59);
+  }
+
+  label {
+    display: none;
+  }
+
+  ::placeholder {
+    color: white;
+    font-size: inherit;
+    /* font-style: italic; */
+    font-style: oblique;
+  }
+
+  @media (max-width: 769px) {
+    .inputField {
+      padding-left: 2px;
+      max-width: 320px;
+    }
+
+  }

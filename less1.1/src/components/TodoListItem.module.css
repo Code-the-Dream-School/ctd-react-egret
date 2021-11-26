@@ -1,11 +1,17 @@
 .listItem {
+    display: flex;
+    justify-content: space-between;
     color: white;
     list-style: none;
     margin: 0;
     padding: 0;
-    width: 100%;
-    display: block;
+    width: 80vw;
+    max-width: 960px;
+    align-items: center;
+    margin-top: 0px;   
 }
+
+
 
 .listBtn {
     /* float: right;
@@ -23,11 +29,16 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: inherit;
     transition-duration: 0.4s;    
 }
   
 .listBtn:hover {
     background-color: rgb(75, 59, 59);
     color: white;
+}
+
+@media (max-width: 769px) {
+
+
 }

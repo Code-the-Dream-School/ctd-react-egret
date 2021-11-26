@@ -1,13 +1,20 @@
+.form {
+    font-size: 1.25rem;
+    color: white;
+    margin-top: 50px;
+}
+
 .inputBtn {
     border-radius: 50%;
     width: 30px;
     height: 30px;
     background-color: rgb(188, 128, 80); 
     border: 2px solid rgb(75, 59, 59);
-    font-size: 20px;
     font-weight:bold;
     color:white;
-    transition-duration: 0.4s;  
+    margin-left: 10px;
+    transition-duration: 0.4s;
+    font-size: inherit;  
 }
   
 .inputBtn:hover {
@@ -15,7 +22,10 @@
     color: white;
 }
 
-.inputField {
-    border: none;
-    border-bottom: 2px solid red;
-  }
+
+@media (max-width: 769px) {
+    .inputBtn {
+         margin-left: 6px;
+    }
+    
+}

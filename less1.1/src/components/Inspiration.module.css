@@ -1,0 +1,25 @@
+.text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.75rem;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    padding: 0;
+    margin-left: auto;
+    margin-top:50px;
+}
+
+.author {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    margin-top:0px;
+    padding: 0;
+    margin-left: auto;
+    margin-right:auto;
+}

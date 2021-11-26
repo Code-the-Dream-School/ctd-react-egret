@@ -1,0 +1,20 @@
+ul {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    padding: 0;
+    margin-left: auto;
+    font-size: 1.25rem;
+}
+
+ul.stripedList > li:nth-of-type(odd) {
+    /* background-color: rgb(172, 117, 63); */
+    background-color: rgb(52, 41, 39);
+    padding: 3px;
+}
+ul.stripedList > li:nth-of-type(even) {
+    /* background-color: rgb(187, 132, 76); */
+    background-color: rgb(75, 59, 59);
+    padding: 3px;
+}
+
