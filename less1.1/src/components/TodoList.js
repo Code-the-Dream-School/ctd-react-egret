@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoListItem from './TodoListItem.js';
 import styles from './TodoList.module.css';
+import PropTypes from 'prop-types';
 
 //arrow function declaration
 //{todoList} - deconstruction of props object
@@ -13,5 +14,10 @@ const TodoList = ({todoList, onRemoveTodo}) => (
         })}
     </ul>
 );
+
+TodoList.propTypes = {
+    todoList: PropTypes.func,
+    onRemoveTodo: PropTypes.func
+};
 
 export default TodoList;

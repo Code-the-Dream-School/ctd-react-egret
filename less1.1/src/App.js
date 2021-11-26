@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import TodoList from './TodoList.js';
-import AddTodoForm from './AddTodoForm.js';
-import Inspiration from './Inspiration';
+import TodoList from './components/TodoList.js';
+import AddTodoForm from './components/AddTodoForm.js';
+import Inspiration from './components/Inspiration';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import styles from './App.module.css';
-import logo from './IMG/202111-todo-item.jpg'
+import logo from './components/IMG/202111-todo-item.jpg'
 
 
 function App() {
