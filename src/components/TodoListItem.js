@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styles from "./TodoContainer.module.css";
 import {ReactComponent as Check} from "../img/check.svg";
 
@@ -12,5 +13,14 @@ const TodoListItem = ({item, listName, onRemoveTodo}) => (
     <span>{item.fields.Task}</span>
   </li>
 );
+
+TodoListItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    fields: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+  listName: PropTypes.string.isRequired,
+  onRemoveTodo: PropTypes.func.isRequired,
+};
 
 export default TodoListItem;

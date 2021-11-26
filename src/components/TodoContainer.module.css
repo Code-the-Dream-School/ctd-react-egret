@@ -79,7 +79,7 @@ CSS for TodoContainer.js
 }
 
 .todoForm {
-  border-top: 0.3px solid rgb(83, 83, 83);
+  border-top: 1px solid rgb(83, 83, 83);
 }
 
 .todoLabel,
@@ -94,7 +94,7 @@ CSS for TodoContainer.js
   line-height: 2rem;
   width: 25rem;
   background-color: transparent;
-  border-bottom: 0.3px solid rgb(83, 83, 83);
+  border-bottom: 1px solid rgb(83, 83, 83);
 }
 
 @media only screen and (max-width: 25em) {

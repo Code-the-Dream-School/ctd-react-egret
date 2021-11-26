@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import PropTypes from "prop-types";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import styles from "./TodoContainer.module.css";
@@ -18,7 +19,7 @@ const TodoContainer = ({
     {fetchStatus.isError && (
       <p>
         <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-        {fetchStatus.errMsg}
+        {fetchStatus.errMsg.toString()}
         {/* <strong>SOMETHING WENT WRONG:</strong>&nbsp;
           {fetchStatus.errMsg.error}--{fetchStatus.errMsg.message} */}
       </p>
@@ -35,5 +36,22 @@ const TodoContainer = ({
     <AddTodoForm listName={children} onAddTodo={onAddTodo} />
   </div>
 );
+
+TodoContainer.propTypes = {
+  onAddTodo: PropTypes.func.isRequired,
+  onRemoveTodo: PropTypes.func.isRequired,
+  todoList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      fields: PropTypes.objectOf(PropTypes.string),
+    })
+  ).isRequired,
+  fetchStatus: PropTypes.exact({
+    isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    errMsg: PropTypes.object,
+  }).isRequired,
+  children: PropTypes.string.isRequired,
+};
 
 export default TodoContainer;

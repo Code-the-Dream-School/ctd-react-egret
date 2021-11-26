@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./TodoContainer.module.css";
 
 const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
@@ -26,6 +27,13 @@ const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
       />
     </>
   );
+};
+
+InputWithLabel.propTypes = {
+  title: PropTypes.string.isRequired,
+  isFocused: PropTypes.bool.isRequired,
+  onTitleChange: PropTypes.func.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 export default InputWithLabel;
