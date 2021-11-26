@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import InputWithLabel from "./InputWithLabel";
-import "./index.css";
-import styles from "./AddTodosAndForm.module.css";
+import "../index.css";
+import styles from "./TodoContainer.module.css";
 
 const AddTodoForm = ({listName, onAddTodo}) => {
   const [todoTitle, setTodoTitle] = React.useState("");
@@ -30,6 +31,11 @@ const AddTodoForm = ({listName, onAddTodo}) => {
       </button>
     </form>
   );
+};
+
+AddTodoForm.propTypes = {
+  listName: PropTypes.string.isRequired,
+  onAddTodo: PropTypes.func.isRequired,
 };
 
 export default AddTodoForm;
