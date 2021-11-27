@@ -1,57 +1,94 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ListContainer from "./ListContainer";
-import Navigation from "./Navigation";
+import ListContainer from "./components/ListContainer";
+import Navigation from "./components/Navigation";
 
-function App() {
-  /* const [listLength, setListLength] = React.useState([]) */
+const todoCategories = [
+  {
+    category: "Personal",
+    imgSrc: "./logo/guy1.png",
+  },
+  {
+    category: "Business",
+    imgSrc: "./logo/business.jpg",
+  },
+  {
+    category: "FurryFriend",
+    imgSrc: "./logo/furry.jpg",
+  },
+];
 
-  const listOfTables = [
-    {
-      type: "Personal",
-      id: 0,
-      imgSrc: "./logo/human.png",
-      
-    },
-    {
-      type: "Business",
-      id: 1,
-      imgSrc: "./logo/business.jpg",
-      
-    },
-    {
-      type: "FurryFriend",
-      id: 2,
-      imgSrc: "./logo/furry.jpg",
-      
-    },
-  ];
-  /* const arrayoflength = []
-  listOfTables.map((table) => {
-    fetch(
+async function fetchTodoItems(category) {
+  try {
+    const response = await fetch(
       `https://api.airtable.com/v0/${
         process.env.REACT_APP_AIRTABLE_BASE_ID
-      }/${encodeURIComponent(table.type)}`,
+      }/${encodeURIComponent(category)}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
         },
       }
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result.records.length)
-        arrayoflength.push(result.records.length)
-        });
-  }) */
+    );
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+function fetchTodoTables() {
+  return todoCategories.map((todoCategory) => {
+    return fetchTodoItems(todoCategory.category);
+  });
+}
+
+function App() {
+  const [todoCounts, setTodoCounts] = React.useState({});
+
+  React.useEffect(() => {
+    Promise.all(fetchTodoTables()).then((todoResponses) => {
+      const counts = {};
+
+      todoCategories.forEach((todoCategory, index) => {
+        let count = 0;
+        for (let i = 0; i < todoResponses[index].records.length; i++) {
+          if (
+            todoResponses[index].records[i].fields.isCompleted === "to be done"
+          ) {
+            count += 1;
+          }
+        }
+        counts[todoCategory.category] = count;
+      });
+
+      setTodoCounts(counts);
+    });
+  }, []);
+
+  function updateCount(category, delta) {
+    setTodoCounts(() => {
+      return { ...todoCounts, [category]: todoCounts[category] + delta };
+    });
+  }
 
   return (
     <Router>
-      <Navigation listOfTables={listOfTables} />
+      <Navigation categories={todoCategories} counts={todoCounts} />
+
+      <Route exact path="/">
+        <img
+          src="./logo/guys.jpg"
+          alt="`Lets do it!`"
+          style={{ width: "100%", margin: "0 auto", opacity: "0.1" }}
+        ></img>
+      </Route>
       <Switch>
-        {listOfTables.map((table) => (
-          <Route path={`/${table.type}`} key={table.id}>
-            <ListContainer listName={table.type}  />
+        {todoCategories.map((table, index) => (
+          <Route path={`/${table.category}`} key={index}>
+            <ListContainer
+              listName={table.category}
+              handleUpdate={updateCount}
+            />
           </Route>
         ))}
       </Switch>

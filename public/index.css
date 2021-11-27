@@ -18,3 +18,10 @@ body {
   background-image: radial-gradient(#c2bfbd, #aaa0a4);
   height: 100vh;
 }
+.react-toggle--checked .react-toggle-track {
+  background-color: #ab1919;
+}
+
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #8d1212;
+}

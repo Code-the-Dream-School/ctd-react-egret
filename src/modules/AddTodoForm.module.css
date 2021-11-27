@@ -1,7 +1,0 @@
-.formElement {
-   display: flex; 
-   max-width: 90%;
-}
-.formElement > input {
-    flex-grow: 1;
-}

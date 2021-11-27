@@ -1,0 +1,28 @@
+.formElement {
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+}
+.formElement > input {
+  flex-grow: 1;
+  height: 2rem;
+  font-size: large;
+  background-color: #ccc9c9;
+}
+.formElement > input:focus {
+  border-color: #4d4d4d;
+  box-shadow: inset 0 0 0 1.5px;
+}
+.formElement > label {
+  align-self: center; 
+}
+.formElement > button {
+  width: 40%;
+  align-self: center;
+  height: 2rem;
+}
+.formElement > button:hover {
+  color: black;
+  background-color: lightgray;
+  border: black solid 2px;
+}
