@@ -4,10 +4,14 @@ import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import todoListReducer, { actions } from "./todoListReducer";
 import FilterButton from "./FilterButton";
+import PropTypes from "prop-types"
 
 const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}`;
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
+const todoStatusDone = 'done'
+const todoStatusNotDone = 'to be done'
 
+//body to pass to fetch request when edit a title value
 const bodyToEditTodoRecord = (id, value) =>
   JSON.stringify({
     records: [
@@ -19,7 +23,7 @@ const bodyToEditTodoRecord = (id, value) =>
       },
     ],
   });
-
+//body to pass to fetch request when update a isCompleted todo status (done or not)
 const bodyToUpdateTodoStatus = (id, value) =>
   JSON.stringify({
     records: [
@@ -31,7 +35,7 @@ const bodyToUpdateTodoStatus = (id, value) =>
       },
     ],
   });
-  
+//func to edit todo title value 
 function editTodoRecord(listName, id, value, body) {
   fetch(`${url}/${encodeURIComponent(listName)}`, {
     method: "PATCH",
@@ -42,11 +46,13 @@ function editTodoRecord(listName, id, value, body) {
     body: body(id, value),
   });
 }
+//object where the keys are filter values and values are functions to be passed to filter method
 const FILTER_MAP = {
   All: () => true,
-  Active: (todo) => todo.fields.isCompleted === "false",
-  Completed: (todo) => todo.fields.isCompleted === "true",
+  Active: (todo) => todo.fields.isCompleted === todoStatusNotDone,
+  Completed: (todo) => todo.fields.isCompleted === todoStatusDone,
 };
+//object that consist of only filter names
 const FILTER_NAMES = Object.keys(FILTER_MAP);
 
 //custom hook
@@ -56,7 +62,7 @@ const useSemiPersistentState = (listName) => {
     isLoading: true,
     isError: false,
   });
-  const [filter, setFilter] = React.useState("All");
+  const [filter, setFilter] = React.useState("All");//init filter with 'All' to see all tasks
 
   useEffect(() => {
     /* dispatchTodoList({ type: actions.init }); */
@@ -66,8 +72,11 @@ const useSemiPersistentState = (listName) => {
         Authorization: authorization,
       },
     })
-      .then((response) => response.json())
+      .then((response) =>{
+        /* console.log(response) */ 
+        return response.json()})
       .then((result) => {
+        /* console.log(result) */
         result.records.sort((a, b) => {
           return a.createdTime > b.createdTime ? 1 : -1;
         });
@@ -87,7 +96,7 @@ const useSemiPersistentState = (listName) => {
 function ListContainer({ listName, handleUpdate }) {
   const [todoList, dispatchTodoList, filter, setFilter] =
     useSemiPersistentState(listName);
-
+  //add new todo to the list at Airtable
   const addTodo = (newTodo) => {
     fetch(`${url}/${encodeURIComponent(listName)}`, {
       method: "POST",
@@ -100,7 +109,7 @@ function ListContainer({ listName, handleUpdate }) {
           {
             fields: {
               Title: newTodo,
-              isCompleted: "false",
+              isCompleted: todoStatusNotDone,
             },
           },
         ],
@@ -118,7 +127,7 @@ function ListContainer({ listName, handleUpdate }) {
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
-
+//remove todo from Airtable
   const removeTodo = (id, isCompleted) => {
     fetch(`${url}/${encodeURIComponent(listName)}?records[]=${id}`, {
       method: "DELETE",
@@ -133,26 +142,26 @@ function ListContainer({ listName, handleUpdate }) {
           type: actions.removeTodo,
           payload: data.records[0].id,
         });
-        if (isCompleted === "false") {
+        if (isCompleted === todoStatusNotDone) {
           handleUpdate(listName, -1);
         }
       })
       .catch(() => dispatchTodoList({ type: actions.fetchFail }));
   };
-
+//edit todo at Airtable
   const editTodo = (id, value) => {
     editTodoRecord(listName, id, value, bodyToEditTodoRecord);
   };
-
+//change todo status at Airtable
   const changeTodoStatus = (id) => {
     const copyTodoList = todoList.data;
     copyTodoList.map((todo) => {
       if (todo.id === id) {
-        if (todo.fields.isCompleted === "false") {
-          todo.fields.isCompleted = "true";
+        if (todo.fields.isCompleted === todoStatusNotDone) {
+          todo.fields.isCompleted = todoStatusDone;
           handleUpdate(listName, -1);
         } else {
-          todo.fields.isCompleted = "false";
+          todo.fields.isCompleted = todoStatusNotDone;
           handleUpdate(listName, 1);
         }
 
@@ -186,6 +195,8 @@ function ListContainer({ listName, handleUpdate }) {
             onRemoveTodo={removeTodo}
             onEditTodo={editTodo}
             changeTodoStatus={changeTodoStatus}
+            todoStatusDone={todoStatusDone}
+            todoStatusNotDone={todoStatusNotDone}
           />
           <AddTodoForm onAddTodo={addTodo} />
           {FILTER_NAMES.map((name) => (
@@ -200,6 +211,11 @@ function ListContainer({ listName, handleUpdate }) {
       )}
     </div>
   );
+}
+
+ListContainer.propTypes = {
+  listName: PropTypes.string.isRequired,
+  handleUpdate: PropTypes.func.isRequired,
 }
 
 export default ListContainer;

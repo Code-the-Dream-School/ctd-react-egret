@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ListContainer from "./ListContainer";
-import Navigation from "./Navigation";
-
+import ListContainer from "./components/ListContainer";
+import Navigation from "./components/Navigation";
 
 const todoCategories = [
   {
@@ -19,18 +18,22 @@ const todoCategories = [
   },
 ];
 
-function fetchTodoItems(category) {
-  return fetch(
-    `https://api.airtable.com/v0/${
-      process.env.REACT_APP_AIRTABLE_BASE_ID
-    }/${encodeURIComponent(category)}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-      },
-    }
-  ).then((response) => response.json())
-  .catch(error => console.log(error))
+async function fetchTodoItems(category) {
+  try {
+    const response = await fetch(
+      `https://api.airtable.com/v0/${
+        process.env.REACT_APP_AIRTABLE_BASE_ID
+      }/${encodeURIComponent(category)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    return console.log(error);
+  }
 }
 
 function fetchTodoTables() {
@@ -47,10 +50,11 @@ function App() {
       const counts = {};
 
       todoCategories.forEach((todoCategory, index) => {
-       /*  counts[todoCategory.category] = todoResponses[index].records.length; */
         let count = 0;
         for (let i = 0; i < todoResponses[index].records.length; i++) {
-          if (todoResponses[index].records[i].fields.isCompleted === "false") {
+          if (
+            todoResponses[index].records[i].fields.isCompleted === "to be done"
+          ) {
             count += 1;
           }
         }
@@ -70,7 +74,7 @@ function App() {
   return (
     <Router>
       <Navigation categories={todoCategories} counts={todoCounts} />
-     
+
       <Route exact path="/">
         <img
           src="./logo/guys.jpg"

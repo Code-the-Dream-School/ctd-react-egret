@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import PropTypes from "prop-types"
 
-const InputWithLabel = ({ todoTitle, handleTitleChange, children }) => {
+const InputWithLabel = React.memo(({ todoTitle, handleTitleChange, children }) => {
   const inputRef = useRef();
   
   useEffect(() => {
@@ -20,6 +21,15 @@ const InputWithLabel = ({ todoTitle, handleTitleChange, children }) => {
       />
     </>
   );
-};
+});
 
+InputWithLabel.propTypes = {
+  todoTitle: PropTypes.string.isRequired,
+  handleTitleChange: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
+InputWithLabel.defaultProps = {
+  children: 'What needs to be done?:'
+}
 export default InputWithLabel;

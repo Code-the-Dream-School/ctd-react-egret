@@ -1,10 +1,10 @@
 import React from "react";
 import style from './modules/AddTodoForm.module.css'
-
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
+import PropTypes from "prop-types"
 
-function AddTodoForm({ onAddTodo }) {
+const AddTodoForm = React.memo(({ onAddTodo }) => {
   const [todoTitle, setTodoTitle] = useState("");
 
   //update the todoTitle state with input value
@@ -28,11 +28,15 @@ function AddTodoForm({ onAddTodo }) {
         todoTitle={todoTitle}
         handleTitleChange={handleTitleChange}
       >
-        What needs to be done?:
+       
       </InputWithLabel>
       <button type="submit" disabled={!todoTitle}>Add</button>
     </form>
   );
-}
+})
+
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func,
+};
 
 export default AddTodoForm;
