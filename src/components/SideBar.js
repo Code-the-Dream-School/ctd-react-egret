@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
-import styles from "./Sidebar.module.css";
+import styles from "./SideBar.module.css";
 import avatar from "../img/avatar.jpg";
 
 const SideBar = ({readingLength, homeworkLength}) => (
@@ -29,7 +29,7 @@ const SideBar = ({readingLength, homeworkLength}) => (
   </div>
 );
 
-const TodoCard = ({route, length, children}) => (
+export const TodoCard = ({route, length, children}) => (
   <Link to={route}>
     <p className={styles.icon}>{children}</p>
     <h3>{route.slice(1)} Todo</h3>

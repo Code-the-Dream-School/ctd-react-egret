@@ -13,7 +13,10 @@ const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
 
   return (
     <>
-      <label className={styles.todoLabel} htmlFor='todoTitle'>
+      <label
+        data-testid='todo-label'
+        className={styles.todoLabel}
+        htmlFor='todoTitle'>
         {children}
       </label>
       <input

@@ -49,7 +49,7 @@ TodoContainer.propTypes = {
   fetchStatus: PropTypes.exact({
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,
-    errMsg: PropTypes.object,
+    errMsg: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   }).isRequired,
   children: PropTypes.string.isRequired,
 };
