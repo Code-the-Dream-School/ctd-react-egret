@@ -19,7 +19,10 @@ const AddTodoForm = ({listName, onAddTodo}) => {
   };
 
   return (
-    <form className={styles.todoForm} onSubmit={handleAddTodo}>
+    <form
+      data-testid='add-todo-form'
+      className={styles.todoForm}
+      onSubmit={handleAddTodo}>
       <InputWithLabel
         title={todoTitle}
         isFocused
