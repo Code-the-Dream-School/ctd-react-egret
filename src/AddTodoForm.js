@@ -1,5 +1,6 @@
 import React from 'react'
 import InputWithLabel from './InputWithLabel';
+import { RiAddCircleLine } from 'react-icons/ri';
 
 const AddTodoForm = ({ onAddTodo }) => {
     const [todoTitle, setTodoTitle] = React.useState('')
@@ -20,10 +21,10 @@ const AddTodoForm = ({ onAddTodo }) => {
             <InputWithLabel
                 todoTitle={todoTitle}
                 handleTitleChange={handleTitleChange}
-                isFocused>
-                <strong>Title : </strong>
-            </InputWithLabel>
-            <button type="submit">Add</button>
+                hasFocus
+            >
+            </InputWithLabel>&nbsp;
+            <button type="submit" id='addBtn'><RiAddCircleLine /></button>
         </form>
     )
 }

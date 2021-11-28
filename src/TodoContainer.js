@@ -22,9 +22,8 @@ const TodoContainer = ({ tableName }) => {
             .then((resp) => resp.json())
             .then((data) => {
                 const formattedList = data.records.map(record => {
-                    return { id: record.id, title: record.fields.Title }
+                    return { id: record.id, title: record.fields.Title, done: record.fields.Done }
                 })
-                console.log(data)
                 setTodoList(formattedList)
                 setIsLoading(false)
             })
@@ -54,7 +53,6 @@ const TodoContainer = ({ tableName }) => {
         )
             .then((resp) => resp.json())
             .then((data) => {
-                console.log(data)
                 setTodoList([...todoList, { id: data.id, title: data.fields.Title }])
             })
     }
@@ -75,13 +73,54 @@ const TodoContainer = ({ tableName }) => {
             })
     }
 
+    function removeTodoAll(id) {
+        fetch(
+            `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?${todoList.map((item) => `records[]=${item.id}`).join('&')}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                },
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setTodoList(todoList.filter((item) => item.id !== data.records[0].id))
+            })
+    }
+
+
+
+    function checkTodoDone(id) {
+        fetch(
+            `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}`,
+            {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fields: { Done: true } }),
+            }
+        )
+            .then((resp) => resp.json())
+            .then((data) => {
+                console.log(data)
+                setTodoList([{ id: data.id, title: data.fields.Title, Done: true }])
+            })
+    }
+
     return (
         <main>
-            <h1>{tableName}</h1>
             <AddTodoForm onAddTodo={addTodo} />
-            {isLoading ? (<span>Loading...</span>) : (<TodoList todoList={todoList} onRemoveTodo={removeTodo} />)}
-            {error && <h2>Server Error</h2>}
+            <div className='container'>
+                <span>Total tasks for {tableName}</span> <strong>{todoList.length}</strong>
+                {isLoading ? (<span>Loading...</span>) : (<TodoList className='todoList' todoList={todoList} onRemoveTodo={removeTodo} onDoneTask={checkTodoDone} onRemoveAll={removeTodoAll} />)}
+                {error && <h2>Server Error</h2>}
+            </div>
         </main>
+
     );
 }
 
