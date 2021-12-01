@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 body {
     background: lightgrey;
@@ -29,4 +30,8 @@ ul {
 
 .listbutton:hover {
   opacity: 1;
+}
+
+.material-icons {
+    vertical-align: middle;
 }

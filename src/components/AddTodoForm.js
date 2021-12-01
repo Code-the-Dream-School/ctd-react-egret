@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import InputWithLabel from './InputWithLabel.js';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import InputWithLabel from './InputWithLabel.js'
 
-function AddTodoForm({ onAddTodo }) {
+function AddTodoForm({ onAddTodo, title }) {
     const [todoTitle, setTodoTitle] = useState("");
 
     const handleTitleChange = (event) => {
@@ -27,9 +28,18 @@ function AddTodoForm({ onAddTodo }) {
                 handleTitleChange={handleTitleChange}
             >
             </InputWithLabel>
-            <button type='submit'>+</button>
+            <button type='submit' className='addbutton'><span className="material-icons">add</span></button>
         </form>
     );
+}
+
+AddTodoForm.propTypes = {
+    onAddTodo: PropTypes.func.isRequired,
+    title: PropTypes.string,
+}
+
+AddTodoForm.defaultProps = {
+    title: 'Default Title',
 }
 
 export default AddTodoForm;

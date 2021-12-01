@@ -1,12 +1,11 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom"
-import TodoContainer from './TodoContainer'
+import TodoContainer from './components/TodoContainer'
 import './index.css'
 
 function App() {
   return (
     <BrowserRouter>
-
       <nav>
         <ul>
           <li>

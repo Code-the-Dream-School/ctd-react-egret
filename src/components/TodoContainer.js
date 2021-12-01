@@ -1,6 +1,7 @@
-import React from 'react';
-import AddTodoForm from './AddTodoForm';
-import TodoList from './TodoList';
+import React from 'react'
+import AddTodoForm from './AddTodoForm'
+import TodoList from './TodoList'
+import PropTypes from 'prop-types'
 
 function TodoContainer({ tableName }) {
   const [todoList, setTodoList] = React.useState([]);
@@ -44,7 +45,7 @@ function TodoContainer({ tableName }) {
       .then((resp) => resp.json())
       .then((data) => {
         console.log(data.records[0].id)
-        setTodoList([...todoList, data.records[0]])
+        setTodoList([...todoList, ...data.records])
       })
   }
 
@@ -60,7 +61,8 @@ function TodoContainer({ tableName }) {
     )
       .then((resp) => resp.json())
       .then((data) => {
-        setTodoList(todoList.filter((item) => item.id !== data.records[0].id))
+        const filteredTodoList = todoList.filter((item) => item.id !== data.records[0].id)
+        setTodoList(filteredTodoList)
       })
   }
 
@@ -71,6 +73,10 @@ function TodoContainer({ tableName }) {
       {(isLoading) ? (<p>Loading...</p>) : (<TodoList todoList={todoList} onRemoveTodo={removeTodo} />)}
     </>
   );
+}
+
+TodoContainer.propTypes = {
+  tableName: PropTypes.string,
 }
 
 export default TodoContainer;
