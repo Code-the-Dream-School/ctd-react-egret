@@ -1,4 +1,5 @@
-import style from './TodoListItem.module.css';
+import style from '../TodoListItem.module.css';
+import PropTypes from "prop-types";
 
 const TodoListItem = ({ todo, onRemoveTodo, onDoneTask }) => {
     return (
@@ -9,6 +10,12 @@ const TodoListItem = ({ todo, onRemoveTodo, onDoneTask }) => {
             <input className='radioInput' checked={todo.done} type='radio' onChange={() => onDoneTask(todo.id)} />
         </li>
     )
+}
+
+TodoListItem.propTypes = {
+    todo: PropTypes.string,
+    onRemoveTodo: PropTypes.func.isRequired,
+    onDoneTask: PropTypes.func.isRequired
 }
 
 export default TodoListItem

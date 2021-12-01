@@ -1,6 +1,7 @@
 import React from 'react'
 import InputWithLabel from './InputWithLabel';
 import { RiAddCircleLine } from 'react-icons/ri';
+import PropTypes from "prop-types";
 
 const AddTodoForm = ({ onAddTodo }) => {
     const [todoTitle, setTodoTitle] = React.useState('')
@@ -28,5 +29,10 @@ const AddTodoForm = ({ onAddTodo }) => {
         </form>
     )
 }
+
+AddTodoForm.propTypes = {
+    onAddTodo: PropTypes.func
+}
+
 
 export default AddTodoForm

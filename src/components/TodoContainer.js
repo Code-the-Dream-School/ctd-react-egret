@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from './TodoList';
-import './style.css';
-
 
 const TodoContainer = ({ tableName }) => {
 

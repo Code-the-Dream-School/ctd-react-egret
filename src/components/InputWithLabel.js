@@ -1,6 +1,7 @@
 import React from 'react'
+import PropTypes from "prop-types";
 
-const InputWithLabel = ({ todoTitle, type = "text", handleTitleChange, children, hasFocus}) => {
+const InputWithLabel = ({ todoTitle, type = "text", handleTitleChange, children, hasFocus }) => {
 
 
     const inputRef = React.useRef();
@@ -22,6 +23,14 @@ const InputWithLabel = ({ todoTitle, type = "text", handleTitleChange, children,
             />
         </>
     )
+}
+
+InputWithLabel.propTypes = {
+    todoTitle: PropTypes.string,
+    type: PropTypes.string,
+    handleTitleChange: PropTypes.func.isRequired,
+    children: PropTypes.object,
+    hasFocus: PropTypes.bool
 }
 
 export default InputWithLabel
