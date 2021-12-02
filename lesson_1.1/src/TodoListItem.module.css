@@ -1,0 +1,35 @@
+
+ .unorderedTodoList {
+  display: flex;
+  flex-direction: column; 
+  width: 200px;
+  justify-content: center; 
+  margin-left: auto;
+  margin-right: auto;
+  list-style: none;
+  align-items: center;
+  text-align: center;
+}
+
+.ListItem { 
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  color:white; 
+  list-style: none; 
+  align-items: center; 
+  text-align: center; 
+  font-size: 20px;
+} 
+
+.CompletedListItem {
+  text-decoration: line-through;
+}
+
+.CheckBox {
+ color:white;
+ size: medium;
+ height: 20px;
+ width: 20px;
+}
+
