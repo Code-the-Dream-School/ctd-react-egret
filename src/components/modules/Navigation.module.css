@@ -1,5 +1,8 @@
 .navContainer {
   width: 100%;
+  grid-column-start: 1;
+    grid-column-end: 3;
+ 
 }
 .navListContainer {
   height: 80%;
@@ -19,7 +22,8 @@
   list-style-type: none;
   margin: 0;
   padding: 10px;
-  border: solid black;
+  border: solid black 1px;
+  background-image: linear-gradient(#edf1bb, #84611f);
   /* opacity: 0.8; */
 }
 .navListContainer > li > a {
@@ -35,4 +39,7 @@
   opacity: 0.3;
 }
 
+.navListContainerDark {
+  background-color: black;
+}
 

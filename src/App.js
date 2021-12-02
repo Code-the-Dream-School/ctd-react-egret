@@ -1,12 +1,19 @@
-import React from "react";
+import React, { createContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ListContainer from "./components/ListContainer";
 import Navigation from "./components/Navigation";
+import Toggle from "react-toggle";
+import "react-toggle/style.css";
+
+
+const ThemeContext = createContext()
+console.log(ThemeContext)
+
 
 const todoCategories = [
   {
     category: "Personal",
-    imgSrc: "./logo/guy1.png",
+    imgSrc: "./logo/human.png",
   },
   {
     category: "Business",
@@ -30,8 +37,30 @@ async function fetchTodoItems(category) {
         },
       }
     );
+
     return await response.json();
   } catch (error) {
+    return console.log(error);
+  }
+}
+
+async function allData() {
+  try {
+    const response = await fetch("/.netlify/functions/fetchBaseSchema", {
+      headers: {
+        "X-Airtable-Client-Secret": "foo-123123",
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await response.json();
+
+    console.log("response?", response);
+    console.log("response data?", JSON.parse(data));
+
+    return data;
+  } catch (error) {
+    console.log("Error happened here!");
     return console.log(error);
   }
 }
@@ -44,7 +73,8 @@ function fetchTodoTables() {
 
 function App() {
   const [todoCounts, setTodoCounts] = React.useState({});
-
+  const [isDark, setIsDark] = React.useState(true);
+console.log(isDark)
   React.useEffect(() => {
     Promise.all(fetchTodoTables()).then((todoResponses) => {
       const counts = {};
@@ -53,7 +83,7 @@ function App() {
         let count = 0;
         for (let i = 0; i < todoResponses[index].records.length; i++) {
           if (
-            todoResponses[index].records[i].fields.isCompleted === "to be done"
+            !todoResponses[index].records[i].fields.isCompleted
           ) {
             count += 1;
           }
@@ -71,14 +101,26 @@ function App() {
     });
   }
 
+  console.log(allData());
   return (
     <Router>
+      <Toggle
+        className="dark-mode-toggle"
+        checked={isDark}
+        className="custom-classname"
+        icons={{
+          checked: "🌙",
+          unchecked: null,
+        }}
+        onChange={({ target }) => setIsDark(target.checked)}
+        
+      />
       <Navigation categories={todoCategories} counts={todoCounts} />
 
       <Route exact path="/">
         <img
           src="./logo/guys.jpg"
-          alt="`Lets do it!`"
+          alt="Lets do it!"
           style={{ width: "100%", margin: "0 auto", opacity: "0.1" }}
         ></img>
       </Route>

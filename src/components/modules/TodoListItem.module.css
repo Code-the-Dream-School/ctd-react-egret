@@ -11,5 +11,6 @@
   flex-grow: 1;
 }
 .listItem > button {
-  color: red;
+  color: rgb(199, 24, 24);
+  background-color: #727050;
 }

@@ -57,14 +57,14 @@ TodoListItem.propTypes = {
   todo: PropTypes.shape({
     id: PropTypes.string,
     fields: PropTypes.shape({
-      isCompleted: PropTypes.string,
+      isCompleted: PropTypes.bool,
       Title: PropTypes.string,
     }),
   }),
   onRemoveTodo: PropTypes.func,
   onEditTodo: PropTypes.func,
   changeTodoStatus: PropTypes.func,
-  todoStatusDone: PropTypes.string,
+  todoStatusDone: PropTypes.bool,
 };
 
 export default TodoListItem;
