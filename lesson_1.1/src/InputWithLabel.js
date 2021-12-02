@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import './index.css'
+import style from './AddTodoForm.module.css'
+
 
 function InputWithLabel({ children, handleTitleChange, todoTitle }) {
   const inputRef = useRef();
@@ -9,8 +12,8 @@ function InputWithLabel({ children, handleTitleChange, todoTitle }) {
   });
   return (
     <>
-      <label htmlFor="todoTitle">{children} </label>
-      <input
+      <label className={style.formLabel} htmlFor="todoTitle">{children} </label>
+      <input className={style.inputfield}
         ref={inputRef}
         onChange={handleTitleChange}
         value={todoTitle}

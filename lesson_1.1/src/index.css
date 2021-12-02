@@ -1,0 +1,12 @@
+body {
+     background-color:#000;  
+     /* background-color: rgb(114, 176, 197);   */
+    margin: auto;
+    /* background-color: hsl(0, 0%, 90%); */
+    /* transition: background-color 300ms; */
+    font-family: 'Open Sans', sans-serif;
+}
+h1 {
+    color: white;
+    text-align: center;
+} 

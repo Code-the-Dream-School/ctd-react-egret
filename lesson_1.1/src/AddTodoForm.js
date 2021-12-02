@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
+import Button from '@mui/material/Button'
+import AddBoxIcon from '@mui/icons-material/AddBox';
+// import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+// import { style } from "@mui/system";
+import style from './AddTodoForm.module.css'
+
+
 function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
 
   const handleTitleChange = (event) => {
-    const newTodoTitle = event.target.value;
+    const newTodoTitle = event.target.value
     setTodoTitle(newTodoTitle);
   };
 
@@ -15,15 +22,18 @@ function AddTodoForm({ onAddTodo }) {
     setTodoTitle("");
   }
   return (
-    <div>
+    <div className={style.inputLabel} >
       <form onSubmit={handleAddTodo}>
-        <InputWithLabel
+        <InputWithLabel 
           todoTitle={todoTitle}
           handleTitleChange={handleTitleChange}
         >
           Title:
         </InputWithLabel>
-        <button type="submit">Add</button>
+        &nbsp;
+        <Button className={style.addBtn} onClick={() => console.log('you clicked me')} type="submit">
+        <AddBoxIcon  fontSize='medium'/>
+        </Button>
       </form>
     </div>
   );
