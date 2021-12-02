@@ -19,12 +19,13 @@ const AddTodoForm = (props) => {
   return (
     <div>
       <form onSubmit={handleAddTodo}>
+        <div className="input-group">
         <InputWithLabel 
           todoTitle={todoTitle} 
           handleTitleChange={handleTitleChange}
-        >
-        </InputWithLabel>
-        <button type="submit">Add</button>
+        />
+        <button type="submit" className="add-button">Add Todo</button>
+        </div>
       </form>
     </div>
   )

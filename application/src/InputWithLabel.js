@@ -9,7 +9,7 @@ const InputWithLabel = (props) => {
   });
 
   return (
-    <>
+    <div className="input-field">
       <label htmlFor="todoTitle" >{props.children} </label>
       <input 
         onChange={props.handleTitleChange} 
@@ -19,7 +19,7 @@ const InputWithLabel = (props) => {
         name="title"
         ref={inputRef}
       />
-    </>
+    </div>
   )
 }
 
