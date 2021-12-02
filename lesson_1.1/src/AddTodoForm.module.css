@@ -1,0 +1,34 @@
+.inputLabel {
+    text-align: center;
+    align-items: center;
+    color:white;
+
+}
+.item {
+    display: flex;
+    width: fit-content;
+    height: 1.2rem;
+    color: white;
+
+}
+ .addBtn{
+     transform: scale(1.4);
+    
+    
+} 
+ .inputfield {
+    border:1px solid #171212; 
+    background-color:rgb(209, 195,195);
+    border-radius:500px;
+    font-size: 15px;
+    width:18%
+   
+} 
+@media screen and (max-width: 400px) {
+    .inputfield {
+        width: 68%;
+    }
+    .inputLabel{
+        font-size: 30px;
+    }
+}
