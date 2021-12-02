@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import AddTodoForm from './AddTodoForm';
 import TodoList from'./TodoList'
+import CategoryList from './CategoryList'
+import './App.css'
 import {
   BrowserRouter,
   Switch,
@@ -10,6 +12,7 @@ import {
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const categories= ['grossery', 'work', 'health', 'home', 'lifestyle'];
 
   useEffect(()=>{
     const headers = { 'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}` }
@@ -43,9 +46,16 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <h1>Todo List</h1>
-          <AddTodoForm onAddTodo={addTodo} />
-          {isLoading ? <span>Loading...</span> : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
+          <div className="">
+            <div className="header">
+              <h1>Todo List</h1>
+            </div>
+            <CategoryList categories={categories}/>
+            <div className="todo">
+              <AddTodoForm onAddTodo={addTodo} />
+              {isLoading ? <span>Loading...</span> : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
+            </div>
+          </div>
         </Route>
         <Route path="/new">
           <h1>New Todo List</h1>

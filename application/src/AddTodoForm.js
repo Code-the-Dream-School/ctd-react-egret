@@ -23,7 +23,6 @@ const AddTodoForm = (props) => {
           todoTitle={todoTitle} 
           handleTitleChange={handleTitleChange}
         >
-          <strong>Title : </strong>
         </InputWithLabel>
         <button type="submit">Add</button>
       </form>
