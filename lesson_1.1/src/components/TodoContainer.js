@@ -1,9 +1,7 @@
 import React, { useState, useEffect }from 'react';
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
-// import { style } from '@mui/system';
-// import  {Typography} from '@material-ui/core';
-import style from './App.module.css'
+import PropTypes from 'prop-types'
 
 
 function TodoContainer(props) {
@@ -61,7 +59,7 @@ function TodoContainer(props) {
   }
 
   return (
-          <div className={style.displayItem}>
+          <div>
             <h1>{props.tableName}</h1>
             <AddTodoForm onAddTodo={addTodo} />
             {isLoading ? (
@@ -71,5 +69,8 @@ function TodoContainer(props) {
             )}
           </div>
   );
+}
+TodoContainer.prototype = {
+tableName:PropTypes.string
 }
 export default TodoContainer;
