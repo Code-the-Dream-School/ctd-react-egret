@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import InputWithLabel from "./InputWithLabel";
 import Button from '@mui/material/Button'
 import AddBoxIcon from '@mui/icons-material/AddBox';
-// import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-// import { style } from "@mui/system";
 import style from './AddTodoForm.module.css'
-
+import PropTypes from 'prop-types'
 
 function AddTodoForm({ onAddTodo }) {
   const [todoTitle, setTodoTitle] = useState("");
@@ -39,4 +37,7 @@ function AddTodoForm({ onAddTodo }) {
   );
 }
 
+AddTodoForm.propTypes = {
+  onAddTodo: PropTypes.func
+}
 export default AddTodoForm;
