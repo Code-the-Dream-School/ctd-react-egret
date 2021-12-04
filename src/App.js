@@ -105,7 +105,7 @@ console.log(isDark)
   return (
     <Router>
       <Toggle
-        className="dark-mode-toggle"
+        //className="dark-mode-toggle"//
         checked={isDark}
         className="custom-classname"
         icons={{

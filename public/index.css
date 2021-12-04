@@ -1,12 +1,10 @@
-
-
 body {
   margin: 10%;
   height: 100vh;
   border: solid black 2px;
-  background-image: linear-gradient(#68635d, #847445, #5c351c);
+  background-image: linear-gradient(#808080, #a9a9a9, #444337);
   font-family: "Bebas Neue", cursive;
-    font-size: 1.3rem;
+  font-size: 1.3rem;
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,8 +15,10 @@ body {
   grid-template-columns: 0.1fr 2fr 5fr;
   grid-template-rows: 25px auto;
   justify-items: left;
-  background-image: radial-gradient(ellipse at top, #edc3a7, #5a5323);
+  background-image: radial-gradient(ellipse at top, #d3d3d3, #808080);
   height: 100vh;
+  overflow: scroll;
+  padding-bottom: 30px;
 }
 :root {
   color-scheme: light dark; /* both supported */
@@ -32,10 +32,25 @@ body {
 .custom-classname.react-toggle--checked .react-toggle-track {
   background-color: #4e414d;
 }
-.custom-classname.react-toggle--checked .react-toggle-track .react-toggle-track-check {
+.custom-classname.react-toggle--checked
+  .react-toggle-track
+  .react-toggle-track-check {
   top: 8px;
   left: 5px;
   color: #f1f141;
-    transform: rotate(355deg);
+  transform: rotate(355deg);
 }
-
+@media screen and (max-width: 800px) {
+  body {
+    margin: 0;
+  }
+  #root {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 450px) {
+  body {
+    font-size: 0.8rem;
+  }
+}

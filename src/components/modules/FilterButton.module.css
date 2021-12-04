@@ -1,9 +1,14 @@
 .btn {
   width: 30%;
-  height: 2rem;
+  height: 3rem;
+  background-color: #979292;
+  padding: 0px;
+  display: inline-block;
+  cursor: pointer;
+  
 }
+
 .btn[aria-pressed="true"] {
   text-decoration: underline;
-  border-color: #4d4d4d;
- 
+  border: 2px solid;
 }

@@ -197,6 +197,7 @@ function ListContainer({ listName, handleUpdate }) {
       "?records[]=" + idsTobeRemoved.toString().replace(/,/gi, "&records[]=");
 
     removeTodo(deleteRecordList);
+
     dispatchTodoList({
       type: actions.clearCompletedTodos,
       payload: todoList.data.filter((todo) => !todo.fields.isCompleted),
@@ -227,14 +228,16 @@ function ListContainer({ listName, handleUpdate }) {
             todoStatusNotDone={todoStatusNotDone}
           />
           <AddTodoForm onAddTodo={addTodo} />
-          {FILTER_NAMES.map((name) => (
-            <FilterButton
-              key={name}
-              name={name}
-              isPressed={name === filter}
-              setFilter={setFilter}
-            />
-          ))}
+          <div style={{ display: "flex" }}>
+            {FILTER_NAMES.map((name) => (
+              <FilterButton
+                key={name}
+                name={name}
+                isPressed={name === filter}
+                setFilter={setFilter}
+              />
+            ))}
+          </div>
           <ClearCompletedButton clearCompleted={clearCompleted} />
         </>
       )}

@@ -16,7 +16,7 @@ const Navigation = React.memo(({ categories, counts }) => {
               <NavLink to={`/${table.category}`}>
                 <img src={table.imgSrc} alt="logo" width="50" height="50" />
                 {table.category}
-                <p style={{ color: "#cd3b3b", fontSize: "small" }}>
+                <p style={{ color: "#d1cece", fontSize: "small" }}>
                   {counts[table.category] > 1
                     ? `${counts[table.category]} active tasks`
                     : `${counts[table.category]} active task`}

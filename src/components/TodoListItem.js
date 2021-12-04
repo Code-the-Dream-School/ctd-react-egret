@@ -42,11 +42,14 @@ const TodoListItem = React.memo(
           </p>
 
           <button
+            className={`${style.removeBtn} ${style.btn}`}
             onClick={() => onRemoveTodo(todo.id, todo.fields.isCompleted)}
           >
             ✖
           </button>
-          <button onClick={handleClick}>Edit</button>
+          <button className={`${style.editBtn} ${style.btn}`} onClick={handleClick}>
+            Edit
+          </button>
         </li>
       </>
     );

@@ -10,7 +10,30 @@
 .listItem > p {
   flex-grow: 1;
 }
-.listItem > button {
-  color: rgb(199, 24, 24);
-  background-color: #727050;
+.btn {
+  width: 35px;
+  height: 30px;
+  padding: 0px;
+  border: solid 1.5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.removeBtn {
+  margin-right: 5px;
+  color: #cd3b3b;
+  background-color: #a0a0a0;
+  border-color: #000;
+}
+.editBtn {
+  background-color: #a0a0a0;
+}
+
+@media screen and (max-width: 500px) {
+ .btn {
+   width: 26px;
+   height: 25px;
+ }
+ .editBtn {
+   font-size: 0.6rem;
+ }
 }
