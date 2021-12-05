@@ -9,7 +9,7 @@ import CategoryListItem from './CategoryListItem';
 function CategoryList({categories}){
 
   return (
-    <div class="categories">
+    <div className="categories">
       <CategoryListItem category='Health' Icon={Health}/>
       <CategoryListItem category='Work' Icon={Work}/>
       <CategoryListItem category='Grocery' Icon={Grocery}/>

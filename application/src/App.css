@@ -100,7 +100,7 @@ ul li{
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   padding: 15px;
-  background-color: rgb(83, 125, 138);
+  background: rgb(83, 125, 138);
   display: flex;
   justify-content: space-between;
 }
@@ -114,4 +114,13 @@ ul li button {
 
 input {
   accent-color: rgb(44, 84, 90);
+}
+
+.regular {
+  color:rgb(215, 222, 224);
+
+}
+
+.crossed-out {
+  text-decoration: line-through;
 }
