@@ -12,7 +12,6 @@ import {
 function App() {
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const categories= ['grossery', 'work', 'health', 'home', 'lifestyle'];
 
   useEffect(()=>{
     const headers = { 'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}` }
@@ -50,7 +49,7 @@ function App() {
             <div className="header">
               <h1>Todo List</h1>
             </div>
-            <CategoryList categories={categories}/>
+            <CategoryList />
             <div className="todo">
               <AddTodoForm onAddTodo={addTodo} />
               {isLoading ? <span>Loading...</span> : <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>}
