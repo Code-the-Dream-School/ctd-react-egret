@@ -15,11 +15,13 @@ const AddTodoForm = ({onAddTodo}) => {
 
     const handleAddTodo = (event) => {
         event.preventDefault();
-        console.log(todoTitle);
+        // console.log(todoTitle);
+        
         onAddTodo(
-            {
-                id: Date.now(),
-                title:todoTitle,               
+            {fields:{
+                    id: Date.now(),
+                    Title:todoTitle,               
+                }
             }
         );
         setTodoTitle('');  

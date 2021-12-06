@@ -10,8 +10,6 @@ const Inspiration = () => {
       const randomNum = Math.floor(Math.random() * (quote.length-1));
       quoteDisplay = quote[randomNum].fields.QuoteText;
       authorDisplay = quote[randomNum].fields.QuoteAuthor;
-      console.log(`randomeNum ${randomNum}`);
-      console.log(`quoteDisplay есть массив ${quoteDisplay}`);
     } 
    
     React.useEffect(() => {
@@ -27,7 +25,6 @@ const Inspiration = () => {
           setQuote(data.records);
         })
       }, []);
-      console.log(quote);
 
    return (
     <>

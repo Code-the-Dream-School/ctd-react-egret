@@ -14,7 +14,7 @@ const TodoListItem = ({onRemoveTodo, todo}) => (
 
 TodoListItem.propTypes = {
     onRemoveTodo: PropTypes.func,
-    todo: PropTypes.func
+    todo: PropTypes.object
 };
 
 export default TodoListItem;
