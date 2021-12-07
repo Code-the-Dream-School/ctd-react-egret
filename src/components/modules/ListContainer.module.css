@@ -8,9 +8,7 @@
 .listContainer > h1 {
   color: darkred;
 }
-.sortingCheckBox {
 
-}
 @media screen and (min-width: 600px) {
   .listContainer {
     margin: 0px;
@@ -20,7 +18,7 @@
   }
 }
 .listContainerDark {
-  background-color: black;
+  background-color: rgb(36, 33, 33);
   width: 100%;
   margin-left: 10px;
   grid-column-start: 3;

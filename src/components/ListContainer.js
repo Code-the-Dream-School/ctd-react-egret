@@ -46,7 +46,9 @@ function editTodoRecord(listName, id, value, body) {
       "Content-Type": "application/json",
     },
     body: body(id, value),
-  });
+  })
+  .then(response => response.json())
+  .then(data => console.log(data));
 }
 
 //object where the keys are filter values and values are functions to be passed to filter method
@@ -57,7 +59,6 @@ const FILTER_MAP = {
 };
 //object that consist of only filter names
 const FILTER_NAMES = Object.keys(FILTER_MAP);
-
 
 
 //custom hook
