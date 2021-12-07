@@ -1,14 +1,11 @@
-import React, { createContext } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ListContainer from "./components/ListContainer";
 import Navigation from "./components/Navigation";
+import style from './components/modules/App.module.css'
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
-
-
-const ThemeContext = createContext()
-console.log(ThemeContext)
-
+import { Context } from "./components/context";
 
 const todoCategories = [
   {
@@ -73,8 +70,9 @@ function fetchTodoTables() {
 
 function App() {
   const [todoCounts, setTodoCounts] = React.useState({});
-  const [isDark, setIsDark] = React.useState(true);
-console.log(isDark)
+  const [isDark, setIsDark] = React.useState(false);
+  /* console.log(isDark); */
+
   React.useEffect(() => {
     Promise.all(fetchTodoTables()).then((todoResponses) => {
       const counts = {};
@@ -82,9 +80,7 @@ console.log(isDark)
       todoCategories.forEach((todoCategory, index) => {
         let count = 0;
         for (let i = 0; i < todoResponses[index].records.length; i++) {
-          if (
-            !todoResponses[index].records[i].fields.isCompleted
-          ) {
+          if (!todoResponses[index].records[i].fields.isCompleted) {
             count += 1;
           }
         }
@@ -96,44 +92,40 @@ console.log(isDark)
   }, []);
 
   function updateCount(category, delta) {
-    setTodoCounts(() => {
+      setTodoCounts(() => {
       return { ...todoCounts, [category]: todoCounts[category] + delta };
     });
   }
 
-  console.log(allData());
   return (
     <Router>
-      <Toggle
-        //className="dark-mode-toggle"//
-        checked={isDark}
-        className="custom-classname"
-        icons={{
-          checked: "🌙",
-          unchecked: null,
-        }}
-        onChange={({ target }) => setIsDark(target.checked)}
-        
-      />
-      <Navigation categories={todoCategories} counts={todoCounts} />
+      <Context.Provider value={isDark}>
+        <Toggle
+          //className="dark-mode-toggle"//
+          checked={isDark}
+          className="custom-classname"
+          icons={{
+            checked: "🌙",
+            unchecked: null,
+          }}
+          onChange={({ target }) => setIsDark(target.checked)}
+        />
+        <Navigation categories={todoCategories} counts={todoCounts} />
 
-      <Route exact path="/">
-        <img
-          src="./logo/guys.jpg"
-          alt="Lets do it!"
-          style={{ width: "100%", margin: "0 auto", opacity: "0.1" }}
-        ></img>
-      </Route>
-      <Switch>
-        {todoCategories.map((table, index) => (
-          <Route path={`/${table.category}`} key={index}>
-            <ListContainer
-              listName={table.category}
-              handleUpdate={updateCount}
-            />
-          </Route>
-        ))}
-      </Switch>
+        <Route exact path="/">
+          <img src="./logo/guys.jpg" alt="Lets do it!" className={style.homeImg}></img>
+        </Route>
+        <Switch>
+          {todoCategories.map((table, index) => (
+            <Route path={`/${table.category}`} key={index}>
+              <ListContainer
+                listName={table.category}
+                handleUpdate={updateCount}
+              />
+            </Route>
+          ))}
+        </Switch>
+      </Context.Provider>
     </Router>
   );
 }

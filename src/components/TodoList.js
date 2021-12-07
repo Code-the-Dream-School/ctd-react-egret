@@ -10,7 +10,6 @@ const TodoList = React.memo(
     onEditTodo,
     changeTodoStatus,
     todoStatusDone,
-    
   }) => {
     return (
       <ul className={style.ulContainer}>

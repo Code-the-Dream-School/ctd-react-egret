@@ -2,8 +2,24 @@ import React from "react";
 import style from "./modules/TodoListItem.module.css";
 import PropTypes from "prop-types";
 
+//Function to get a current time
+function getTime(date) {
+  const dateCreated = new Date(date);
+  const options = {
+    weekday: "short",
+    /* year: "numeric", */
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+  //to get rid of ',' use split and join methods
+  return dateCreated.toLocaleString(undefined, options).split(",").join(" ");
+}
+
 const TodoListItem = React.memo(
   ({ todo, onRemoveTodo, onEditTodo, changeTodoStatus, todoStatusDone }) => {
+    
     const handleClick = (e) => {
       if (e.target.innerText === "Edit") {
         e.target.parentNode.querySelector("p").contentEditable = true;
@@ -19,6 +35,10 @@ const TodoListItem = React.memo(
       }
     };
     const checked = todo.fields.isCompleted === todoStatusDone;
+    /* console.log(context) */
+    const date = todo.createdTime;
+    
+    getTime(date);
     
     return (
       <>
@@ -28,6 +48,7 @@ const TodoListItem = React.memo(
             defaultChecked={checked}
             onClick={() => changeTodoStatus(todo.id)}
           />
+          <span className={style.container}>
           <p
             style={{
               textDecoration:
@@ -40,14 +61,20 @@ const TodoListItem = React.memo(
           >
             {todo.fields.Title}
           </p>
-
+          <p className={style.createdTimeP}>
+            Added on:{getTime(todo.createdTime)}
+          </p>
+          </span>
           <button
             className={`${style.removeBtn} ${style.btn}`}
-            onClick={() => onRemoveTodo(todo.id, todo.fields.isCompleted)}
+            onClick={() => onRemoveTodo(todo.id, !!todo.fields.isCompleted)}
           >
             ✖
           </button>
-          <button className={`${style.editBtn} ${style.btn}`} onClick={handleClick}>
+          <button
+            className={`${style.editBtn} ${style.btn}`}
+            onClick={handleClick}
+          >
             Edit
           </button>
         </li>

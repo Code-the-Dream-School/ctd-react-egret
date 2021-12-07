@@ -1,7 +1,7 @@
 body {
   margin: 10%;
   height: 100vh;
-  border: solid black 2px;
+  
   background-image: linear-gradient(#808080, #a9a9a9, #444337);
   font-family: "Bebas Neue", cursive;
   font-size: 1.3rem;
@@ -16,12 +16,16 @@ body {
   grid-template-rows: 25px auto;
   justify-items: left;
   background-image: radial-gradient(ellipse at top, #d3d3d3, #808080);
+  border: solid black 2px;
   height: 100vh;
-  overflow: scroll;
+  overflow: auto;
   padding-bottom: 30px;
 }
 :root {
   color-scheme: light dark; /* both supported */
+}
+h1 {
+  color: "darkred";
 }
 .custom-classname.react-toggle {
   align-self: flex-start;
@@ -31,6 +35,7 @@ body {
 
 .custom-classname.react-toggle--checked .react-toggle-track {
   background-color: #4e414d;
+  transition: all 1s ease;
 }
 .custom-classname.react-toggle--checked
   .react-toggle-track
@@ -39,6 +44,7 @@ body {
   left: 5px;
   color: #f1f141;
   transform: rotate(355deg);
+  transition: all 1s ease;
 }
 @media screen and (max-width: 800px) {
   body {

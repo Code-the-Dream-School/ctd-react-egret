@@ -4,6 +4,7 @@
     grid-column-end: 3;
  
 }
+
 .navListContainer {
   height: 80%;
   display: flex;
@@ -44,6 +45,13 @@
 
 .navListContainerDark {
   background-color: black;
+  transition: all 0.5s ease;
+}
+.navContainerDark {
+  background-color: rgb(39, 37, 37);
+  width: 100%;
+  grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 @media screen and (max-width: 800px) {

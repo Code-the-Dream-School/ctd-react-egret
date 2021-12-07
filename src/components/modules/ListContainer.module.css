@@ -1,12 +1,30 @@
 .listContainer {
-    width: 100%;
-    margin-left: 10px;
-    grid-column-start: 3;
-    grid-row-start: 1;
-    grid-row-end: 3;
+  width: 100%;
+  margin-left: 10px;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
-@media screen and (min-width: 600px) { 
-    .listContainer {
-        margin: 0px;
-    }
+.listContainer > h1 {
+  color: darkred;
+}
+.sortingCheckBox {
+
+}
+@media screen and (min-width: 600px) {
+  .listContainer {
+    margin: 0px;
+  }
+  .listContainer > h1 {
+    color: "darkred";
+  }
+}
+.listContainerDark {
+  background-color: black;
+  width: 100%;
+  margin-left: 10px;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  color: white;
 }
