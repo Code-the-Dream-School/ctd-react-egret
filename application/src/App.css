@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+
 body {
   background: rgb(127, 165, 177);
+  color: rgb(11, 78, 90);
+  font-family: 'Josefin Sans', cursive;
 }
 
 .container {
@@ -16,7 +20,6 @@ body {
 }
 
 .header h1 {
-  color: rgb(11, 78, 90);
   text-transform: uppercase;
 }
 .todo {
@@ -26,7 +29,7 @@ body {
 
 .todo div {
   padding: 15px 15px 5px;
-  margin: 5px auto;
+  margin: 5px;
   text-align: center;
 }
 
@@ -49,15 +52,8 @@ body {
 .category div {
   text-align: center;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 22px;
   padding-top: 5px;
-  color: rgb(8, 86, 102);
-}
-
-.input-field input {
-  padding: 16px 16px 8px 16px;
-  border-radius: 5px;
-  border-color: cornflowerblue;
 }
 
 .input-field input {
@@ -79,11 +75,9 @@ body {
   border: 0px;
   border-radius: 5px;
   background:  rgb(189, 223, 221);
-  color: rgb(15, 89, 102);
-  padding: 5px;
+  padding: 14px 16px 10px 16px;
   font-size: 16px;
   font-weight: 600;
-  padding: 0 15px;
   margin: 18px 0;
 }
 
@@ -115,11 +109,6 @@ ul li button {
 
 input {
   accent-color: rgb(44, 84, 90);
-}
-
-.regular {
-  color:rgb(215, 222, 224);
-
 }
 
 .crossed-out {
