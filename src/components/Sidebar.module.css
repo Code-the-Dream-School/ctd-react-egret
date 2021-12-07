@@ -65,22 +65,16 @@ h1:hover {
   transform: rotate(3deg);
 }
 
-.readingCard:hover {
-  transform: translateY(-0.7rem);
-}
-
-.readingCard:active {
-  transform: translate(-0.2rem, 0.3rem);
-}
-
 .homeworkCard {
   transform: rotate(-2deg);
 }
 
+.readingCard:hover,
 .homeworkCard:hover {
-  transform: translateY(-0.7rem);
+  transform: scale(1.05) translateY(-0.5rem);
 }
 
+.readingCard:active,
 .homeworkCard:active {
   transform: translate(-0.2rem, 0.3rem);
 }

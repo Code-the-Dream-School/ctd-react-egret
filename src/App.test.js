@@ -1,7 +1,7 @@
 import * as React from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 import {render, screen, fireEvent, act} from "@testing-library/react";
-import App, {todoListReducer} from "./App";
+import App, {todoListReducer, fetchTodoList, addTodo, removeTodo} from "./App";
 import TodoContainer from "./components/TodoContainer";
 import AddTodoForm from "./components/AddTodoForm";
 import InputWithLabel from "./components/InputWithLabel";
@@ -14,7 +14,7 @@ import TodoListItem from "./components/TodoListItem";
 Declare Mock Test Data
 */
 
-const readingTodos = [
+const homeworkTodos = [
   {
     id: "1",
     fields: {
@@ -29,7 +29,7 @@ const readingTodos = [
   },
 ];
 
-const homeworkTodos = [
+const readingTodos = [
   {
     id: "3",
     fields: {
@@ -127,8 +127,8 @@ describe("FireRing", () => {
 // For TodoListItem
 describe("TodoListItem", () => {
   const todoListItemProps = {
-    item: readingTodos[0],
-    listName: "Reading",
+    item: homeworkTodos[0],
+    listName: "Homework",
     onRemoveTodo: jest.fn(),
   };
   test("renders a list item with .todoItem class and correct text content", () => {
@@ -164,8 +164,8 @@ describe("TodoListItem", () => {
 // For TodoList
 describe("TodoList", () => {
   const todoListProps = {
-    todoList: homeworkTodos,
-    listName: "Homework",
+    todoList: readingTodos,
+    listName: "Reading",
     onRemoveTodo: jest.fn(),
   };
 
@@ -402,13 +402,13 @@ describe("TodoContainer", () => {
   const todoContainerProps = {
     onAddTodo: jest.fn(),
     onRemoveTodo: jest.fn(),
-    todoList: readingTodos,
+    todoList: homeworkTodos,
     fetchStatus: {
       isLoading: false,
       isError: false,
       errMsg: {},
     },
-    children: "Reading",
+    children: "Homework",
   };
 
   test("renders an anchor with home link", () => {
@@ -430,7 +430,7 @@ describe("TodoContainer", () => {
       </Router>
     );
 
-    expect(screen.getByText("Reading")).toContainHTML("<h2>Reading</h2>");
+    expect(screen.getByText("Homework")).toContainHTML("<h2>Homework</h2>");
     expect(screen.getByRole("list")).toBeInTheDocument();
     expect(screen.getByTestId("add-todo-form")).toBeInTheDocument();
   });
@@ -505,57 +505,78 @@ Integration Test - App
 */
 
 describe("App", () => {
-  test("renders home page regardless of fetch status", async () => {
-    const promise = Promise.resolve({json: () => Promise.resolve()});
-
-    jest.spyOn(global, "fetch").mockImplementation(() => promise);
-
-    render(
-      <Router>
-        <App />
-      </Router>
-    );
-
-    expect(screen.getByText(/RemindMe/)).toBeInTheDocument();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
-    expect(screen.getByRole("list")).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(2);
-    expect(screen.getByText("Reading Todo")).toBeInTheDocument();
-    expect(screen.getByText("Homework Todo")).toBeInTheDocument();
-    expect(screen.getAllByText("0 taskes")).toHaveLength(2);
-    expect(screen.getAllByRole("img")).toHaveLength(2);
-    expect(screen.getAllByRole("img")[0]).toHaveAttribute("src", "avatar.jpg");
-    expect(screen.getAllByRole("img")[1]).toHaveAttribute(
-      "src",
-      "https://i.imgur.com/3FEaiiS.png"
-    );
-
-    await act(() => promise);
-
-    expect(screen.getByText(/RemindMe/)).toBeInTheDocument();
-    expect(screen.getByRole("navigation")).toBeInTheDocument();
-    expect(screen.getByRole("list")).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(2);
-    expect(screen.getByText("Reading Todo")).toBeInTheDocument();
-    expect(screen.getByText("Homework Todo")).toBeInTheDocument();
-    expect(screen.getAllByText("0 taskes")).toHaveLength(2);
-    expect(screen.getAllByRole("img")).toHaveLength(2);
-    expect(screen.getAllByRole("img")[0]).toHaveAttribute("src", "avatar.jpg");
-    expect(screen.getAllByRole("img")[1]).toHaveAttribute(
-      "src",
-      "https://i.imgur.com/3FEaiiS.png"
-    );
+  const readingPromise = Promise.resolve({
+    json: () =>
+      Promise.resolve({
+        records: readingTodos,
+      }),
   });
 
-  test("succeeds fetching data", async () => {
-    const promise = Promise.resolve({
-      json: () =>
-        Promise.resolve({
-          records: readingTodos,
-        }),
-    });
+  const homeworkPromise = Promise.resolve({
+    json: () =>
+      Promise.resolve({
+        records: homeworkTodos,
+      }),
+  });
 
-    jest.spyOn(global, "fetch").mockImplementation(() => promise);
+  const resolvedPromise = Promise.resolve();
+
+  const rejectedPromise = Promise.reject();
+
+  test("renders home page regardless of fetch status", async () => {
+    jest
+      .spyOn(global, "fetch")
+      .mockImplementationOnce(() => resolvedPromise)
+      .mockImplementationOnce(() => rejectedPromise);
+
+    render(
+      <Router>
+        <App />
+      </Router>
+    );
+
+    expect(screen.getByText(/RemindMe/)).toBeInTheDocument();
+    expect(screen.getByRole("navigation")).toBeInTheDocument();
+    expect(screen.getByRole("list")).toBeInTheDocument();
+    expect(screen.getAllByRole("listitem")).toHaveLength(2);
+    expect(screen.getByText("Reading Todo")).toBeInTheDocument();
+    expect(screen.getByText("Homework Todo")).toBeInTheDocument();
+    expect(screen.getAllByText("0 taskes")).toHaveLength(2);
+    expect(screen.getAllByRole("img")).toHaveLength(2);
+    expect(screen.getAllByRole("img")[0]).toHaveAttribute("src", "avatar.jpg");
+    expect(screen.getAllByRole("img")[1]).toHaveAttribute(
+      "src",
+      "https://i.imgur.com/3FEaiiS.png"
+    );
+
+    try {
+      await act(() => resolvedPromise);
+      await act(() => rejectedPromise);
+    } catch {
+      expect(screen.getByText(/RemindMe/)).toBeInTheDocument();
+      expect(screen.getByRole("navigation")).toBeInTheDocument();
+      expect(screen.getByRole("list")).toBeInTheDocument();
+      expect(screen.getAllByRole("listitem")).toHaveLength(2);
+      expect(screen.getByText("Reading Todo")).toBeInTheDocument();
+      expect(screen.getByText("Homework Todo")).toBeInTheDocument();
+      expect(screen.getAllByText("0 taskes")).toHaveLength(2);
+      expect(screen.getAllByRole("img")).toHaveLength(2);
+      expect(screen.getAllByRole("img")[0]).toHaveAttribute(
+        "src",
+        "avatar.jpg"
+      );
+      expect(screen.getAllByRole("img")[1]).toHaveAttribute(
+        "src",
+        "https://i.imgur.com/3FEaiiS.png"
+      );
+    }
+  });
+  
+  test("succeeds fetching data", async () => {
+    jest
+      .spyOn(global, "fetch")
+      .mockImplementationOnce(() => readingPromise)
+      .mockImplementationOnce(() => homeworkPromise);
 
     render(
       <Router>
@@ -565,16 +586,15 @@ describe("App", () => {
 
     expect(screen.getAllByText("0 taskes")).toHaveLength(2);
 
-    await act(() => promise);
+    await act(() => readingPromise);
+    await act(() => homeworkPromise);
 
     expect(screen.getAllByText("2 taskes")).toHaveLength(2);
     expect(screen.queryByText("0 taskes")).toBeNull();
   });
 
   test("fails fetching data", async () => {
-    const promise = Promise.reject();
-
-    jest.spyOn(global, "fetch").mockImplementation(() => promise);
+    jest.spyOn(global, "fetch").mockImplementation(() => rejectedPromise);
 
     render(
       <Router>
@@ -585,7 +605,7 @@ describe("App", () => {
     expect(screen.getAllByText("0 taskes")).toHaveLength(2);
 
     try {
-      await act(() => promise);
+      await act(() => rejectedPromise);
     } catch {
       expect(screen.getAllByText("0 taskes")).toHaveLength(2);
     }
