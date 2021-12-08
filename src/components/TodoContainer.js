@@ -1,5 +1,9 @@
+import React from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import {sortBy} from "lodash";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSortUp, faSortDown} from "@fortawesome/free-solid-svg-icons";
 import AddTodoForm from "./AddTodoForm";
 import TodoList from "./TodoList";
 import styles from "./TodoContainer.module.css";
@@ -8,44 +12,71 @@ const TodoContainer = ({
   onAddTodo,
   onRemoveTodo,
   todoList,
+  setTodoList,
   fetchStatus,
   children,
-}) => (
-  <div className={styles.listWrapper}>
-    <div className={styles.homeButton}>
-      <Link to='/'>Close</Link>
+}) => {
+  const handleSort = () => {
+    const sortedList = todoList.isReverse
+      ? sortBy(todoList.list, "createdTime").reverse()
+      : sortBy(todoList.list, "createdTime");
+    setTodoList({
+      list: sortedList,
+      isReverse: !todoList.isReverse,
+    });
+  };
+
+  return (
+    <div className={styles.listWrapper}>
+      <div className={styles.homeButton}>
+        <Link to='/'>Close</Link>
+      </div>
+      <h2>
+        {children}&nbsp;
+        <span className={styles.sortButton} onClick={handleSort}>
+          {todoList.isReverse ? (
+            <FontAwesomeIcon icon={faSortDown} />
+          ) : (
+            <FontAwesomeIcon icon={faSortUp} />
+          )}
+        </span>
+      </h2>
+      {fetchStatus.isError && (
+        <p>
+          <strong>SOMETHING WENT WRONG:</strong>&nbsp;
+          {fetchStatus.errMsg.error}--{fetchStatus.errMsg.message}
+        </p>
+      )}
+      {fetchStatus.isLoading ? (
+        <p>Loading ...</p>
+      ) : (
+        <TodoList
+          todoList={todoList.list}
+          listName={children}
+          onRemoveTodo={onRemoveTodo}
+        />
+      )}
+      <AddTodoForm listName={children} onAddTodo={onAddTodo} />
     </div>
-    <h2>{children}</h2>
-    {fetchStatus.isError && (
-      <p>
-        <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-        {fetchStatus.errMsg.toString()}
-        {/* <strong>SOMETHING WENT WRONG:</strong>&nbsp;
-          {fetchStatus.errMsg.error}--{fetchStatus.errMsg.message} */}
-      </p>
-    )}
-    {fetchStatus.isLoading ? (
-      <p>Loading ...</p>
-    ) : (
-      <TodoList
-        todoList={todoList}
-        listName={children}
-        onRemoveTodo={onRemoveTodo}
-      />
-    )}
-    <AddTodoForm listName={children} onAddTodo={onAddTodo} />
-  </div>
-);
+  );
+};
 
 TodoContainer.propTypes = {
   onAddTodo: PropTypes.func.isRequired,
   onRemoveTodo: PropTypes.func.isRequired,
-  todoList: PropTypes.arrayOf(
+  todoList: PropTypes.objectOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      fields: PropTypes.objectOf(PropTypes.string),
+      list: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string,
+          fields: PropTypes.objectOf(PropTypes.string),
+          createdTime: PropTypes.string,
+        })
+      ),
+      isReverse: PropTypes.bool,
     })
   ).isRequired,
+  setTodoList: PropTypes.func.isRequired,
   fetchStatus: PropTypes.exact({
     isLoading: PropTypes.bool,
     isError: PropTypes.bool,

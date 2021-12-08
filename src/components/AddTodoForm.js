@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPenFancy} from "@fortawesome/free-solid-svg-icons";
 import InputWithLabel from "./InputWithLabel";
 import "../index.css";
 import styles from "./TodoContainer.module.css";
@@ -30,7 +32,7 @@ const AddTodoForm = ({listName, onAddTodo}) => {
         Add Todo:
       </InputWithLabel>
       <button className={styles.addButton} type='submit' disabled={!todoTitle}>
-        &#128395;
+        <FontAwesomeIcon icon={faPenFancy} />
       </button>
     </form>
   );
