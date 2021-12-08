@@ -222,8 +222,8 @@ const App = () => {
   return (
     <div className='container'>
       <SideBar
-        readingLength={readingTodos.length}
-        homeworkLength={homeworkTodos.length}
+        readingLength={readingTodos.list.length}
+        homeworkLength={homeworkTodos.list.length}
       />
       <Switch>
         <Route path='/Reading'>

@@ -402,7 +402,11 @@ describe("TodoContainer", () => {
   const todoContainerProps = {
     onAddTodo: jest.fn(),
     onRemoveTodo: jest.fn(),
-    todoList: homeworkTodos,
+    todoList: {
+      list: homeworkTodos,
+      isReverse: false,
+    },
+    setTodoList: jest.fn(),
     fetchStatus: {
       isLoading: false,
       isError: false,
@@ -430,7 +434,7 @@ describe("TodoContainer", () => {
       </Router>
     );
 
-    expect(screen.getByText("Homework")).toContainHTML("<h2>Homework</h2>");
+    expect(screen.getByRole("heading")).toHaveTextContent("Homework");
     expect(screen.getByRole("list")).toBeInTheDocument();
     expect(screen.getByTestId("add-todo-form")).toBeInTheDocument();
   });
@@ -571,7 +575,7 @@ describe("App", () => {
       );
     }
   });
-  
+
   test("succeeds fetching data", async () => {
     jest
       .spyOn(global, "fetch")

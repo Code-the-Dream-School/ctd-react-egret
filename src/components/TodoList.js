@@ -20,6 +20,7 @@ TodoList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       fields: PropTypes.objectOf(PropTypes.string),
+      createdTime: PropTypes.string,
     })
   ).isRequired,
   listName: PropTypes.string.isRequired,
