@@ -28,12 +28,13 @@ CSS for TodoContainer.js
 }
 
 .addButton {
-  font-size: 2.5rem;
-  width: 3.5rem;
-  border: none;
-  border-radius: 3px;
+  font-size: 2rem;
+  padding: 0.2rem 0.5rem;
+  background: transparent;
   cursor: pointer;
-  background: rgb(51, 51, 51);
+  border-radius: 3px;
+  color: rgb(149, 149, 149);
+  border: 1px solid rgb(180, 180, 180);
 }
 
 .homeButton {
@@ -41,18 +42,21 @@ CSS for TodoContainer.js
   margin-top: 6rem;
   padding: 0 0.5rem;
   border-radius: 3px;
-  color: rgb(149, 149, 149);
-  border-bottom: 1px solid rgb(149, 149, 149);
+  color: rgb(180, 180, 180);
+  border-bottom: 1px solid rgb(180, 180, 180);
+}
+
+.sortButton {
+  cursor: pointer;
+  display: inline-block;
+  color: rgb(180, 180, 180);
 }
 
 .homeButton,
 .addButton,
-.removeButton {
+.removeButton,
+.sortButton {
   transition: transform 0.2s ease-in;
-}
-
-.addButton {
-  border: 1px solid transparent;
 }
 
 .removeButton:hover {
@@ -60,9 +64,10 @@ CSS for TodoContainer.js
 }
 
 .addButton:hover {
-  border-color: rgb(149, 149, 149);
-  background: transparent;
-  transform: scale(1.05) translateY(-0.2rem);
+  color: white;
+  background: rgb(51, 51, 51);
+  border-color: rgb(51, 51, 51);
+  transform: scale(1.1) translateY(-0.2rem);
 }
 
 .homeButton:hover {
@@ -72,10 +77,19 @@ CSS for TodoContainer.js
   transform: scale(1.1) translateY(-0.2rem);
 }
 
+.sortButton:hover {
+  color: white;
+  transform: scale(1.15) translateY(-0.2rem);
+}
+
 .homeButton:active,
 .addButton:active,
 .removeButton:active {
-  transform: translateY(0.2rem) translateX(-0.15rem);
+  transform: translate(-0.1rem, 0.2rem);
+}
+
+.sortButton:active {
+  transform: scale(1);
 }
 
 .todoForm {

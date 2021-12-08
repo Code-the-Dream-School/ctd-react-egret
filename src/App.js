@@ -12,6 +12,8 @@ import FireRing from "./components/FireRing";
 
 const baseUrl = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/`;
 const view = "?view=Grid+view";
+// const sort = "&sort[0][field]=Task";
+// const sortDir = "&sort[0][direction]=asc";
 const authorization = `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`;
 
 export const todoListReducer = (state, action) => {
@@ -40,6 +42,22 @@ export const todoListReducer = (state, action) => {
   }
 };
 
+// const sortData = (records) => {
+//   return records.sort((a, b) => {
+//     const taskA = a.fields["Task"];
+//     const taskB = b.fields["Task"];
+//     return taskA < taskB ? -1 : taskA > taskB ? 1 : 0;
+//   });
+// };
+
+// const reverseSortData = (records) => {
+//   return records.sort((a, b) => {
+//     const taskA = a.fields["Task"];
+//     const taskB = b.fields["Task"];
+//     return taskA < taskB ? 1 : taskA > taskB ? -1 : 0;
+//   });
+// };
+
 const App = () => {
   const [fetchStatus, dispatchFetchStatus] = React.useReducer(todoListReducer, {
     isLoading: false,
@@ -47,9 +65,14 @@ const App = () => {
     errMsg: {},
   });
 
-  const [readingTodos, setReadingTodos] = React.useState([]);
-
-  const [homeworkTodos, setHomeworkTodos] = React.useState([]);
+  const [readingTodos, setReadingTodos] = React.useState({
+    list: [],
+    isReverse: false,
+  });
+  const [homeworkTodos, setHomeworkTodos] = React.useState({
+    list: [],
+    isReverse: false,
+  });
 
   const fetchTodoList = (route) => {
     dispatchFetchStatus({type: "TODOLIST_FETCH_INIT"});
@@ -63,9 +86,11 @@ const App = () => {
       .then((response) => response.json())
       .then((data) => {
         dispatchFetchStatus({type: "TODOLIST_FETCH_SUCCESS"});
+        // const sortedData = sortData(data.records);
+        // const revrseSortedData = reverseSortData(data.records);
         route === "Reading"
-          ? setReadingTodos(data.records)
-          : setHomeworkTodos(data.records);
+          ? setReadingTodos({list: data.records, isReverse: true})
+          : setHomeworkTodos({list: data.records, isReverse: true});
       })
       .catch((err) => {
         dispatchFetchStatus({
@@ -112,11 +137,17 @@ const App = () => {
 
       .then((data) => {
         console.log(
-          `Successfully added item ID ${data.id}, ${data.fields.Task} to ${route}`
+          `Successfully added item ID ${data.id}, ${data.fields.Task} to ${route} datatable`
         );
         route === "Reading"
-          ? setReadingTodos([...readingTodos, data])
-          : setHomeworkTodos([...homeworkTodos, data]);
+          ? setReadingTodos({
+              list: [...readingTodos.list, data],
+              isReverse: readingTodos.isReverse,
+            })
+          : setHomeworkTodos({
+              list: [...homeworkTodos.list, data],
+              isReverse: homeworkTodos.isReverse,
+            });
       })
       .catch((err) => {
         dispatchFetchStatus({
@@ -154,10 +185,18 @@ const App = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(`Successfully deleted item ID ${data.id} from ${route}`);
+        console.log(
+          `Successfully deleted item ID ${data.id} from ${route} datatable`
+        );
         route === "Reading"
-          ? setReadingTodos(readingTodos.filter((item) => item.id !== id))
-          : setHomeworkTodos(homeworkTodos.filter((item) => item.id !== id));
+          ? setReadingTodos({
+              list: readingTodos.list.filter((item) => item.id !== id),
+              isReverse: readingTodos.isReverse,
+            })
+          : setHomeworkTodos({
+              list: homeworkTodos.list.filter((item) => item.id !== id),
+              isReverse: homeworkTodos.isReverse,
+            });
       })
       .catch((err) => {
         dispatchFetchStatus({
@@ -192,6 +231,7 @@ const App = () => {
             onAddTodo={addTodo}
             onRemoveTodo={removeTodo}
             todoList={readingTodos}
+            setTodoList={setReadingTodos}
             fetchStatus={fetchStatus}>
             Reading
           </TodoContainer>
@@ -201,6 +241,7 @@ const App = () => {
             onAddTodo={addTodo}
             onRemoveTodo={removeTodo}
             todoList={homeworkTodos}
+            setTodoList={setHomeworkTodos}
             fetchStatus={fetchStatus}>
             Homework
           </TodoContainer>

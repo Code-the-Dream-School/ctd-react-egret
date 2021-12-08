@@ -76,7 +76,7 @@ h1:hover {
 
 .readingCard:active,
 .homeworkCard:active {
-  transform: translate(-0.2rem, 0.3rem);
+  transform: translate(-0.1rem, 0.2rem);
 }
 
 .icon {
