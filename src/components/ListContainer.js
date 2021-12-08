@@ -47,8 +47,8 @@ function editTodoRecord(listName, id, value, body) {
     },
     body: body(id, value),
   })
-  .then(response => response.json())
-  .then(data => console.log(data));
+  /* .then(response => response.json())
+  .then(data => console.log(data)); */
 }
 
 //object where the keys are filter values and values are functions to be passed to filter method
@@ -203,6 +203,7 @@ function ListContainer({ listName, handleUpdate }) {
           handleUpdate(listName, -1);
         } else {
           todo.fields.isCompleted = !todoStatusDone;
+          /* todo.fields.DoneOn = null */
           handleUpdate(listName, 1);
         }
 

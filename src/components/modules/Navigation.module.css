@@ -26,6 +26,7 @@
   border: solid black 1.5px;
   background-image: linear-gradient(#e7e7e0, #5b5851);
   opacity: 0.8;
+  box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 38%);
 }
 .activeList {
   opacity: 1;

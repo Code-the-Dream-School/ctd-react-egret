@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ListContainer from "./components/ListContainer";
 import Navigation from "./components/Navigation";
-import style from './components/modules/App.module.css'
+import style from "./components/modules/App.module.css";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { Context } from "./components/context";
@@ -72,6 +72,13 @@ function App() {
   const [todoCounts, setTodoCounts] = React.useState({});
   const [isDark, setIsDark] = React.useState(false);
   /* console.log(isDark); */
+  React.useLayoutEffect(() => {
+    if (isDark) {
+      document.body.classList.add("isDark");
+    } else {
+      document.body.classList.remove("isDark");
+    }
+  }, [isDark]);
 
   React.useEffect(() => {
     Promise.all(fetchTodoTables()).then((todoResponses) => {
@@ -92,7 +99,7 @@ function App() {
   }, []);
 
   function updateCount(category, delta) {
-      setTodoCounts(() => {
+    setTodoCounts(() => {
       return { ...todoCounts, [category]: todoCounts[category] + delta };
     });
   }
@@ -113,7 +120,11 @@ function App() {
         <Navigation categories={todoCategories} counts={todoCounts} />
 
         <Route exact path="/">
-          <img src="./logo/guys.jpg" alt="Lets do it!" className={style.homeImg}></img>
+          <img
+            src="./logo/guys.jpg"
+            alt="Lets do it!"
+            className={style.homeImg}
+          ></img>
         </Route>
         <Switch>
           {todoCategories.map((table, index) => (

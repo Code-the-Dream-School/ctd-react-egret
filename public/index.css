@@ -9,7 +9,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body.isDark {
+  background-color: rgb(19, 18, 18);
+  background-image: none;
+}
 #root {
   display: grid;
   grid-template-columns: 0.1fr 2fr 5fr;
@@ -20,10 +23,13 @@ body {
   height: 100vh;
   overflow: auto;
   padding-bottom: 30px;
+  box-shadow: 4px 8px 8px hsl(0deg 0% 0% / 38%);
 }
-:root {
-  color-scheme: light dark; /* both supported */
+body.isDark #root {
+  background-color: black;
+  background-image: none;
 }
+
 h1 {
   color: "darkred";
 }

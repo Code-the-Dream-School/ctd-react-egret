@@ -19,7 +19,6 @@ function getTime(date) {
 
 const TodoListItem = React.memo(
   ({ todo, onRemoveTodo, onEditTodo, changeTodoStatus, todoStatusDone }) => {
-    
     const handleClick = (e) => {
       if (e.target.innerText === "Edit") {
         e.target.parentNode.querySelector("p").contentEditable = true;
@@ -36,10 +35,7 @@ const TodoListItem = React.memo(
     };
     const checked = todo.fields.isCompleted === todoStatusDone;
     /* console.log(context) */
-    const date = todo.createdTime;
-    
-    getTime(date);
-    
+
     return (
       <>
         <li className={style.listItem}>
@@ -49,21 +45,23 @@ const TodoListItem = React.memo(
             onClick={() => changeTodoStatus(todo.id)}
           />
           <span className={style.container}>
-          <p
-            style={{
-              textDecoration:
-                todo.fields.isCompleted === todoStatusDone
-                  ? "line-through"
-                  : "",
-              color:
-                todo.fields.isCompleted === todoStatusDone ? "gray" : "initial",
-            }}
-          >
-            {todo.fields.Title}
-          </p>
-          <p className={style.createdTimeP}>
-            Added on:{getTime(todo.createdTime)}
-          </p>
+            <p
+              style={{
+                textDecoration:
+                  todo.fields.isCompleted === todoStatusDone
+                    ? "line-through"
+                    : "",
+                color:
+                  todo.fields.isCompleted === todoStatusDone
+                    ? "gray"
+                    : "initial",
+              }}
+            >
+              {todo.fields.Title}
+            </p>
+            <p className={style.createdTimeP}>
+              Added on:{getTime(todo.createdTime)}
+            </p>
           </span>
           <button
             className={`${style.removeBtn} ${style.btn}`}
