@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import AddTodoForm from './AddTodoForm';
-import TodoList from'./TodoList'
-import CategoryList from './CategoryList'
+import AddTodoForm from './components/AddTodoForm';
+import TodoList from'./components/TodoList'
+import CategoryList from './components/CategoryList'
 import './App.css'
 import {
   BrowserRouter,

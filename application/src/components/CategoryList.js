@@ -5,6 +5,7 @@ import React from 'react'
 // import { ReactComponent as Home } from './images/home.svg';
 // import { ReactComponent as Lifestyle } from './images/lifestyle.svg';
 import CategoryListItem from './CategoryListItem';
+import PropTypes from 'prop-types';
 
 function CategoryList({categories, chooseCategory}){
 
@@ -27,4 +28,9 @@ function CategoryList({categories, chooseCategory}){
   )
 }
 
- export default CategoryList;
+CategoryList.propTypes = {
+  categories: PropTypes.array,
+  chooseCategory: PropTypes.func
+};
+
+export default CategoryList;
