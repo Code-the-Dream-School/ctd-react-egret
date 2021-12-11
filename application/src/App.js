@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import AddTodoForm from './components/AddTodoForm';
-import TodoList from'./components/TodoList'
 import CategoryList from './components/CategoryList'
+import TodoContainer from './components/TodoContainer'
 import './App.css'
 import {
   BrowserRouter,
@@ -63,23 +62,29 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Switch>
         <Route exact path="/">
           <div className="">
             <div className="header">
               <h1>Todo List</h1>
             </div>
             <CategoryList categories={categoryList} chooseCategory={chooseCategory}/>
-            <div className="todo">
-              <AddTodoForm onAddTodo={addTodo} />
-              {isLoading ? <span>Loading...</span> : <TodoList todoList={displayTodo} onRemoveTodo={removeTodo}/>}
-            </div>
+            
           </div>
         </Route>
-        <Route path="/new">
-          <h1>New Todo List</h1>
-        </Route>
-      </Switch>
+        {categoryList.map((category)=>(
+          <Route
+            key={category.id}
+            path={`/${category.fields.Name}`}
+            children={() => {
+              <TodoContainer 
+              addTodo={addTodo}
+              displayTodo={displayTodo}
+              removeTodo={removeTodo}
+              isLoading={isLoading}
+            />
+            }}
+          />
+        ))}
     </BrowserRouter>
   )
 }

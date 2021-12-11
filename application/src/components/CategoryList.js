@@ -19,12 +19,7 @@ function CategoryList({categories, chooseCategory}){
         chooseCategory={chooseCategory}
         index={index}/>
       ))}
-      {/* <CategoryListItem category='Health' Icon={Health} chooseCategory={chooseCategory}/>
-      <CategoryListItem category='Work' Icon={Work} chooseCategory={chooseCategory}/>
-      <CategoryListItem category='Grocery' Icon={Grocery} chooseCategory={chooseCategory}/>
-      <CategoryListItem category='Home' Icon={Home} chooseCategory={chooseCategory}/>
-      <CategoryListItem category='Lifestyle' Icon={Lifestyle} chooseCategory={chooseCategory}/> */}
-    </div> 
+    </div>
   )
 }
 
