@@ -1,5 +1,6 @@
 
 import React, { useEffect, useRef } from "react";
+import  './InputWithLabel.css';
 
 const InputWithLabel = ({ todoTitle, handleTitleChange, children }) => {
   const inputRef = useRef();
@@ -10,11 +11,13 @@ const InputWithLabel = ({ todoTitle, handleTitleChange, children }) => {
 
   return (
     <>
-      <label htmlFor="todoTitle">{children}</label>
-      <input
+      <label htmlFor="todoTitle" >{children}</label>
+      <input 
+      
         ref={inputRef}
         id="todoTitle"
         type="text"
+        placeholder = "Enter Task"
         name="title"
         value={todoTitle}
         onChange={handleTitleChange}
