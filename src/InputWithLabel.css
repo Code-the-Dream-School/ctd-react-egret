@@ -1,0 +1,21 @@
+#todoTitle {
+ /* border-radius: 5px;
+ width: 60%;
+ height: 25px;
+ font-size: 15px;
+ border: 2px solid #d1d3d4;
+ padding: 12px;
+ color: #111111;
+ font-weight: 500;
+ position: relative; */
+ display: flex;
+ justify-content: center;
+ margin:auto;
+ align-items: center;
+ width: 80%;
+}
+#todoTitle:focus{
+ outline: none;
+ border-color: cadetblue;
+
+}

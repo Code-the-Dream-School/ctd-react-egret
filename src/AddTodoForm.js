@@ -1,5 +1,9 @@
 import React from 'react';
 import InputWithLabel from './InputWithLabel';
+// import './AddTodoForm.css'
+import Button from '@mui/material/Button';
+import styled from './AddTodoForm.module.css'
+// import { styled } from '@mui/system';
 
 function AddTodoForm({ onAddTodo }) {
     const [todoTitle, setTodoTitle] = React.useState("");
@@ -21,9 +25,9 @@ console.log(todoTitle)
     };
     return (
 
-        <form onSubmit={handleAddTodo}>
+        <form onSubmit={handleAddTodo} className = {styled.form}>
             <InputWithLabel todoTitle = {todoTitle} handleTitleChange= {handleTitleChange}>Title</InputWithLabel>
-            <button type="submit">Add</button>
+            <Button  type="submit">Add</Button>
         </form>
 
     );
