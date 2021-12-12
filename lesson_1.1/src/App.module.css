@@ -1,0 +1,71 @@
+
+.App {
+  text-align: center;
+  display: flex;
+}
+
+.navUl {
+  background-color:#000;   
+  width: 400px;
+  height: 300px;
+  margin: 20px;
+  display: flex;
+  flex-grow: 2;
+  list-style: none;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.navLi {
+  color: white; 
+  border: 2px solid rgb(61, 61, 59);
+  border-radius: 35px;
+  height: 100px;
+  width: 100px;
+  padding: 10px;
+  font-size: 25px;
+  font-style: italic;
+  margin-right: 10px;
+  margin-top: 30px;
+  flex: 2 0 33%;
+}
+
+.navHref {
+  text-align: center;
+  padding: 50px 50px;
+  text-decoration: none;
+  color: white;
+}
+.CTDimg {
+  margin-left: 550px;
+  display: block;
+  width: 750px;
+  height: 600px;
+  margin-top: -250px;
+}
+
+@media screen and (max-width: 800px) {
+  .navUl {
+    width: 300px;
+  }
+  .navLi {
+    height: 50px;
+    width: 50px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .navUl {
+    width: 150px;  
+  
+  }
+  .navLi {
+    height: 25px;
+    font-size: 20px;
+    display: flex;
+    flex-shrink: 1;
+    border: none;
+    text-decoration: none;
+    margin:0;
+   
+  }
+}

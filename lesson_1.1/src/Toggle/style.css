@@ -1,0 +1,19 @@
+.toggle {
+    height: 100px;
+    width: 200px;
+    border-radius: 50px;
+    margin: auto;
+    background-image: linear-gradient(aqua, skyblue);
+    position: relative;
+}
+.notch {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    background-color: yellow;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    box-shadow: 0 0 5px yellow;
+
+}
