@@ -1,8 +1,7 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect } from "react";
 import TodoList from "./TodoList";
 import AddTodoForm from "./AddTodoForm";
-import PropTypes from 'prop-types'
-
+import PropTypes from "prop-types";
 
 function TodoContainer(props) {
   const addTodo = (newTodo) => {
@@ -30,7 +29,7 @@ function TodoContainer(props) {
 
   useEffect(() => {
     fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${props.tableName}`,
+      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${props.tableName}?view=Grid%20view&sort[0][field]=Title&sort[0][direction]=asc`,
       {
         method: "GET",
         headers: {
@@ -40,11 +39,19 @@ function TodoContainer(props) {
     )
       .then((resp) => resp.json())
       .then((data) => {
+        data.records.sort((objectA, objectB) => {
+          if (objectA.fields.Title < objectB.fields.Title){
+            return -1
+          } else if (objectA.fields.Title === objectB.fields.Title){
+             return 0
+          } else {
+             return 1
+           }
+        })
         setTodoList(data.records);
         setIsLoading(false);
       });
-  },[props.tableName]);
-
+  }, [props.tableName]);
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem("savedTodoList", JSON.stringify(todoList));
@@ -59,18 +66,18 @@ function TodoContainer(props) {
   }
 
   return (
-          <div>
-            <h1>{props.tableName}</h1>
-            <AddTodoForm onAddTodo={addTodo} />
-            {isLoading ? (
-              <p>Loading...</p>
-            ) : (
-              <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-            )}
-          </div>
+    <div>
+      <h1>{props.tableName}</h1>
+      <AddTodoForm onAddTodo={addTodo} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      )}
+    </div>
   );
 }
 TodoContainer.prototype = {
-tableName:PropTypes.string
-}
+  tableName: PropTypes.string,
+};
 export default TodoContainer;

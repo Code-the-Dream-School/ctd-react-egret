@@ -1,3 +1,9 @@
+
+.App {
+  text-align: center;
+  display: flex;
+}
+
 .navUl {
   background-color:#000;   
   width: 400px;

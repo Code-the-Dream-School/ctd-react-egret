@@ -7,15 +7,18 @@ import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
 import VolunteerActivismRoundedIcon from '@mui/icons-material/VolunteerActivismRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import CTDimg from './img/CTD.png'
+import Toggle from "./Toggle";
 
 
 
 function App() {
   return (
     <BrowserRouter>
-    
+    <div className={style.App}></div>
       <nav >
-      
+      <div>
+        <Toggle/>
+      </div>
         <ul className={style.navUl}>
           <li className={style.navLi}> 
             <Link to="/" className={style.navHref}><HomeRoundedIcon color="primary"/>Home</Link>
