@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./SideBar.module.css";
-import avatar from "../img/avatar.jpg";
+import avatar from "../../img/avatar.jpg";
 
 const SideBar = ({readingLength, homeworkLength}) => (
   <div className={styles.sideBar}>

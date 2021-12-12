@@ -25,6 +25,7 @@ CSS for TodoContainer.js
 .removeButton > svg {
   height: 2rem;
   width: 2rem;
+  transform: translateY(0.3rem);
 }
 
 .addButton {
@@ -33,7 +34,7 @@ CSS for TodoContainer.js
   background: transparent;
   cursor: pointer;
   border-radius: 3px;
-  color: rgb(149, 149, 149);
+  color: rgb(180, 180, 180);
   border: 1px solid rgb(180, 180, 180);
 }
 
@@ -67,7 +68,7 @@ CSS for TodoContainer.js
   color: white;
   background: rgb(51, 51, 51);
   border-color: rgb(51, 51, 51);
-  transform: scale(1.1) translateY(-0.2rem);
+  transform: scale(1.15) translateY(-0.2rem);
 }
 
 .homeButton:hover {
@@ -93,7 +94,7 @@ CSS for TodoContainer.js
 }
 
 .todoForm {
-  border-top: 1px solid rgb(83, 83, 83);
+  border-top: 1px solid rgb(90, 90, 90);
 }
 
 .todoLabel,
@@ -108,7 +109,7 @@ CSS for TodoContainer.js
   line-height: 2rem;
   width: 25rem;
   background-color: transparent;
-  border-bottom: 1px solid rgb(83, 83, 83);
+  border-bottom: 1px solid rgb(90, 90, 90);
 }
 
 @media only screen and (max-width: 25em) {

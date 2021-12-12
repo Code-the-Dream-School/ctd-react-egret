@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import {sortBy} from "lodash";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSortUp, faSortDown} from "@fortawesome/free-solid-svg-icons";
-import AddTodoForm from "./AddTodoForm";
-import TodoList from "./TodoList";
+import AddTodoForm from "../AddTodoForm";
+import TodoList from "../TodoList";
 import styles from "./TodoContainer.module.css";
 
 const TodoContainer = ({
@@ -33,7 +33,10 @@ const TodoContainer = ({
       </div>
       <h2>
         {children}&nbsp;
-        <span className={styles.sortButton} onClick={handleSort}>
+        <span
+          data-testid='sort-icon'
+          className={styles.sortButton}
+          onClick={handleSort}>
           {todoList.isReverse ? (
             <FontAwesomeIcon icon={faSortDown} />
           ) : (
@@ -64,18 +67,10 @@ const TodoContainer = ({
 TodoContainer.propTypes = {
   onAddTodo: PropTypes.func.isRequired,
   onRemoveTodo: PropTypes.func.isRequired,
-  todoList: PropTypes.objectOf(
-    PropTypes.shape({
-      list: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.string,
-          fields: PropTypes.objectOf(PropTypes.string),
-          createdTime: PropTypes.string,
-        })
-      ),
-      isReverse: PropTypes.bool,
-    })
-  ).isRequired,
+  todoList: PropTypes.shape({
+    list: PropTypes.arrayOf(PropTypes.object),
+    isReverse: PropTypes.bool,
+  }).isRequired,
   setTodoList: PropTypes.func.isRequired,
   fetchStatus: PropTypes.exact({
     isLoading: PropTypes.bool,

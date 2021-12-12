@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenFancy} from "@fortawesome/free-solid-svg-icons";
 import InputWithLabel from "./InputWithLabel";
 import "../index.css";
-import styles from "./TodoContainer.module.css";
+import styles from "./TodoContainer/TodoContainer.module.css";
 
 const AddTodoForm = ({listName, onAddTodo}) => {
   const [todoTitle, setTodoTitle] = React.useState("");

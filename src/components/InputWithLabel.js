@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styles from "./TodoContainer.module.css";
+import styles from "./TodoContainer/TodoContainer.module.css";
 
 const InputWithLabel = ({title, isFocused, onTitleChange, children}) => {
   const inputRef = React.useRef();

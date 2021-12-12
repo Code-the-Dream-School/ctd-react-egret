@@ -1,8 +1,8 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
-import TodoContainer from "./components/TodoContainer";
-import SideBar from "./components/SideBar";
-import FireRing from "./components/FireRing";
+import TodoContainer from "./components/TodoContainer/TodoContainer";
+import SideBar from "./components/SideBar/SideBar";
+import FireRing from "./components/FireRing/FireRing";
 // import Airtable from "airtable";
 // import useSemiPersistentState from "./persistState";
 
@@ -60,7 +60,7 @@ export const todoListReducer = (state, action) => {
 
 const App = () => {
   const [fetchStatus, dispatchFetchStatus] = React.useReducer(todoListReducer, {
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errMsg: {},
   });
@@ -87,7 +87,7 @@ const App = () => {
       .then((data) => {
         dispatchFetchStatus({type: "TODOLIST_FETCH_SUCCESS"});
         // const sortedData = sortData(data.records);
-        // const revrseSortedData = reverseSortData(data.records);
+        // const reverseSortedData = reverseSortData(data.records);
         route === "Reading"
           ? setReadingTodos({list: data.records, isReverse: true})
           : setHomeworkTodos({list: data.records, isReverse: true});

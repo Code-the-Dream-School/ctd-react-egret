@@ -1,8 +1,8 @@
 import * as React from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 import {render, screen, fireEvent, act} from "@testing-library/react";
-import App, {todoListReducer, fetchTodoList, addTodo, removeTodo} from "./App";
 import TodoContainer from "./components/TodoContainer";
+import App, {todoListReducer} from "./App";
 import AddTodoForm from "./components/AddTodoForm";
 import InputWithLabel from "./components/InputWithLabel";
 import SideBar, {TodoCard} from "./components/SideBar";
@@ -51,7 +51,7 @@ Unit Test - Function
 // For todoListReducer in App component
 describe("todoListReducer", () => {
   const state = {
-    isLoading: false,
+    isLoading: true,
     isError: false,
     errMsg: {},
   };
@@ -86,7 +86,6 @@ describe("todoListReducer", () => {
   });
 
   test("removes loading indicator on fetch success", () => {
-    state.isLoading = true;
     const action = {
       type: "TODOLIST_FETCH_SUCCESS",
     };
@@ -404,7 +403,7 @@ describe("TodoContainer", () => {
     onRemoveTodo: jest.fn(),
     todoList: {
       list: homeworkTodos,
-      isReverse: false,
+      isReverse: true,
     },
     setTodoList: jest.fn(),
     fetchStatus: {
@@ -427,7 +426,7 @@ describe("TodoContainer", () => {
     expect(screen.getByRole("link")).toHaveTextContent("Close");
   });
 
-  test("renders a heading, the todo-list, and a form", () => {
+  test("renders the heading, sort icon, todo-list, and todo form", () => {
     render(
       <Router>
         <TodoContainer {...todoContainerProps} />
@@ -435,6 +434,7 @@ describe("TodoContainer", () => {
     );
 
     expect(screen.getByRole("heading")).toHaveTextContent("Homework");
+    expect(screen.getByTestId("sort-icon")).toBeInTheDocument();
     expect(screen.getByRole("list")).toBeInTheDocument();
     expect(screen.getByTestId("add-todo-form")).toBeInTheDocument();
   });
@@ -469,6 +469,7 @@ describe("TodoContainer", () => {
 
   test("displays the loading indicator while loading data", () => {
     todoContainerProps.fetchStatus.isLoading = true;
+
     render(
       <Router>
         <TodoContainer {...todoContainerProps} />
@@ -481,8 +482,13 @@ describe("TodoContainer", () => {
   });
 
   test("displays the error message when data-fetching failed", () => {
+    todoContainerProps.fetchStatus.isLoading = false;
     todoContainerProps.fetchStatus.isError = true;
-    todoContainerProps.todoList = [];
+    todoContainerProps.todoList = {
+      list: [],
+      isReverse: false,
+    };
+
     render(
       <Router>
         <TodoContainer {...todoContainerProps} />
@@ -490,7 +496,7 @@ describe("TodoContainer", () => {
     );
 
     expect(screen.getByText(/SOMETHING WENT WRONG/)).toBeInTheDocument();
-    expect(screen.queryByRole("list")).toBeNull();
+    expect(screen.queryByRole("listitem")).not.toBeInTheDocument();
     expect(screen.getByTestId("add-todo-form")).toBeInTheDocument();
   });
 
@@ -590,11 +596,13 @@ describe("App", () => {
 
     expect(screen.getAllByText("0 taskes")).toHaveLength(2);
 
-    await act(() => readingPromise);
-    await act(() => homeworkPromise);
-
-    expect(screen.getAllByText("2 taskes")).toHaveLength(2);
-    expect(screen.queryByText("0 taskes")).toBeNull();
+    try {
+      await act(() => readingPromise);
+      await act(() => homeworkPromise);
+    } catch {
+      expect(screen.getAllByText("2 taskes")).toHaveLength(2);
+      expect(screen.queryByText("0 taskes")).toBeNull();
+    }
   });
 
   test("fails fetching data", async () => {
