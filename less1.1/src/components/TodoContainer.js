@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import TodoList from './TodoList.js';
 import AddTodoForm from './AddTodoForm.js';
 
+
+const sortTodoItems = (objectA, objectB) => {
+  if (objectA.fields.Title < objectB.fields.Title) {
+    return -1;
+  }
+  if (objectA.fields.Title > objectB.fields.Title) {
+    return 1;
+  }
+  // objectA.Title = objectB.Title
+  return 0;
+}
+
 function TodoContainer({ tableName}) {
     const [todoList, setTodoList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -20,16 +32,7 @@ function TodoContainer({ tableName}) {
           }
         ).then((resp) => resp.json())
         .then((data) => {
-          data.records.sort((objectA, objectB) => {
-            if (objectA.fields.Title < objectB.fields.Title) {
-              return -1;
-            }
-            if (objectA.fields.Title > objectB.fields.Title) {
-              return 1;
-            }
-            // objectA.Title = objectB.Title
-            return 0;
-          });
+          data.records.sort(sortTodoItems);
           setTodoList(data.records);
           setIsLoading(false);
         })
@@ -67,22 +70,10 @@ function TodoContainer({ tableName}) {
         ).then((respReturn) => respReturn.json())
         .then((data) => {
           const addedItem = data.records[0];
-          setTodoList([...todoList, addedItem]);
+          const newTodoList = [...todoList, addedItem];
+          newTodoList.sort(sortTodoItems);
+          setTodoList(newTodoList);
         })
-        // .then(() => {
-        //   const sortedTodoList = [...todoList].sort((objectA, objectB) => {
-        //     if (objectA.fields.Title < objectB.fields.Title) {
-        //       return -1;
-        //     }
-        //     if (objectA.fields.Title > objectB.fields.Title) {
-        //       return 1;
-        //     }
-        //     // objectA.Title = objectB.Title
-        //     return 0;
-        //   });
-        //   console.log({sortedTodoList});
-        //   setTodoList(sortedTodoList);
-        // })
       };  
 
       const removeTodo = (id) => {
