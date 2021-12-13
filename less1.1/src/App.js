@@ -1,55 +1,16 @@
 import React, { useState } from 'react';
-import TodoList from './components/TodoList.js';
-import AddTodoForm from './components/AddTodoForm.js';
-import Inspiration from './components/Inspiration';
 import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
 import styles from './App.module.css';
 import logo from './components/IMG/202111-todo-item.jpg'
+import TodoContainer from './components/TodoContainer.js'
+
+
+import Inspiration from './components/Inspiration';
 
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+
   const [activeButton, setButton] = useState('fun')
-
-
-  console.log(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`);
-
-  React.useEffect(() => {
-    fetch(
-      `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Default`, 
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,     
-        },
-      }
-    ).then((resp) => resp.json())
-    .then((data) => {
-      setTodoList(data.records);
-      setIsLoading(false);
-    })
-  }, []);
-
-
-  React.useEffect(
-    () => {
-      if (isLoading === false) {
-      localStorage.setItem('savedTodoList', JSON.stringify(todoList));}},
-    [todoList]
-  );
-
-  const addTodo = (newTodo) => { 
-    setTodoList([...todoList, newTodo]);
-  };  
-
-
-
-  const removeTodo = (id) => {
-    const newTodoList = todoList.filter(
-      (item) => item.id !== id
-    )
-    setTodoList(newTodoList);
-  };
 
   return (
     <BrowserRouter>
@@ -91,21 +52,29 @@ function App() {
         <Switch>
           <Route exact path="/">
             <> 
-              <h1>Fun Todo List</h1>
+              {/* <h1>Fun Todo List</h1>
               <AddTodoForm onAddTodo={addTodo} />
               <p>{isLoading ?'Loading...' : null}</p>
               <TodoList  todoList={todoList} onRemoveTodo = {removeTodo}/>
-              <Inspiration />
+              <Inspiration /> */}
+            <TodoContainer tableName="Default" />
+            <Inspiration />
             </>
           </Route>
           <Route path="/Work">
-            <h1>Work Todo List</h1>
+            <>
+            <TodoContainer tableName="List 2" />
+            <Inspiration />
+            </>
           </Route>
+
           <Route path="/Education">
-            <h1>Education Todo List</h1>
+            <TodoContainer tableName="List 3" />
+            <Inspiration />
           </Route>
           <Route path="/Health">
-            <h1>Health Todo List</h1>
+            <TodoContainer tableName="List 4" />
+            <Inspiration />
           </Route>
         </Switch>
       </div>
