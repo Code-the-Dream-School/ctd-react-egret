@@ -8,15 +8,13 @@ function App() {
 
   return (
     <BrowserRouter>
-     
          <nav  >
                 <ul className = {styled.nav}>
-
                       <li>
-                      <Link to = "/list-1" className = {styled.link} >List 1</Link>
+                      <Link to = "/list-1" className = {styled.link} >Personal</Link>
                       </li>
                       <li >
-                      <Link className = {styled.link} to="/list-2">List 2</Link>
+                      <Link className = {styled.link} to="/list-2">Work</Link>
                       </li>
                 </ul>
           </nav>
@@ -24,16 +22,11 @@ function App() {
                 <Switch>
 
                     <Route path='/list-1'>
-                      <TodoContainer tableName="List 1"/>
+                      <TodoContainer tableName="personal"/>
                     </Route>
                     <Route path="/list-2">
-                      <TodoContainer  tableName="List 2"/>
-                    </Route>
-                     <Route path ="*">
-                    {/* <>
-                            <h1 className= { styled.note}> 404 Page not found </h1>
-                          </> */}
-                    </Route>
+                      <TodoContainer  tableName="work"/>
+                    </Route>       
               </Switch>
       </div>
     </BrowserRouter>
