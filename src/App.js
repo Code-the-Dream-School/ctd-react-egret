@@ -4,7 +4,7 @@ import TodoContainer from './components/TodoContainer';
 import Nav from 'react-bootstrap/Nav'
 import taskImage from './todolist7.png'
 import './style.css';
-import { RiAddCircleLine } from 'react-icons/ri';
+// import ListContainer from './ListContainer';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
                         <li activeClassName="active">
                             <NavLink to='/education'>Education</NavLink>
                         </li>
-                        <li><button type="submit" id='addBtn'><RiAddCircleLine /></button></li>
+                        {/* <li><ListContainer /></li> */}
                     </ul>
                     
                 </Nav>

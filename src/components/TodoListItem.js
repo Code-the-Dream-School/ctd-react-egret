@@ -1,13 +1,14 @@
 import style from '../TodoListItem.module.css';
 import PropTypes from "prop-types";
+import { BsCheckLg } from 'react-icons/bs';
+import { FcCheckmark } from 'react-icons/fc'
 
 const TodoListItem = ({ todo, onRemoveTodo, onDoneTask }) => {
     return (
         <li className={style.ListItem}>
-            <span>{todo.todoDate}</span>
             <p>{todo.title}</p>
             <button className='bt-remove' type='button' onClick={() => onRemoveTodo(todo.id)}>REMOVE</button>
-            <input className='radioInput' checked={todo.done} type='radio' onChange={() => onDoneTask(todo.id)} />
+            <button className='radioInput' checked={todo.done} onClick={() => onDoneTask(todo.id, !todo.completed)}>{todo.completed ? <BsCheckLg /> : <FcCheckmark />}</button>
         </li>
     )
 }
