@@ -1,0 +1,19 @@
+
+ * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+ font-family: "Montserrat", sans-serif;
+}
+body {
+ font-family: "Source Sans Pro", sans-serif;
+
+ background: #1d2630;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+
+
+}

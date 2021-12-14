@@ -1,0 +1,12 @@
+#todoTitle {
+ display: flex;
+ justify-content: center;
+ margin:auto;
+ align-items: center;
+ width: 80%;
+}
+#todoTitle:focus{
+ outline: none;
+ border-color: cadetblue;
+
+}
