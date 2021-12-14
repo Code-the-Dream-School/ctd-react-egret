@@ -1,29 +1,22 @@
 
-/* .item {
-color: #fff;
-  font-family: "McLaren", cursive;
-  font-weight: 200;
-} */
 .nav {
 
   display: flex;
   flex-direction: row;
   
-  justify-content: space-around;
+  justify-content: center; 
   list-style-type: none;
-  border: 1px solid black;
-  /* flex-direction: row; */
+  border: 5px solid black;
   height: 200px; 
-width: 500px;
-margin: 50px 50px;
+  width: 500px; 
   background-color: #e2af2c;
-  /* margin: auto -16px;
+  margin: auto;
   padding: 16px 32px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
  }
  .nav li{
    display: flex;
-   flex-wrap: wrap;
+   justify-content: center;
   border: 2px solid rgb(61, 61, 59);
   border-radius:10px;
   background-color: rgb(165, 165, 164);
@@ -36,8 +29,10 @@ margin: 50px 50px;
  }
  .link {
   text-align: center;
-  padding:20px 10px;
+  padding:10px 10px;
+  
   text-decoration: none;
+  margin-right: 5px;
   
  }
  .airtable{
@@ -83,20 +78,20 @@ margin: 50px 50px;
     display:flex;
     flex-wrap: wrap;
     flex-direction: column;
-    background-color: blue;
+    background-color: rgb(84, 84, 100);
  width: 100%;
   }
 
     .nav li{
      display: flex; 
+     justify-content: center;
   width: 100%;
   height: 40px;
-  justify-content: space-between;
     }
   .link {
-  justify-content: flex-end;
   
-    color: white;
-    margin: -30px 182px;
+    margin: -21px 182px;
+    color: rgb(26, 24, 24);
+   
   }
 }

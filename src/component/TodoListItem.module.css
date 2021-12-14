@@ -1,12 +1,4 @@
 
-/* .listItem {
- display: flex;
- align-items: center;
- list-style-type: none;
-color:azure;
- max-width: 90%;
- flex-wrap: wrap;
-} */
 
 .unorderedTodoList{
  display: flex;
@@ -15,7 +7,6 @@ color:azure;
  justify-content: center; 
  margin-left: auto;
  margin-right: auto;
-   /*background-color: white;*/
  list-style: none;
  align-items: center;
 }
