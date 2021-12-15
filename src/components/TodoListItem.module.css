@@ -1,3 +1,12 @@
 .ListItem {
-    color: #f4511e;
+    color: darkslateblue;
+    padding: 5px;
+    margin: 5px;
+    display: flex;
+    flex: 1 0 auto;
+    align-items: center;
+}
+
+.ListItem > * {
+    flex: 0 0 auto;
 }

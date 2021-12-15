@@ -6,10 +6,10 @@ const TodoListItem = ({ todo, onRemoveTodo }) => {
 
     return (
         <li className={style.ListItem}>
-            {todo.fields.Title}&nbsp;
             <button type='button' onClick={() => onRemoveTodo(todo.id)}>
                 <span class="material-icons">delete_forever</span>
             </button>
+            {todo.fields.Title}
         </li>
     );
 }

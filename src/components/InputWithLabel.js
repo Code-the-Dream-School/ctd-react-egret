@@ -1,17 +1,17 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
-function InputWithLabel({ todoTitle, handleTitleChange }) {
+function InputWithLabel({ todoTitle, handleTitleChange, children }) {
     const inputRef = useRef(null);
     React.useEffect(() => {
         if (inputRef) {
             inputRef.current.focus();
         }
-    });
+    }, []);
 
     return (
         <>
-            <label htmlFor='todoTitle'>{todoTitle.children}</label>
+            <label htmlFor='todoTitle'>{children}</label>
             <input
                 onChange={handleTitleChange}
                 value={todoTitle}

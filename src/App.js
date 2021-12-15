@@ -6,20 +6,23 @@ import './index.css'
 function App() {
   return (
     <BrowserRouter>
+      <header>
+        <h1>TODO LIST</h1>
+      </header>
       <nav>
-        <ul>
+        <ul className="menu">
           <li>
             <Link to="/personal">
-              <button className='listbutton' type='button'><span>
-                Personal
-              </span></button>
+              <button className='listbutton' type='button'>
+                PERSONAL
+              </button>
             </Link>
           </li>
           <li>
             <Link to="/work">
-              <button className='listbutton' type='button'><span>
-                Work
-              </span></button>
+              <button className='listbutton' type='button'>
+                WORK
+              </button>
             </Link>
           </li>
         </ul>
@@ -27,20 +30,22 @@ function App() {
 
       <Switch>
         <Route path="/personal">
-          <TodoContainer tableName="Personal" />
+          <TodoContainer tableName="PERSONAL" />
         </Route>
 
         <Route path="/work">
-          <TodoContainer tableName="Work" />
+          <TodoContainer tableName="WORK" />
         </Route>
 
         <Route path="*">
           <>
-            <h1>404 Page not found</h1>
+            <div className="listtitle">
+              <h1>Select a todo list from the menu</h1>
+            </div>
           </>
         </Route>
       </Switch>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 
