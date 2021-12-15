@@ -29,10 +29,9 @@ li {
 
 }
 
-/* li:hover {
-    background: #181D31;
-    color: #f0e9d2;
-} */
+li:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
 
 .navItems > li {
     padding: 10px;
@@ -49,7 +48,7 @@ li {
     font-size: 1.5rem;
     width: 0%;
     height: auto;
-    border: 1px solid aliceblue;
+    border: 1px solid #f0e9d2;
     text-align: center;
     flex: 0 0 25em;
 }
@@ -111,7 +110,7 @@ strong {
 .radioInput {
     position: relative;
     top: 0px;
-    left: 20px;
+    left: 1px
 }
 
 @media(max-width: 700px) {

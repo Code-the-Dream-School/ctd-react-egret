@@ -101,7 +101,6 @@ const TodoContainer = ({ tableName }) => {
             .then((response) => response.json())
             .then((data) => {
                 setTodoList([])
-                console.log(data)
             })
     }
 
@@ -114,17 +113,21 @@ const TodoContainer = ({ tableName }) => {
                     Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ records: [{ id: id, fields:{ Completed: completed}}] }),
+                body: JSON.stringify({ records: [{ id: id, fields: { Completed: completed } }] }),
             }
         )
             .then((resp) => resp.json())
             .then((data) => {
+
                 const todoListUpdated = todoList.map((item) => {
-                    return {id: item.id, title: item.Title, completed: item.Completed}
+                    if(item.id === id) {
+                        item.completed = completed
+                    }
+                    return item
                 })
 
                 setTodoList(todoListUpdated)
-                console.log(data)
+                console.log(todoListUpdated)
             })
     }
 
