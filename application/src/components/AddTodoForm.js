@@ -8,7 +8,7 @@ const AddTodoForm = (props) => {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
-    props.onAddTodo(todoTitle)
+    props.onAddTodo(todoTitle, props.value)
     setTodoTitle('');
   }
 
@@ -16,9 +16,10 @@ const AddTodoForm = (props) => {
     const newTodoTitle = event.target.value;
     setTodoTitle(newTodoTitle);
   }; 
-
+  
   return (
     <div>
+      
       <form onSubmit={handleAddTodo}>
         <div className="input-group">
         <InputWithLabel 

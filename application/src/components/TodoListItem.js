@@ -19,7 +19,10 @@ const TodoListItem = ({todo, onRemoveTodo}) => {
   return (
     <li id={"li" + todo.id} className={styles.ListItem}>
       <span id={"todo" + todo.id} className=""><input type="checkbox" onClick={(e)=>CrossedOut(e, todo.id)} />{todo.fields.Title} </span>
+      <div>
+      <span style={{marginRight: '15px'}}>{todo.fields.Date}</span>
       <button type='button' onClick={() => onRemoveTodo(todo.id)}>Delete</button>
+      </div>
     </li>
   )
 }

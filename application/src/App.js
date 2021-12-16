@@ -30,7 +30,7 @@ function App() {
     });
   }, [changed])
 
-  const addTodo = (newTodoTitle) => {
+  const addTodo = (newTodoTitle, date) => {
     const newtodo = {
       "records": [
         {
@@ -38,7 +38,8 @@ function App() {
             "Categories": [
               choosedCategory
             ],
-            "Title": newTodoTitle
+            "Title": newTodoTitle,
+            "Date": date.toISOString().substring(0, 10)
           },
         },
       ]
