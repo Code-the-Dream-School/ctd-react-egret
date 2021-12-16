@@ -8,9 +8,11 @@ import {
 } from "react-router-dom";
 
 function App() {
-  const [todoList, setTodoList] = useState([]);
+  const [changed, setChanged] = useState(true);
+  const [todoList, setTodoList] = useState(true);
   const [categoryList, setCategoryList] = useState([]);
   const [displayTodo, setDisplayTodo] = useState([]);
+  const [choosedCategory, setChoosedCategory] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()=>{
@@ -26,19 +28,34 @@ function App() {
       setCategoryList(result2.records);
       setIsLoading(false);
     });
-  }, [])
+  }, [changed])
 
-  useEffect(() => {
-    if(isLoading === false) {
-      const json = JSON.stringify(todoList);
-      localStorage.setItem('todoList', json)
+  const addTodo = (newTodoTitle) => {
+    const newtodo = {
+      "records": [
+        {
+          "fields": {
+            "Categories": [
+              choosedCategory
+            ],
+            "Title": newTodoTitle
+          },
+        },
+      ]
     }
-  }, [todoList, isLoading]);
+    console.log(newtodo)
 
-  const addTodo = (newTodo) => {
-    setDisplayTodo([...displayTodo, newTodo])
+    fetch(`https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/Todos`,
+    { method: 'POST',
+    body: JSON.stringify(newtodo),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`
+    }
+    }).then(res => res.json())
+      .then(res =>setChanged(false));
   }
-
+  // console.log(displayTodo)
   function removeTodo(id) {
     const newList = displayTodo.filter(
       (todo) => todo.id !== id
@@ -46,11 +63,12 @@ function App() {
     setDisplayTodo(newList)
   }
 
-  const chooseCategory = (index) => {
-    var todoId = categoryList[index].fields.Todos;
-    console.log(todoId)
+  const chooseCategory = (index, id) => {
+    setChoosedCategory(id);
+    var todosId = categoryList[index].fields.Todos;
+    // console.log(todosId)
     var array = [];
-    todoId.forEach( (id) => {
+    todosId.forEach( (id) => {
       var temp = todoList.filter((todo) => todo.id === id)
       array.push(temp[0])
     })

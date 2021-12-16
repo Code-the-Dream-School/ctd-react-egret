@@ -4,7 +4,7 @@ import CategoryListItem from './CategoryListItem';
 import PropTypes from 'prop-types';
 
 function CategoryList({categories, chooseCategory}){
-  console.log(categories)
+  // console.log(categories)
   return (
     <div className="categories">
       {categories.map((category, index)=>(
@@ -13,6 +13,7 @@ function CategoryList({categories, chooseCategory}){
         category={category.fields.Name} 
         icon={category.fields.Image} 
         chooseCategory={chooseCategory}
+        id={category.id}
         index={index}/>
       ))}
     </div>
