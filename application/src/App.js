@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import CategoryList from './components/CategoryList'
 import TodoContainer from './components/TodoContainer'
+import Header from './components/Header'
 import './App.css'
 import {
   BrowserRouter,
-  Switch,
   Route
 } from "react-router-dom";
 
@@ -25,8 +24,6 @@ function App() {
       setTodoList(result1.records);
       setDisplayTodo(result1.records);
       setCategoryList(result2.records);
-      console.log(result1.records)
-      console.log(result2.records)
       setIsLoading(false);
     });
   }, [])
@@ -62,29 +59,25 @@ function App() {
 
   return (
     <BrowserRouter>
-        <Route exact path="/">
-          <div className="">
-            <div className="header">
-              <h1>Todo List</h1>
-            </div>
-            <CategoryList categories={categoryList} chooseCategory={chooseCategory}/>
-            
-          </div>
-        </Route>
-        {categoryList.map((category)=>(
-          <Route
-            key={category.id}
-            path={`/${category.fields.Name}`}
-            children={() => {
-              <TodoContainer 
-              addTodo={addTodo}
-              displayTodo={displayTodo}
-              removeTodo={removeTodo}
-              isLoading={isLoading}
-            />
-            }}
+    <Header categories={categoryList} chooseCategory={chooseCategory}/>
+      <Route exact path="/">
+        <TodoContainer
+          addTodo={addTodo}
+          displayTodo={displayTodo}
+          removeTodo={removeTodo}
+          isLoading={isLoading} 
+        />
+      </Route>
+      {categoryList.map((category)=>(
+        <Route key={category.id} path={`/${category.fields.Name}`}>
+          <TodoContainer
+            addTodo={addTodo}
+            displayTodo={displayTodo}
+            removeTodo={removeTodo}
+            isLoading={isLoading}
           />
-        ))}
+        </Route>
+      ))}
     </BrowserRouter>
   )
 }

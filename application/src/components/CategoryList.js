@@ -1,14 +1,10 @@
 import React from 'react'
-// import { ReactComponent as Health } from './images/health.svg';
-// import { ReactComponent as Work } from './images/work.svg';
-// import { ReactComponent as Grocery } from './images/grocery.svg';
-// import { ReactComponent as Home } from './images/home.svg';
-// import { ReactComponent as Lifestyle } from './images/lifestyle.svg';
+import { ReactComponent as All } from '../images/all.svg';
 import CategoryListItem from './CategoryListItem';
 import PropTypes from 'prop-types';
 
 function CategoryList({categories, chooseCategory}){
-
+  console.log(categories)
   return (
     <div className="categories">
       {categories.map((category, index)=>(

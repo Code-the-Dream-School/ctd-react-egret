@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const CategoryListItem = ({category, icon, chooseCategory, index}) => {
-  console.log(icon)
+
   return (
     <Link to={`/${category}`}>
       <div className="category" onClick={() => chooseCategory(index)}>
