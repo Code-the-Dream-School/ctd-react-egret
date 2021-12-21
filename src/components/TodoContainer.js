@@ -88,22 +88,6 @@ const TodoContainer = ({ tableName }) => {
             })
     }
 
-    function removeTodoAll(id) {
-        fetch(
-            `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?${todoList.map((item) => `records[]=${item.id}`).join('&')}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
-                },
-            }
-        )
-            .then((response) => response.json())
-            .then((data) => {
-                setTodoList([])
-            })
-    }
-
     function checkTodoDone(id, completed) {
         fetch(
             `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}`,
@@ -127,7 +111,24 @@ const TodoContainer = ({ tableName }) => {
                 })
 
                 setTodoList(todoListUpdated)
-                console.log(todoListUpdated)
+                console.log(todoListUpdated.length)
+                
+            })
+    }
+
+    function removeTodoAll(id) {
+        fetch(
+            `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}?${todoList.map((item) => `records[]=${item.id}`).join('&')}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_KEY}`,
+                },
+            }
+        )
+            .then((response) => response.json())
+            .then((data) => {
+                setTodoList([])
             })
     }
 
@@ -136,6 +137,7 @@ const TodoContainer = ({ tableName }) => {
             <AddTodoForm onAddTodo={addTodo} />
             <div className='container'>
                 <span>Total tasks for {tableName}</span> <strong>{todoList.length}</strong>
+                {/* <strong>{checkTodoDone.completed.length}</strong> */}
                 <div>
                     <button onClick={() => buttonDirectionSortHandler('asc')}><HiSortAscending /></button>
                     <button onClick={() => buttonDirectionSortHandler('desc')}><HiSortDescending /></button>

@@ -12,30 +12,37 @@ function App() {
         <BrowserRouter>
             <div className='main'>
                 <Nav>
-               <img src={taskImage} alt='logo' style={{ position: 'relative', right: '-40px', padding: '5px', marginBottom: '40px'}}/>
+                    <img src={taskImage} alt='logo' style={{ position: 'relative', right: '-20px', padding: '5px', marginBottom: '40px' }} />
                     <ul className='navItems'>
+                    
                         <li activeClassName="active">
-                            <NavLink  to='/work'>Work</NavLink>
-                        </li>
-                        <li activeClassName="active">
-                            <NavLink to='/personal'>Personal</NavLink>
+                            <NavLink to='/work'>Work</NavLink>
                         </li>
                         <li activeClassName="active">
                             <NavLink to='/education'>Education</NavLink>
                         </li>
+                        <li activeClassName="active">
+                            <NavLink to='/exercise'>Exercise</NavLink>
+                        </li>
+                        <li activeClassName="active">
+                            <NavLink to='/family'>Family</NavLink>
+                        </li>
                         {/* <li><ListContainer /></li> */}
                     </ul>
-                    
+
                 </Nav>
                 <Switch>
                     <Route path='/work'>
                         <TodoContainer tableName='Work' />
                     </Route>
-                    <Route path='/personal'>
-                        <TodoContainer tableName='Personal' />
+                    <Route path='/exercise'>
+                        <TodoContainer tableName='Exercise' />
                     </Route>
                     <Route path='/education'>
                         <TodoContainer tableName='Education' />
+                    </Route>
+                    <Route path='/family'>
+                        <TodoContainer tableName='Family' />
                     </Route>
                 </Switch>
             </div>

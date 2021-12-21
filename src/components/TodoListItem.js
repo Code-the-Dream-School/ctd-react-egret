@@ -8,8 +8,10 @@ const TodoListItem = ({ todo, onRemoveTodo, onDoneTask }) => {
     return (
         <li className={style.ListItem}>
             <p>{todo.title}</p>
-            <button className='bt-remove' type='button' onClick={() => onRemoveTodo(todo.id)}><RiDeleteBin6Line style={{color: 'red'}}/></button>
-            <button className='radioInput' checked={todo.com} onClick={() => onDoneTask(todo.id, !todo.completed)}>{todo.completed ? <BsFillCheckSquareFill style={{color: 'green'}}/> : <FcCheckmark />}</button>
+            <div className='icons-container'>
+                <button className='bt-remove' type='button' onClick={() => onRemoveTodo(todo.id)}><RiDeleteBin6Line style={{ color: 'red', fontSize: '1.2rem' }} /></button>
+                <button className='radioInput' checked={todo.com} onClick={() => onDoneTask(todo.id, !todo.completed)}>{todo.completed ? <BsFillCheckSquareFill style={{ color: 'green', fontSize: '1.2rem' }} /> : <FcCheckmark style={{ fontSize: '1.2rem' }} />}</button>
+            </div>
         </li>
     )
 }

@@ -7,7 +7,7 @@ html {
 a {
     text-decoration: none;
     padding: 5px;
-    width: 80%;
+    width: 95%;
     text-align: center;
     color: #181D31;
     background: #f0e9d2;
@@ -19,14 +19,15 @@ ul {
     justify-content: left;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 li {
     font-size: 2rem;
-    min-width: 48%;
+    min-width: 20%;
     min-height: 45%;
     transition: 0.3s ease-in-out;
-
+    overflow: hidden;
 }
 
 li:hover {
@@ -38,7 +39,7 @@ li:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #808080
+    color: #808080;
 }
 .container {
     text-align: center;
@@ -50,7 +51,15 @@ li:hover {
     height: auto;
     border: 1px solid #f0e9d2;
     text-align: center;
-    flex: 0 0 25em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px
 }
 
 button {
@@ -60,25 +69,27 @@ button {
     padding: 6px;
     color: #181d31;
 }
-button:hover, a:hover, input:hover {
+button:hover, a:hover, input:hover, input:focus {
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
-.main {
+/* .main {
     display: flex;
     flex-direction: row;
-}
+} */
 #addBtn {
-    font-size: 2.6rem;
+    font-size: 3rem;
     position: relative;
     right: -65px;
     bottom: -21px;
-    background: none;
+    background:none;
     color: #181D31;
-    top: -8px;
+    top: -10px;
+    transition: 0.3s ease-in-out;
 }
 
 #addBtn:hover {
-    color: green
+    color: green;
+    box-shadow: none;
 }
 
 input {
@@ -87,12 +98,22 @@ input {
     padding: 10px;
     font-size: 20px;
     top: -18px;
-    color:#181d31;
+    color:#808080;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    text-align: center;
+    border: 1px solid aliceblue;
+    border-radius: 35px;
+    caret-color: #f0e9d2;
+    transition: 0.3s ease-in-out;
 }
 
 input::placeholder {
     color: #cbcbcb;
+}
+
+input:focus{
+    outline: none;
+    box-shadow: 
 }
 
 strong {
@@ -104,13 +125,17 @@ strong {
 
 .active{
     background-color: #181D31;
-    color: #678983
+    color: #f0e9d2
 }
 
 .radioInput {
     position: relative;
     top: 0px;
     left: 1px
+}
+.icons-container {
+    position: relative;
+    bottom: 0
 }
 
 @media(max-width: 700px) {
@@ -131,8 +156,9 @@ strong {
         border: 1px solid #F0E9D2;
         text-align: center;
         box-shadow: 0 2px 1px rgba(2, 1, .5, .06);
-        flex: 0 0 14em;
+        flex-wrap: wrap;
     }
+
     #addBtn {
         position: relative;
         right: -30px;
