@@ -9,8 +9,8 @@ const TodoListItem = ({ todo, onRemoveTodo, onDoneTask }) => {
         <li className={style.ListItem}>
             <p>{todo.title}</p>
             <div className='icons-container'>
-                <button className='bt-remove' type='button' onClick={() => onRemoveTodo(todo.id)}><RiDeleteBin6Line style={{ color: 'red', fontSize: '1.2rem' }} /></button>
-                <button className='radioInput' checked={todo.com} onClick={() => onDoneTask(todo.id, !todo.completed)}>{todo.completed ? <BsFillCheckSquareFill style={{ color: 'green', fontSize: '1.2rem' }} /> : <FcCheckmark style={{ fontSize: '1.2rem' }} />}</button>
+                <button className='bt-remove' type='button' onClick={() => onRemoveTodo(todo.id)}><RiDeleteBin6Line style={{ color: 'red', fontSize: '1rem' }} /></button>
+                <button className='radioInput' checked={todo.com} onClick={() => onDoneTask(todo.id, !todo.completed)}>{todo.completed ? <BsFillCheckSquareFill style={{ color: 'green', fontSize: '1rem' }} /> : <FcCheckmark style={{ fontSize: '1rem' }} />}</button>
             </div>
         </li>
     )
