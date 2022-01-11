@@ -32,6 +32,10 @@ const TodoContainer = ({ tableName }) => {
                 const formattedList = data.records.map(record => {
                     return { id: record.id, title: record.fields.Title, completed: !!record.fields.Completed }
                 })
+                const res = formattedList.map((item) => {
+                    return item.completed
+                })
+                console.log(res.length)
 
                 setTodoList(formattedList)
                 setIsLoading(false)
@@ -109,10 +113,9 @@ const TodoContainer = ({ tableName }) => {
                     }
                     return item
                 })
-
-                setTodoList(todoListUpdated)
-                console.log(todoListUpdated.length)
                 
+                setTodoList(todoListUpdated)
+
             })
     }
 
@@ -137,7 +140,7 @@ const TodoContainer = ({ tableName }) => {
             <AddTodoForm onAddTodo={addTodo} />
             <div className='container'>
                 <span>Total tasks for {tableName}</span> <strong>{todoList.length}</strong>
-                {/* <strong>{checkTodoDone.completed.length}</strong> */}
+                {/* <strong>{todoList.completed.length}</strong> */}
                 <div>
                     <button onClick={() => buttonDirectionSortHandler('asc')}><HiSortAscending /></button>
                     <button onClick={() => buttonDirectionSortHandler('desc')}><HiSortDescending /></button>
